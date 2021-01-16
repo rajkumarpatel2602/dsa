@@ -30,7 +30,7 @@ bool isPalindrom( unsigned int num, int len ) {
 int main( ) {
    unsigned int num;
 
-   printf( " PALINDROM_RECURSION !\nenter a number to check if palindrom or not!\n" );
+   printf( " PALINDROM_RECURSION...\nenter a number to check if palindrom or not!\n" );
    scanf( "%d", &num );
 
    printf( "Provided number is palindrom? - %d", isPalindrom( num, 5 ) );
