@@ -8,7 +8,7 @@ int sum_n( int n ) {
 }
 
 int main( ) {
-   printf( "SUM N NUMBER USING RECURSION!\n Enter n to find sum of\n" );
+   printf( "SUM N NUMBER USING RECURSION!\n Enter n to find sum upto\n" );
    int n;
    scanf( "%d", &n );
 
