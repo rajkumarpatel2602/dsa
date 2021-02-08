@@ -27,10 +27,26 @@ struct Node
    }
  */
 
-int ll_count_mem( struct Node *node_ptr ) {
+/*
+   int ll_count_mem( struct Node *node_ptr ) {
    if ( node_ptr )
    {
       return ll_count_mem( node_ptr->next ) + 1;
+   }
+   else
+   {
+      return 0;
+   }
+   }
+ */
+
+int ll_count_mem( struct Node *node_ptr ) {
+   if ( node_ptr )
+   {
+      int x;
+      x = ll_count_mem( node_ptr->next );
+
+      return x + 1;
    }
    else
    {
