@@ -21,16 +21,21 @@ void display_ll( struct Node *node_ptr ) {
 int ll_search_element_movetohead( struct Node **head, int num )
 {
    int         max       = 0;
-   struct Node *tail     = NULL;
+   struct Node *tail     = *head;
    struct Node *node_ptr = *head;
 
    while ( node_ptr )
    {
       if ( node_ptr->data == num )
       {
-         tail->next     = node_ptr->next;
-         node_ptr->next = ( *head );
-         *head          = node_ptr;
+         tail->next = node_ptr->next;
+
+         if ( *head != node_ptr )
+            node_ptr->next = ( *head );
+
+         *head = node_ptr;
+
+         return 0;
       }
 
       tail     = node_ptr;
@@ -76,10 +81,10 @@ void main( ) {
       printf( "\nEnter the element : \n" );
       scanf( "%d", &num );
 
-      if ( ll_search_element_movetohead( &head, num ) != -1 )
-         printf( "\nIndex of the member is : %d \n", ll_search_element_movetohead( &head, num ) );
+      if ( -1 != ll_search_element_movetohead( &head, num ) )
+         printf( "\nelement Found!\n" );
       else
-         printf( "element not found!\n" );
+         printf( "\nelement not found!\n\n" );
 
       display_ll( head );
    }
