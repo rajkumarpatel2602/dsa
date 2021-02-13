@@ -10,7 +10,6 @@ struct Node
 };
 
 int insert_in_sorted_list( struct Node **head, int data ) {
-   int         ret       = -1;
    struct Node *forward  = *head;
    struct Node *tail     = NULL;
    struct Node *new_node = ( struct Node * )malloc( sizeof( struct Node ) );
@@ -18,24 +17,27 @@ int insert_in_sorted_list( struct Node **head, int data ) {
    new_node->data = data;
    new_node->next = NULL;
 
-   while ( forward && ( forward->data < data ) )
-   {
-      tail    = forward;
-      forward = forward->next;
-   }
-
-   if ( forward == *head )
-   {
-      new_node->next = *head;
-      *head          = new_node;
-   }
+   if ( *head == NULL )
+      *head = new_node;
    else
    {
-      new_node->next = tail->next;
-      tail->next     = new_node;
-   }
+      while ( forward && ( forward->data < data ) )
+      {
+         tail    = forward;
+         forward = forward->next;
+      }
 
-   return ret;
+      if ( forward == *head )
+      {
+         new_node->next = *head;
+         *head          = new_node;
+      }
+      else
+      {
+         new_node->next = tail->next;
+         tail->next     = new_node;
+      }
+   }
 }
 
 void create_ll( int A[], int len, struct Node **node_ptr ) {
@@ -77,7 +79,7 @@ void main( ) {
 
    int A[] = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
    create_ll( A, 10, &head );
-   printf( "Insertion succeed : %d\n", insert_in_sorted_list( &head, data ) );
+   insert_in_sorted_list( &head, data );
 
    display_ll( head );
 }
