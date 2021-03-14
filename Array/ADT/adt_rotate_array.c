@@ -3,7 +3,7 @@
 
 int length = 10;
 
-git void rotate_right( int *arr, int rotation, int length ) {
+void rotate_right( int *arr, int rotation, int length ) {
    int block_size = length % rotation;
    int iteration  = length / block_size;
 

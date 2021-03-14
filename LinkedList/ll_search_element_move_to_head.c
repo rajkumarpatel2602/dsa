@@ -8,7 +8,7 @@ struct Node
    int         index;
    int         data;
    struct Node *next;
-};
+} *first; // this global var is taken for test purpose
 
 void display_ll( struct Node *node_ptr ) {
    while ( node_ptr )
@@ -45,6 +45,30 @@ int ll_search_element_movetohead( struct Node **head, int num )
    return -1;
 }
 
+/// if head global
+
+/*int ll_search_element_movetohead( struct Node *p, int num )
+   {
+   struct Node *q;
+
+   while ( p != NULL )
+   {
+      if ( num == p->data )
+      {
+         q->next = p->next;
+         p->next = first;
+         first   = p;
+
+         return p;
+      }
+
+      q = p;
+      p = p->next;
+   }
+
+   return NULL;
+   }
+ */
 void create_ll( int A[], int len, struct Node **node_ptr ) {
    if ( len > 0 )
    {
@@ -86,6 +110,13 @@ void main( ) {
       else
          printf( "\nelement not found!\n\n" );
 
+/*      first = head;
+
+      if ( -1 != ll_search_element_movetohead( first, num ) )
+         printf( "\nelement Found!\n" );
+      else
+         printf( "\nelement not found!\n\n" );
+ */
       display_ll( head );
    }
 }
