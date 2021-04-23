@@ -31,7 +31,7 @@ bool IsEmpty( Queue myQueue ) {
 }
 
 bool IsFull( Queue myQueue ) {
-    if ( ( myQueue.rear + 1 ) % myQueue.size == myQueue.front.size )
+    if ( ( myQueue.rear + 1 ) % myQueue.size == myQueue.front )
     {
         printf( "Queue is Full!\n" );
 
@@ -63,7 +63,7 @@ int Dequeue( Queue *pQ ) {
 }
 
 void Display( Queue myQueue ) {
-    for ( int i = myQueue.front + 1; i <= myQueue.rear; i++ )
+    for ( int i = ( myQueue.front + 1 ) % myQueue.size; i <= ( myQueue.rear ) % myQueue.size; i++ )
     {
         printf( " %d ", myQueue.Q[ i ] );
     }
@@ -82,6 +82,12 @@ int main( )
     Enqueue( &myQueue, 3 );
     Enqueue( &myQueue, 4 );
     Enqueue( &myQueue, 5 );
+    Enqueue( &myQueue, 6 );
+    Enqueue( &myQueue, 7 );
+    Enqueue( &myQueue, 8 );
+    Enqueue( &myQueue, 9 );
+    Enqueue( &myQueue, 10 );
+    Enqueue( &myQueue, 11 );
     Dequeue( &myQueue );
     Dequeue( &myQueue );
     Display( myQueue );
