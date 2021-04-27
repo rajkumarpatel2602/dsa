@@ -57,13 +57,19 @@ int Dequeue( Queue *pQ ) {
     if ( IsEmpty( *pQ ) )
         return;
 
-    ( pQ->front )++;
+    ( pQ->front ) = ( pQ->front + 1 ) % pQ->size;
 
-    return pop = pQ->Q[ pQ->front ];
+    pop = pQ->Q[ pQ->front ];
+
+    pQ->Q[ pQ->front ] = -1;
+
+    return pop;
 }
 
 void Display( Queue myQueue ) {
-    for ( int i = ( myQueue.front + 1 ) % myQueue.size; i <= ( myQueue.rear ) % myQueue.size; i++ )
+    int i;
+
+    for ( i = ( myQueue.front + 1 ) % myQueue.size; ( i ) != ( ( myQueue.rear + 1 ) % myQueue.size ); i = ( i + 1 ) % myQueue.size )
     {
         printf( " %d ", myQueue.Q[ i ] );
     }
@@ -86,8 +92,10 @@ int main( )
     Enqueue( &myQueue, 7 );
     Enqueue( &myQueue, 8 );
     Enqueue( &myQueue, 9 );
+    Display( myQueue );
     Enqueue( &myQueue, 10 );
     Enqueue( &myQueue, 11 );
+    Display( myQueue );
     Dequeue( &myQueue );
     Dequeue( &myQueue );
     Display( myQueue );
