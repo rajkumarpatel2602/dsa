@@ -34,16 +34,22 @@ void Enqueue( int x ) {
     }
 }
 
-void Dequeue( ) {
+int Dequeue( ) {
     if ( front == NULL )
     {
         printf( "Queue is Empty\n" );
+
+        return -1;
     }
     else
     {
+        int   x;
         Queue *temp = front;
         front = front->next;
+        x     = temp->data;
         free( temp );
+
+        return x;
     }
 }
 
