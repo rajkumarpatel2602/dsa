@@ -1,2 +1,2 @@
 # dsa
- All data structure practice problems are maintained here.
+All data structure practice problems are maintained here.
