@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 void foo( int n ) {
-   static x = 0;
+   static int x = 0;
    if ( n > 0 )
    {
       x++;
