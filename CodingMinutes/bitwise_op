@@ -37,3 +37,4 @@ while(x){
     x = x & (x-1) ; 
     cnt++;
 }
+it's even more efficient
