@@ -7,7 +7,7 @@ x |= 1 << i;
 x &= ~ ( 1 << i );
 
 - Clear last n bits
-x &= (-1) << n;
+x &= (-1) << n; 
 
 - Clear bits between i and j position where i > j
 set bits till j position
