@@ -6,4 +6,7 @@
 * Method to make search of a key faster in array (in linear search)
   - Transposition -- whenever you find a key with linear search, move it one step forward.
   - Move to front/head -- swap to first element
-*  
+*  While loop and tail recursion are same
+  - Binary search can be done with while or recursion
+  - only finding can come in one case, when mid is same as element.
+- 
