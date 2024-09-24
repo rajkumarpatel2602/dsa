@@ -1,7 +1,9 @@
 /*
 Chat GPT prompt:
+#1 (1st 20 qna)
 I loved these explanation. You are smart. See, as you come up with this solution, can you come up with such programs where user application can use hardware or kernel resources in some ways? This are actual real life embedded system problems which embedded engineers are expected to well versed about. Give me such problems for my embedded coding interviews which uses concept of scheduling, deadlock scenario, race conditions, data structures, etc. Give me list of 20 such famous problems and what kind of embedded concepts are used in it, and then provide comprehensive solution for each, after providing list.
 
+#2 (2nd 20 qna)
 I liked this list very much, but can you please provide 20 more such questions, but consider to ignore peripheral protocol related problems, and more to include very low level problems which includes deep OS concepts like scheduling, cache etc
 */
 
