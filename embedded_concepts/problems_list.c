@@ -2287,3 +2287,186 @@ int main(void) {
 
     return 0;
 }
+
+/*
+context swtiching
+
+Context switching is a fundamental concept in embedded systems, especially in real-time operating systems (RTOS). Let's add a problem that involves context switching, where the task context is stored on the stack and restored during a scheduling interrupt.
+
+Problem: Implementing Context Switching
+Concepts: Context switching, task scheduling, stack management, interrupt handling
+
+Problem: Implement a context switcher that saves the current task's context (registers, stack pointer, etc.) onto its stack and restores the next task's context from its stack during a scheduling interrupt.
+
+Solution
+To implement context switching, we need to:
+
+Define the Task Control Block (TCB): This structure will hold the task's context, including the stack pointer and other registers.
+Implement the Scheduler: This will decide which task to run next.
+Implement the Context Switcher: This will save the current task's context and restore the next task's context.
+
+Explanation
+Task Control Block (TCB): The TaskControlBlock structure holds the stack pointer and the stack for each task.
+
+SaveContext: This function saves the current task's context (registers r4-r11 and the stack pointer) onto its stack.
+
+RestoreContext: This function restores the next task's context from its stack.
+
+SchedulerISR: This is the scheduler interrupt service routine. It saves the current task's context, selects the next task, and restores its context.
+
+InitTask: This function initializes a task by setting up its stack and stack pointer.
+
+Tasks: Three simple tasks (Task1, Task2, and Task3) that print their task number in an infinite loop.
+
+main: The main function initializes the tasks, sets up the SysTick timer for scheduling, and starts the first task.
+
+Summary
+This example demonstrates how to implement context switching in anembedded system. 
+The context switcher saves the current task's context onto its stack and restores the next task's context from its stack during a scheduling interrupt. 
+This approach is fundamental in real-time operating systems (RTOS) and is crucial for managing multiple tasks efficiently.
+
+Additional Problems
+Here are 20 more low-level embedded system problems focusing on deep OS concepts like scheduling, cache management, memory management, and more:
+
+Implementing a Non-Preemptive Scheduler
+Concepts: Task scheduling, non-preemptive scheduling, context switching
+
+Implementing a Priority Queue for Task Scheduling
+Concepts: Priority queue, task scheduling, data structures
+
+Implementing a Memory Manager with Buddy System
+Concepts: Memory management, buddy system, dynamic allocation
+
+Implementing a Cache Replacement Policy
+Concepts: Cache management, replacement policies, LRU
+
+Implementing a Spinlock for Multi-Core Systems
+Concepts: Spinlock, synchronization, multi-core
+
+Implementing a Semaphore for Resource Management
+Concepts: Semaphore, synchronization, resource management
+
+Implementing a Mutex with Priority Inheritance
+Concepts: Mutex, priority inheritance, synchronization
+
+Implementing a Round-Robin Scheduler with Time Slicing
+Concepts: Round-robin scheduling, time slicing, context switching
+
+Implementing a Real-Time Clock (RTC) with Alarms
+Concepts: RTC, timekeeping, alarms
+
+Implementing a Memory Pool with Fixed-Size Blocks
+Concepts: Memory management, memory pool, fixed-size blocks
+
+Implementing a Deadlock Detection Algorithm
+Concepts: Deadlock detection, resource allocation, algorithms
+
+Implementing a Task Scheduler with EDF (Earliest Deadline First)
+Concepts: Task scheduling, EDF, real-time systems
+
+Implementing a Software Timer with Multiple Timers
+Concepts: Software timer, scheduling, interrupt handling
+
+Implementing a Task Scheduler with Rate Monotonic Scheduling (RMS)
+Concepts: Task scheduling, RMS, real-time systems
+
+Implementing a Memory Barrier for Multi-Core Systems
+Concepts: Memory barrier, synchronization, multi-core
+
+Implementing a Task Scheduler with Fixed-Priority Preemptive Scheduling
+Concepts: Task scheduling, fixed-priority, preemptive scheduling
+
+Implementing a Task Scheduler with Dynamic Priority Scheduling
+Concepts: Task scheduling, dynamic priority, context switching
+
+Implementing a Task Scheduler with Sporadic Server Scheduling
+Concepts: Task scheduling, sporadic server, real-time systems
+
+Implementing a Task Scheduler with Deferrable Server Scheduling
+Concepts: Task scheduling, deferrable server, real-time systems
+
+Implementing a Task Scheduler with Slack Stealing
+Concepts: Task scheduling, slack stealing, real-time systems
+*/
+
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdio.h>
+
+#define MAX_TASKS 3
+#define STACK_SIZE 1024
+
+typedef struct {
+    uint32_t *stack_pointer;
+    uint32_t stack[STACK_SIZE];
+} TaskControlBlock;
+
+TaskControlBlock tasks[MAX_TASKS];
+int current_task = 0;
+
+void SaveContext(TaskControlBlock *tcb) {
+    asm volatile (
+        "mrs r0, psp\n"          // Get Process Stack Pointer
+        "stmdb r0!, {r4-r11}\n"  // Save registers r4-r11
+        "str r0, [%0]\n"         // Save stack pointer to TCB
+        : : "r" (&tcb->stack_pointer) : "memory"
+    );
+}
+
+void RestoreContext(TaskControlBlock *tcb) {
+    asm volatile (
+        "ldr r0, [%0]\n"         // Load stack pointer from TCB
+        "ldmia r0!, {r4-r11}\n"  // Restore registers r4-r11
+        "msr psp, r0\n"          // Set Process Stack Pointer
+        : : "r" (&tcb->stack_pointer) : "memory"
+    );
+}
+
+void SchedulerISR(void) {
+    SaveContext(&tasks[current_task]);
+    current_task = (current_task + 1) % MAX_TASKS;
+    RestoreContext(&tasks[current_task]);
+}
+
+void InitTask(TaskControlBlock *tcb, void (*task_function)(void)) {
+    tcb->stack_pointer = &tcb->stack[STACK_SIZE - 16];
+    tcb->stack[STACK_SIZE - 1] = 0x01000000; // xPSR
+    tcb->stack[STACK_SIZE - 2] = (uint32_t)task_function; // PC
+    tcb->stack[STACK_SIZE - 3] = 0xFFFFFFFD; // LR
+}
+
+void Task1(void) {
+    while (1) {
+        printf("Task 1\n");
+    }
+}
+
+void Task2(void) {
+    while (1) {
+        printf("Task 2\n");
+    }
+}
+
+void Task3(void) {
+    while (1) {
+        printf("Task 3\n");
+    }
+}
+
+int main(void) {
+    InitTask(&tasks[0], Task1);
+    InitTask(&tasks[1], Task2);
+    InitTask(&tasks[2], Task3);
+
+    // Set up the SysTick timer to generate an interrupt for scheduling
+    SysTick_Config(SystemCoreClock / 1000);
+
+    // Start the first task
+    RestoreContext(&tasks[0]);
+
+    while (1) {
+        // Main loop
+    }
+
+    return 0;
+}
