@@ -16,6 +16,23 @@ bool get_bit(uint32_t index) {
     return (bitmap[index / 8] & (1 << (index % 8))) != 0;
 }
 
+// Delay logic
+
+#include <stdio.h>
+#include <time.h>
+
+void delay(int milliseconds) {
+    long pause;
+    clock_t now, then;
+
+    pause = milliseconds * (CLOCKS_PER_SEC / 1000);
+    now = then = clock();
+    while ((now - then) < pause) {
+        now = clock();
+    }
+}
+
+// 
 
 /*
 Storing 16MB of Entries in 10MB of RAM
