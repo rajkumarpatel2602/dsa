@@ -32,7 +32,138 @@ void delay(int milliseconds) {
     }
 }
 
-// 
+// queue using stack.
+// for enqueue, push in s1 always,
+// for dequeue, if s2 is empty, pop everything from  s1 and push into s2.
+// if s2 is not empty, simply pop from s2.
+// always push in s1 and pop from s2. if s2 gets empty, push everything from s1 to s2. 
+
+
+// stack using 2 queues
+// enqueue in q1 for push operation.
+// for pop or top, dequeue everything until last node and enqueue them in q2
+// return last node. before returning swap q1, q2
+// for top operation enqueue the last element after reading to q2.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure for a queue node
+typedef struct QueueNode {
+    int data;
+    struct QueueNode* next;
+} QueueNode;
+
+// Define the structure for a queue
+typedef struct Queue {
+    QueueNode *front, *rear;
+} Queue;
+
+// Function to create a new queue node
+QueueNode* newQueueNode(int data) {
+    QueueNode* temp = (QueueNode*)malloc(sizeof(QueueNode));
+    temp->data = data;
+    temp->next = NULL;
+    return temp;
+}
+
+// Function to create a new queue
+Queue* createQueue() {
+    Queue* q = (Queue*)malloc(sizeof(Queue));
+    q->front = q->rear = NULL;
+    return q;
+}
+
+// Function to enqueue an element to the queue
+void enqueue(Queue* q, int data) {
+    QueueNode* temp = newQueueNode(data);
+    if (q->rear == NULL) {
+        q->front = q->rear = temp;
+        return;
+    }
+    q->rear->next = temp;
+    q->rear = temp;
+}
+
+// Function to dequeue an element from the queue
+int dequeue(Queue* q) {
+    if (q->front == NULL)
+        return -1;
+    QueueNode* temp = q->front;
+    q->front = q->front->next;
+    if (q->front == NULL)
+        q->rear = NULL;
+    int data = temp->data;
+    free(temp);
+    return data;
+}
+
+// Define the structure for a stack using two queues
+typedef struct Stack {
+    Queue *q1, *q2;
+} Stack;
+
+// Function to create a new stack
+Stack* createStack() {
+    Stack* stack = (Stack*)malloc(sizeof(Stack));
+    stack->q1 = createQueue();
+    stack->q2 = createQueue();
+    return stack;
+}
+
+// Function to push an element onto the stack
+void push(Stack* stack, int data) {
+    enqueue(stack->q1, data);
+}
+
+// Function to pop an element from the stack
+int pop(Stack* stack) {
+    if (stack->q1->front == NULL)
+        return -1;
+    while (stack->q1->front->next != NULL) {
+        enqueue(stack->q2, dequeue(stack->q1));
+    }
+    int popped = dequeue(stack->q1);
+    Queue* temp = stack->q1;
+    stack->q1 = stack->q2;
+    stack->q2 = temp;
+    return popped;
+}
+
+// Function to check if the stack is empty
+int isEmpty(Stack* stack) {
+    return stack->q1->front == NULL;
+}
+
+// Function to get the top element of the stack
+int top(Stack* stack) {
+    if (stack->q1->front == NULL)
+        return -1;
+    while (stack->q1->front->next != NULL) {
+        enqueue(stack->q2, dequeue(stack->q1));
+    }
+    int topElement = dequeue(stack->q1);
+    enqueue(stack->q2, topElement);
+    Queue* temp = stack->q1;
+    stack->q1 = stack->q2;
+    stack->q2 = temp;
+    return topElement;
+}
+
+// Main function to test the stack implementation
+int main() {
+    Stack* stack = createStack();
+    push(stack, 10);
+    push(stack, 20);
+    push(stack, 30);
+    printf("Top element is %d\n", top(stack));
+    printf("Popped element is %d\n", pop(stack));
+    printf("Top element is %d\n", top(stack));
+    printf("Popped element is %d\n", pop(stack));
+    printf("Popped element is %d\n", pop(stack));
+    printf("Stack is empty: %d\n", isEmpty(stack));
+    return 0;
+}
 
 /*
 Storing 16MB of Entries in 10MB of RAM
