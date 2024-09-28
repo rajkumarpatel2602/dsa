@@ -80,3 +80,5 @@ void quickSort(int arr[], int low, int high);
 void heapSort(int arr[], int size);
 void radixSort(int arr[], int size);
 void countingSort(int arr[], int size);
+
+// Pthread signatures
