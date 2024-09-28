@@ -82,3 +82,14 @@ void radixSort(int arr[], int size);
 void countingSort(int arr[], int size);
 
 // Pthread signatures
+Pthread_mutex_t mutexOb;
+Pthreas_mutex_lock(&mutexOb);
+Pthread_mutex_unlock(&mutexOb);
+/* Mark the thread eligible for cancellation */
+pthread_setcancelstate(PTHREAD_CANCEL_ENABLE /* PTHREAD_CANCEL_DISABLE */, 0);
+// parent thread use below macro while creating thread
+pthread_setcancelthread = PTHREAD_CANCEL_ENABLE
+/* Mode of cancellation */
+pthread_setcanceltype( PTHREAD_CANCEL_ASYNCHRONOUS, 0);
+// thread calls this to set cancellation type. only applicable if thread is cancellable.
+pthread_setcanceltype()
