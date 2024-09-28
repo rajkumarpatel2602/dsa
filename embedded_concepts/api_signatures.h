@@ -82,9 +82,18 @@ void radixSort(int arr[], int size);
 void countingSort(int arr[], int size);
 
 // Pthread signatures
+
+// mutex
 Pthread_mutex_t mutexOb;
 Pthreas_mutex_lock(&mutexOb);
 Pthread_mutex_unlock(&mutexOb);
+
+// spinlock
+pthread_spin_lock()
+pthread_spin_unlock()
+
+// pthread creatinon and attribute setting apis
+    
 /* Mark the thread eligible for cancellation */
 pthread_setcancelstate(PTHREAD_CANCEL_ENABLE /* PTHREAD_CANCEL_DISABLE */, 0);
 // parent thread use below macro while creating thread
@@ -95,6 +104,10 @@ pthread_setcanceltype( PTHREAD_CANCEL_ASYNCHRONOUS, 0);
 pthread_setcanceltype()
 // deferred cancellation, checks if cancellationr requests has come or not, if yes then call cleanup handler and cancel the threads.
 pthread_testcancel() 
+// therad create
+pthread_create()
+// thread exit
+pthread_exit()
 
 // Conditional variable
 pthread_cond_t cv;
