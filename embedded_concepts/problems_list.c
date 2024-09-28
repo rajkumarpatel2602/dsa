@@ -4100,3 +4100,11 @@ int main() {
     return 0;
 }
 These examples cover a wide range of topics relevant to embedded systems engineering, including OS internals, process/thread synchronization, memory layout and access, timers, and memory utilization. Each example provides a working C program to help you understand the concepts and prepare for coding interviews. If you need further explanations or additional examples, feel free to ask!
+
+
+Thread synchornization apis:
+1. accessing hall with 10Guest capacity
+2. producer - consumer problme with 2 producer and 2 consumer
+3. strict alternation
+4. listerner threads // server threads
+5. write a program to print odd and even number by 2 threads. (zero semaphore to avoid race condition)
