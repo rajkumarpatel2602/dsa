@@ -93,3 +93,20 @@ pthread_setcancelthread = PTHREAD_CANCEL_ENABLE
 pthread_setcanceltype( PTHREAD_CANCEL_ASYNCHRONOUS, 0);
 // thread calls this to set cancellation type. only applicable if thread is cancellable.
 pthread_setcanceltype()
+// deferred cancellation, checks if cancellationr requests has come or not, if yes then call cleanup handler and cancel the threads.
+pthread_testcancel() 
+
+// Semaphre API
+1. sem_t sem;
+/* Declare semaphore variable */
+e.g. sem_init(&sem, 0 , 0);
+Strict alternation:: always post is bound to happen by a starting thread and making other thread wait for post by started thread.
+2. sem_init(sem_t * sem, int pshared, int permit_counter);
+/* Initialise semaphore variable */
+set pshared = 0 for threads, for precess give ~0 value.
+3. sem_wait(sem_t * sem);
+/* block calling thread or process if semaphore is not available */
+4. sem_post(sem_t * sem);
+/*  signal the blocked theread on semaphore */
+5. sef_destroy(sem_t * sem);
+/* destroy the thrad after use */
