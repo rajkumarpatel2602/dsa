@@ -96,6 +96,17 @@ pthread_setcanceltype()
 // deferred cancellation, checks if cancellationr requests has come or not, if yes then call cleanup handler and cancel the threads.
 pthread_testcancel() 
 
+// Conditional variable
+pthread_cond_t cv;
+/* initalization */
+pthread_cond_init(&cv, 0)
+/* makes the trhead go block if condition is not met */
+pthread_cond_wait(&cv, &mutex)
+/* makes the blocked thread go resume if condition is set by this one */
+pthread_cond_signal(&cv);
+/* unblock each blocked thread 1 by 1. No need to write cond_signal() 3 times, if 3 threads are blocked */
+pthead_cond_broadcast(&cv);
+    
 // Semaphre API
 1. sem_t sem;
 /* Declare semaphore variable */
