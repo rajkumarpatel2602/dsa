@@ -4109,3 +4109,4 @@ Thread synchornization apis:
 4. listerner threads // server threads
 5. write a program to print odd and even number by 2 threads. (zero semaphore to avoid race condition)
 https://www.youtube.com/watch?v=AD3EylLiI7U&list=PLTjcBkvRBqGGbSckyAGLTy05sbPPl6dJA&index=36
+https://www.youtube.com/watch?v=Ognzlifblsc&list=PLTjcBkvRBqGGbSckyAGLTy05sbPPl6dJA&index=42
