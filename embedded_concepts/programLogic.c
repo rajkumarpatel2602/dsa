@@ -319,3 +319,19 @@ int main()
 {// Populate the array a
 quicksort(a, 0, n - 1);
 }
+
+void insertion_sort(int a[], int n)
+{
+    int i, j, item;
+    for(i = 0; i < n; i++)
+    {
+        item = a[i];
+        j = i - 1;
+        while(j >=0 && item < a[j])
+        {
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1] = item;
+    }
+}
