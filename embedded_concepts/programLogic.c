@@ -335,7 +335,7 @@ void insertion_sort(int a[], int n)
         a[j + 1] = item;
     }
 }
-
+//preorder
 preorder(mynode *root)
 {
     if(root)
@@ -345,7 +345,9 @@ preorder(mynode *root)
         preorder(root->right);
     }
 }
-Postorder
+//Postorder
+//same logic is used to solve the problem
+//to delete the tree. while returning, free node.
 postorder(mynode *root)
 {
     if(root)
@@ -356,7 +358,7 @@ postorder(mynode *root)
         }
     }
 }
-Inorder
+//Inorder
 inorder(mynode *root)
 {
     if(root)
@@ -367,3 +369,19 @@ inorder(mynode *root)
     }
 }
 Time complexity of traversals is O(n).
+
+
+//copy of the tree
+
+mynode *copy(mynode *root)
+{
+    mynode *temp;
+    if(root==NULL)return(NULL);
+    temp = (mynode *) malloc(sizeof(mynode));
+    temp->value = root->value;
+    // if left assigned with righ,and right with left, 
+    // then this will give mirror.
+    temp->left = copy(root->left);
+    temp->right = copy(root->right);
+    return(temp);
+}
