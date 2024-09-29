@@ -385,3 +385,44 @@ mynode *copy(mynode *root)
     temp->right = copy(root->right);
     return(temp);
 }
+
+// TODO 
+level order traversal
+You need to use a queue to do this kind of a traversal
+Let t be the tree root.
+while (t != null)
+{
+    visit t and put its children on a FIFO queue;
+    remove a node from the FIFO queue and
+    call it t;
+    // Remove returns null when queue is empty
+}
+Pseduocode
+Level_order_traversal(p)
+{
+    while(p)
+    {
+        Visit(p);
+        If(p->left)Q.Add(p->left);
+        If(p->right)Q.Add(p->right);
+        Delete(p);
+    }
+}
+
+// searching in binary tree.
+
+mynode *search(int value, mynode *root)
+{
+    while(root!=NULL && value!=root->value)
+    {
+        root = (value < root->value)?root->left:root->right;
+    }
+    return(root);
+}
+Here is another way to do the same
+mynode *recursive_search(int item, mynode *root)
+{
+    if(root==NULL || item == root->value){return(root);}
+    if(item<root->info)return{recursive_search(item, root->left);}
+    return{recursive_search(item, root->right);}
+}
