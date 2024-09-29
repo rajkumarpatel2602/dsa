@@ -364,10 +364,25 @@ inorder(mynode *root)
     if(root)
     {
         inorder(root->left);
-        printf("Value : [%d]", root->value);
+        printf("Value : [%d]", root->value); // simple condition checking like root->left == NULL && root->right == NULL count++
+                                            // will work as a program to find leaf nodes. Check below
         inorder(root->right);
     }
 }
+void count_leaf(mynode *root)
+{
+    if(root!=NULL)
+    {
+        count_leaf(root->left);
+        if(root->left == NULL && root->right==NULL)
+        {
+            // This is a leaf!
+            count++;
+        }
+        count_leaf(root->right);
+    }
+}
+
 Time complexity of traversals is O(n).
 
 
