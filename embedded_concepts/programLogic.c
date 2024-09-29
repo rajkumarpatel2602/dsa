@@ -235,3 +235,85 @@ void bubble_sort(int a[], int n)
         }
     }
 }
+
+To improvise this basic algorithm, keep track of whether a particular pass results in any swap or not. If not, you can break out without
+wasting more cycles.
+void bubble_sort(int a[], int n)
+{
+    int i, j, temp;
+    int flag;
+    for(j = 1; j < n; j++)
+    {
+        flag = 0;
+        for(i = 0; i < (n - j); i++)
+        {
+            if(a[i] >= a[i + 1])
+            {
+                //Swap a[i], a[i+1]
+                flag = 1;
+            }
+        }
+        if(flag==0)break;
+    }
+}
+
+void selection_sort(int a[], int n)
+{
+    int i, j, small, pos, temp;
+    for(i = 0; i < (n - 1); i++)
+    {
+        small = a[i];
+        pos = i;
+        for(j = i + 1; j < n; j++)
+        {
+            if(a[j] < small)
+            {
+            small = a[j];
+            pos = j;
+            }
+        }
+        temp = a[pos];
+        a[pos] = a[i];
+        a[i] = temp;
+    }
+}
+
+int partition(int a[], int low, int high)
+{
+    int i, j, temp, key;
+    key = a[low];
+    i = low + 1;
+    j = high;
+    while(1)
+    {
+        while(i < high && key >= a[i])i++;
+        while(key < a[j])j--;
+        if(i < j)
+        {
+            temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+        }
+        else
+        {
+            temp = a[low];
+            a[low] = a[j];
+            a[j] = temp;
+            return(j);
+        }
+    }
+}
+
+void quicksort(int a[], int low, int high)
+{
+    int j;
+    if(low < high)
+    {
+        j = partition(a, low, high);
+        quicksort(a, low, j - 1);
+        quicksort(a, j + 1, high);
+    }
+}
+
+
+
