@@ -1,3 +1,54 @@
+// bitwise logics
+
+#include <stdio.h>
+
+// exactly one bit is set, to check if number is power of 2 or not
+bool isPowerOfTwo(int n) {
+    return n > 0 && (n & (n - 1)) == 0;
+}
+
+// Swap odd and even bits
+// get even bits in var1, get odd bits in var2
+// make 
+unsigned int swapOddEvenBits(unsigned int n) {
+    unsigned int evenBits = n & 0xAAAAAAAA;
+    unsigned int oddBits = n & 0x55555555;
+    evenBits >>= 1;
+    oddBits <<= 1;
+    return (evenBits | oddBits);
+}
+
+//find the right most position of the bit
+// n & -n -- 2s complemnet leave right most bit intact. ending will result in
+// only 1 bit set and log will give position for this.
+int rightmostSetBitPosition(int n) {
+    return log2(n & -n) + 1;
+}
+
+
+int main(){
+    int num = 45, result = num;
+    printf("\ngiven number is %d", num);
+    result = num ^ 0xff;
+    printf("\nend result is %d", result);
+
+
+    //reverse logic
+    // test last bit, and add in result, shift result left,
+    // shift number left. (test bit and add to result and shift left)
+    num = 2;
+    result = 0;
+    printf("\ngiven number is %x", num);
+    for (int i = 0; i < 32; i++) {
+        result |= (num & 1);
+        result <<= 1;
+        num >>= 1;
+    }
+    printf("\nend result number is %x", result);
+
+
+}
+
 /*
 Chat GPT prompt:
 #1 (1st 20 qna)
