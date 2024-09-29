@@ -1,6 +1,25 @@
 // use bit map for finding sequence, missing in sequence, duplicate entry, presence of a number or not. most of the time, data will be unsorted.
 // these operations doesn't need to store element, it just need to validate if number is there or not.
 
+// get any mask
+
+// Function to create a mask with all 1s between positions m and n (inclusive)
+unsigned int createMask(int m, int n) {
+    // Step 1: Create a mask with all bits set to 1
+    unsigned int allOnes = ~0;
+    
+    // Step 2: Shift the mask left by m positions to clear lower bits
+    unsigned int leftShifted = allOnes << m;
+    
+    // Step 3: Shift the mask right by (sizeof(int) * 8 - n - 1) positions to clear higher bits
+    unsigned int rightShifted = allOnes >> ((sizeof(int) * 8) - n - 1);
+    
+    // Combine the two masks to get the final mask with 1s between m and n
+    unsigned int mask = leftShifted & rightShifted;
+    
+    return mask;
+}
+
 // bit map set and get
 
 #define MAX_VALUE 1000000
