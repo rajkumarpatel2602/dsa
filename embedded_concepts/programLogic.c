@@ -315,5 +315,7 @@ void quicksort(int a[], int low, int high)
     }
 }
 
-
-
+int main()
+{// Populate the array a
+quicksort(a, 0, n - 1);
+}
