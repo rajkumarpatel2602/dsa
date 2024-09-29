@@ -201,3 +201,37 @@ Problem: Given a large sparse dataset, efficiently store and retrieve the data.
 */
 
 // 
+
+
+///////////////////// Sorting
+
+What is the difference between Merge Sort and Quick sort?
+Both Merge-sort and Quick-sort have same time complexity i.e. O(nlogn). In merge sort the file a[1:n] was divided at its midpoint into subarrays which are independently sorted and later merged. Whereas, in quick sort the division into two sub-arrays is made so that the sorted
+sub-arrays do not need to be merged latter
+
+Mergesort(a, left, right)
+{
+    if(left<right)
+    {
+        I=(left+right)/2;
+        Mergesort(a,left, I);
+        Mergesort(a,I+1,right);
+        Merge(a,b,left,I,right);
+        Copy(b,a,left,right);
+    }
+}
+
+void bubble_sort(int a[], int n)
+{
+    int i, j, temp;
+    for(j = 1; j < n; j++)
+    {
+        for(i = 0; i < (n - j); i++)
+        {
+            if(a[i] >= a[i + 1])
+            {
+            //Swap a[i], a[i+1]
+            }
+        }
+    }
+}
