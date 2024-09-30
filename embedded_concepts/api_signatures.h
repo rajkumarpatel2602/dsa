@@ -134,3 +134,141 @@ set pshared = 0 for threads, for precess give ~0 value.
 /*  signal the blocked theread on semaphore */
 5. sef_destroy(sem_t * sem);
 /* destroy the thrad after use */
+
+// Macros
+
+// 1. offsetof: Finds the offset of a member within a structure.
+#include <stddef.h>
+#define offsetof(type, member) ((size_t) &((type *)0)->member)
+
+// 2. container_of: Gets the container structure from a member pointer.
+#define container_of(ptr, type, member) \
+    ((type *)((char *)(ptr) - offsetof(type, member)))
+
+// 3. MIN: Finds the minimum of two values.
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+
+// 4. MAX: Finds the maximum of two values.
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+// 5. BIT: Creates a bitmask with a single bit set.
+#define BIT(n) (1U << (n))
+
+// 6. ARRAY_SIZE: Finds the number of elements in an array.
+#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
+
+// 7. ALIGN: Aligns a value to the nearest multiple of a given alignment.
+#define ALIGN(x, a) (((x) + (a) - 1) & ~((a) - 1))
+
+// 8. ROUND_UP: Rounds a value up to the nearest multiple of a given alignment.
+#define ROUND_UP(x, a) (((x) + (a) - 1) & ~((a) - 1))
+
+// 9. ROUND_DOWN: Rounds a value down to the nearest multiple of a given alignment.
+#define ROUND_DOWN(x, a) ((x) & ~((a) - 1))
+
+// 10. IS_ALIGNED: Checks if a value is aligned to a given alignment.
+#define IS_ALIGNED(x, a) (((x) & ((a) - 1)) == 0)
+
+// 11. likely: Hints that a condition is likely to be true.
+#define likely(x) __builtin_expect(!!(x), 1)
+
+// 12. unlikely: Hints that a condition is unlikely to be true.
+#define unlikely(x) __builtin_expect(!!(x), 0)
+
+// 13. BUG: Triggers a bug check.
+#define BUG() do { \
+    printf("BUG at %s:%d\n", __FILE__, __LINE__); \
+    abort(); \
+} while (0)
+
+// 14. WARN: Issues a warning.
+#define WARN(condition, message) do { \
+    if (condition) \
+        printf("Warning: %s\n", message); \
+} while (0)
+
+// 15. BUILD_BUG_ON: Causes a compile-time error if a condition is true.
+#define BUILD_BUG_ON(condition) ((void)sizeof(char[1 - 2*!!(condition)]))
+
+// 16. DIV_ROUND_UP: Divides and rounds up.
+#define DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
+
+// 17. clamp: Clamps a value between a minimum and maximum.
+#define clamp(val, min, max) ((val) < (min) ? (min) : (val) > (max) ? (max) : (val))
+
+// 18. swap: Swaps two values.
+#define swap(a, b) do { \
+    typeof(a) _tmp = (a); \
+    (a) = (b); \
+    (b) = _tmp; \
+} while (0)
+
+// 19. FIELD_SIZEOF: Gets the size of a field in a structure.
+#define FIELD_SIZEOF(t, f) (sizeof(((t*)0)->f))
+
+// 20. WRITE_ONCE: Ensures a variable is written only once.
+#define WRITE_ONCE(x, val) (*((volatile typeof(x) *)&(x)) = (val))
+
+// APIs
+
+// 1. printf: Prints formatted output to stdout.
+printf("Hello, World!\n");
+
+// 2. scanf: Reads formatted input from stdin.
+int num;
+scanf("%d", &num);
+
+// 3. fopen: Opens a file.
+FILE *file = fopen("data.txt", "r");
+
+// 4. fclose: Closes a file.
+fclose(file);
+
+// 5. fread: Reads data from a file.
+fread(buffer, sizeof(char), 100, file);
+
+// 6. fwrite: Writes data to a file.
+fwrite(buffer, sizeof(char), 100, file);
+
+// 7. malloc: Allocates memory.
+int *arr = (int *)malloc(10 * sizeof(int));
+
+// 8. calloc: Allocates and zeroes memory.
+int *arr = (int *)calloc(10, sizeof(int));
+
+//```c
+// 9. realloc: Reallocates memory.
+arr = (int *)realloc(arr, 20 * sizeof(int));
+
+// 10. free: Frees allocated memory.
+free(arr);
+
+// 11. strcpy: Copies a string.
+strcpy(dest, src);
+
+// 12. strncpy: Copies a specified number of characters from a string.
+strncpy(dest, src, n);
+
+// 13. strcat: Concatenates two strings.
+strcat(dest, src);
+
+// 14. strncat: Concatenates a specified number of characters from one string to another.
+strncat(dest, src, n);
+
+// 15. strcmp: Compares two strings.
+int result = strcmp(str1, str2);
+
+// 16. strncmp: Compares a specified number of characters from two strings.
+int result = strncmp(str1, str2, n);
+
+// 17. strlen: Returns the length of a string.
+size_t len = strlen(str);
+
+// 18. memcpy: Copies memory.
+memcpy(dest, src, n);
+
+// 19. memset: Sets memory to a specified value.
+memset(dest, 0, n);
+
+// 20. memmove: Moves memory, handling overlapping regions.
+memmove(dest, src, n);
