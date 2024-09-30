@@ -4175,6 +4175,8 @@ Handling unaligned data in embedded C
 Data alignment and performance in embedded systems
 Alignment and padding in embedded C structures
 How to ensure proper data alignment in embedded systems
+https://tabreztalks.medium.com/memory-aligned-malloc-6c7b562d58d0?gi=sd
+https://m.youtube.com/watch?v=VVoeTIbTK0U&t=574s
 Alignment constraints in embedded systems
 Data alignment and memory access in embedded systems
 
@@ -4203,20 +4205,40 @@ Memory fragmentation issues in embedded systems
 Static vs dynamic memory allocation in embedded systems
 Memory leaks in embedded systems and how to prevent them
 Best practices for memory management in embedded C
+https://www.linkedin.com/pulse/memory-management-embedded-systems-kwvkc?utm_source=share&utm_medium=member_ios&utm_campaign=share_via
+https://cppcat.com/memory-management-in-embedded-c/
+https://moldstud.com/articles/p-addressing-the-challenges-of-memory-management-in-embedded-systems
+https://stackoverflow.com/questions/5685454/how-to-optimize-or-reduce-ram-size-in-embedded-system-software
+https://www.comarch.com/sw-and-hw-services/blog/part-1-memory-optimization-in-embedded-systems-in-the-c-language-where-to-start/
 Handling memory constraints in low-resource embedded systems
+https://www.quora.com/How-can-you-reduce-memory-requirements-in-embedded-systems
 Memory management techniques for real-time embedded systems
 Optimizing memory usage in embedded systems
+https://www.linkedin.com/pulse/memory-management-embedded-systems-maximizing-yamil-garcia-5uuae?utm_source=share&utm_medium=member_ios&utm_campaign=share_via
+https://www.reddit.com/r/embedded/comments/1fdccl5/why_must_embedded_systems_have_low_ram/
 
 ISR (Interrupt Service Routines)
 
 How to write efficient ISRs in embedded systems?
+https://www.linkedin.com/advice/0/what-best-practices-writing-interrupt?utm_source=share&utm_medium=member_ios&utm_campaign=share_via
+https://www.embedded.com/5-best-practices-for-writing-interrupt-service-routines/
+https://runtimerec.com/best-practices-for-writing-interrupt-service-routines/
 What are the best practices for handling interrupts in embedded systems?
 Nested interrupts in embedded systems
 ISR latency and how to minimize it
+https://www.eevblog.com/forum/microcontrollers/interrupt-latency-and-how-can-it-be-minimized/
 Common pitfalls in writing ISRs for embedded systems
+https://stackoverflow.com/questions/77144545/are-hardware-interrupts-still-needed-on-embedded-devices-as-opposed-to-flags
+https://medium.com/@aareshbachana/embedded-systems-interrupts-ab193ecb09e1
+
 How to debug ISRs in embedded systems
 ISR vs task in embedded systems
+https://www.reddit.com/r/embedded/comments/nthlw7/tasks_in_embedded_systems_from_isr/
+https://www.embedded.com/tasks-the-context-switch-and-interrupts/
+https://forums.freertos.org/t/understanding-priority-levels-of-isr-and-freertos-apis/10453/2
+https://www.geeksforgeeks.org/difference-between-isr-and-function-call/
 Handling shared resources in ISRs
+https://stackoverflow.com/questions/12738672/c-volatile-keyword-in-isr-and-multithreaded-program
 ISR stack usage and optimization
 How to handle spurious interrupts in embedded systems
 
@@ -4275,6 +4297,9 @@ How to design a real-time scheduler for embedded systems?
 What are the common scheduling algorithms used in embedded systems?
 Preemptive vs cooperative scheduling in embedded systems
 How to implement a round-robin scheduler in embedded systems
+https://www.quora.com/Is-context-switching-used-in-a-round-robin-algorithm
+https://www.embeddedrelated.com/showarticle/1278.php
+https://www.geeksforgeeks.org/program-for-round-robin-scheduling-for-the-same-arrival-time/
 Real-time scheduling and deadlines in embedded systems
 Priority-based scheduling in embedded systems
 How to handle task scheduling in embedded systems
