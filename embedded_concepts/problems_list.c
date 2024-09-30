@@ -4247,6 +4247,8 @@ Deadlock
 How to avoid deadlocks in embedded systems?
 What are the common causes of deadlocks in embedded systems and how to debug them?
 Deadlock detection and recovery in embedded systems
+https://www.geeksforgeeks.org/deadlock-detection-recovery/
+
 Strategies to prevent deadlocks in real-time systems
 [Deadlock vs livelock in embedded systems](### Deadlock
 How to avoid deadlocks in embedded systems?
@@ -4259,22 +4261,27 @@ Common deadlock scenarios in embedded systems
 Deadlock prevention techniques in embedded systems
 How to debug deadlocks in embedded systems
 Deadlock in resource-constrained embedded systems
+https://www.baeldung.com/cs/os-deadlock
 
 Cache
 
 How does cache memory work in embedded systems?
 What are the strategies for cache optimization in embedded systems?
+https://library.fiveable.me/embedded-systems-design/unit-11/cache-optimization-strategies/study-guide/IQn5yXgVpESBZV4U#:~:text=Cache%20optimization%20strategies%20are%20crucial,caches%20for%20instructions%20and%20data.
 Cache coherence in multi-core embedded systems
 How to handle cache misses in embedded systems
+https://stackoverflow.com/questions/25984553/is-there-a-way-to-avoid-cache-misses-completely
+https://medium.com/@wassimdhokkar/embedded-systems-cache-memory-af3d97f9c4f6
 Cache vs no-cache in embedded systems
 Cache locking techniques in embedded systems
 How to optimize cache usage in embedded systems
 Cache hierarchy in embedded systems
 Cache-aware programming in embedded systems
 How to measure cache performance in embedded systems
+https://stackoverflow.com/questions/16242136/how-to-write-a-program-in-c-to-measure-the-speed-of-cache
+https://www.geeksforgeeks.org/lru-cache-implementation/
 
 Timer
-
 How to use hardware timers in embedded systems?
 What are the best practices for implementing software timers in embedded systems?
 Timer interrupts in embedded systems
