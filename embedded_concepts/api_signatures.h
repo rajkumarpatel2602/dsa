@@ -272,3 +272,94 @@ memset(dest, 0, n);
 
 // 20. memmove: Moves memory, handling overlapping regions.
 memmove(dest, src, n);
+
+// 1. ALIGN: Aligns a value to the nearest multiple of a given alignment.
+#define ALIGN(x, a) (((x) + (a) - 1) & ~((a) - 1))
+
+// 2. IS_ALIGNED: Checks if a value is aligned to a given alignment.
+#define IS_ALIGNED(x, a) (((x) & ((a) - 1)) == 0)
+
+// 3. ALIGN_DOWN: Aligns a value down to the nearest multiple of a given alignment.
+#define ALIGN_DOWN(x, a) ((x) & ~((a) - 1))
+
+// 4. ALIGN_UP: Aligns a value up to the nearest multiple of a given alignment.
+#define ALIGN_UP(x, a) ALIGN((x), (a))
+
+// 5. PTR_ALIGN: Aligns a pointer to the nearest multiple of a given alignment.
+#define PTR_ALIGN(p, a) ((typeof(p))ALIGN((unsigned long)(p), (a)))
+
+// 6. PTR_ALIGN_DOWN: Aligns a pointer down to the nearest multiple of a given alignment.
+#define PTR_ALIGN_DOWN(p, a) ((typeof(p))ALIGN_DOWN((unsigned long)(p), (a)))
+
+// 7. PTR_ALIGN_UP: Aligns a pointer up to the nearest multiple of a given alignment.
+#define PTR_ALIGN_UP(p, a) ((typeof(p))ALIGN_UP((unsigned long)(p), (a)))
+
+// 8. ALIGN_MASK: Aligns a value to the nearest multiple of a given alignment mask.
+#define ALIGN_MASK(x, mask) (((x) + (mask)) & ~(mask))
+
+// 9. IS_POWER_OF_TWO: Checks if a value is a power of two.
+#define IS_POWER_OF_TWO(x) ((x) != 0 && ((x) & ((x) - 1)) == 0)
+
+// 10. ROUND_UP: Rounds a value up to the nearest multiple of a given alignment.
+#define ROUND_UP(x, a) ALIGN((x), (a))
+
+// 11. ROUND_DOWN: Rounds a value down to the nearest multiple of a given alignment.
+#define ROUND_DOWN(x, a) ALIGN_DOWN((x), (a))
+
+// 12. PAGE_ALIGN: Aligns a value to the nearest page boundary.
+#define PAGE_ALIGN(x) ALIGN((x), PAGE_SIZE)
+
+// 13. CACHE_LINE_SIZE: Defines the size of a cache line.
+#define CACHE_LINE_SIZE 64
+
+// 14. CACHE_ALIGN: Aligns a value to the nearest cache line boundary.
+#define CACHE_ALIGN(x) ALIGN((x), CACHE_LINE_SIZE)
+
+// 15. CACHE_ALIGNED: Ensures a variable is cache line aligned.
+#define CACHE_ALIGNED __attribute__((aligned(CACHE_LINE_SIZE)))
+
+// 16. ALIGNOF: Gets the alignment requirement of a type.
+#define ALIGNOF(type) __alignof__(type)
+
+// 17. ALIGNED: Ensures a variable is aligned to a specified boundary.
+#define ALIGNED(x) __attribute__((aligned(x)))
+
+// 18. UNALIGNED: Marks a pointer as unaligned.
+#define UNALIGNED __attribute__((packed))
+
+// 19. READ_ONCE: Reads a variable once, ensuring no reordering.
+#define READ_ONCE(x) (*(volatile typeof(x) *)&(x))
+
+// 20. WRITE_ONCE: Writes to a variable once, ensuring no reordering.
+#define WRITE_ONCE(x, val) (*(volatile typeof(x) *)&(x) = (val))
+
+// 21. ACCESS_ONCE: Accesses a variable once, ensuring no reordering.
+#define ACCESS_ONCE(x) (*(volatile typeof(x) *)&(x))
+
+```c
+// 22. BARRIER: Prevents compiler reordering of memory accesses.
+#define BARRIER() asm volatile("" ::: "memory")
+
+// 23. MEM_BARRIER: Ensures memory operations are completed before proceeding.
+#define MEM_BARRIER() asm volatile("" ::: "memory")
+
+// 24. DATA_BARRIER: Ensures data memory operations are completed before proceeding.
+#define DATA_BARRIER() asm volatile("" ::: "memory")
+
+// 25. INSTRUCTION_BARRIER: Ensures instruction memory operations are completed before proceeding.
+#define INSTRUCTION_BARRIER() asm volatile("" ::: "memory")
+
+// 26. READ_MEMORY_BARRIER: Ensures read memory operations are completed before proceeding.
+#define READ_MEMORY_BARRIER() asm volatile("" ::: "memory")
+
+// 27. WRITE_MEMORY_BARRIER: Ensures write memory operations are completed before proceeding.
+#define WRITE_MEMORY_BARRIER() asm volatile("" ::: "memory")
+
+// 28. FULL_MEMORY_BARRIER: Ensures all memory operations are completed before proceeding.
+#define FULL_MEMORY_BARRIER() asm volatile("" ::: "memory")
+
+// 29. VOLATILE_READ: Reads a volatile variable.
+#define VOLATILE_READ(x) (*(volatile typeof(x) *)&(x))
+
+// 30. VOLATILE_WRITE: Writes to a volatile variable.
+#define VOLATILE_WRITE(x, val) (*(volatile typeof(x) *)&(x) = (val))
