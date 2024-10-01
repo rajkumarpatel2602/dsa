@@ -184,6 +184,79 @@ int main() {
     return 0;
 }
 
+// loop detection
+while(p!=NULL && q!=NULL)
+{
+    if(p==q)
+    {
+        //Loop detected!
+        exit(0);
+    }
+    p=p->next;
+    q=(q->next)?(q->next->next):q->next;
+}
+// No loop.
+
+// middle node
+mynode *p = head;
+mynode *q = head;
+if(q!=NULL)
+{
+    while((q->next)!=NULL && (q->next->next)!=NULL)
+    {
+        p=(p!=(mynode *)NULL?p->next:(mynode *)NULL);
+        q=(q!=(mynode *)NULL?q->next:(mynode *)NULL);
+        q=(q!=(mynode *)NULL?q->next:(mynode *)NULL);
+    }
+    printf("The middle element is [%d]",p->value);
+}
+
+// Generic linked list
+struct check {
+    int i;
+    char c;
+    double d;
+} chk[] = { { 1, 'a', 1.1 },
+            { 2, 'b', 2.2 },
+            { 3, 'c', 3.3 } };
+
+void insert(List **p, void *data, unsigned int n)
+{
+    List *temp;
+    int i;
+    /* Error check is ignored */
+    temp = malloc(sizeof(List));
+    temp->data = malloc(n);
+    for (i = 0; i < n; i++)
+    *(char *)(temp->data + i) = *(char *)(data + i);
+    temp->next = *p;
+    *p = temp;
+}
+void print(List *p, void (*f)(void *))
+{
+    while (p)
+    {
+        (*f)(p->data);
+        p = p->next;
+    }
+}
+void printstr(void *str)
+{
+    printf(" \"%s\"", (char *)str);
+}
+void printint(void *n)
+{
+    printf(" %d", *(int *)n);
+}
+void printchar(void *c)
+{
+    printf(" %c", *(char *)c);
+}
+void printcomp(void *comp)
+{
+    struct check temp = *(struct check *)comp;
+    printf(" '%d:%c:%f", temp.i, temp.c, temp.d);
+}
 /*
 Storing 16MB of Entries in 10MB of RAM
 Problem: Given a sequence of numbers from 0 to 16MB, where each number can hold a Boolean value, design a solution to store this information in 10MB of RAM.
