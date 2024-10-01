@@ -257,6 +257,50 @@ void printcomp(void *comp)
     struct check temp = *(struct check *)comp;
     printf(" '%d:%c:%f", temp.i, temp.c, temp.d);
 }
+
+//copy of linkedlist
+copy_linked_lists(struct node *q, struct node **s)
+{
+    if(q!=NULL)
+    {
+        *s=malloc(sizeof(struct node));
+        (*s)->data=q->data;
+        (*s)->link=NULL;
+        copy_linked_list(q->link, &((*s)->link));
+    }
+}
+
+// commpare two list
+int compare_linked_lists(struct node *q, struct node *r)
+{
+    static int flag;
+    if((q==NULL ) && (r==NULL))
+    {
+        flag=1;
+    }
+    else
+    {
+        if(q==NULL || r==NULL)
+        {
+            flag=0;
+        }
+        if(q->data!=r->data)
+        {
+            flag=0;
+        }
+        else
+        {
+            compare_linked_lists(q->link,r->link);
+        }
+    }
+    return(flag);
+}
+// free linkedlist
+struct list *listptr, *nextptr;
+for(listptr = head; listptr != NULL; listptr = listptr->next)
+{
+    free(listptr);
+}
 /*
 Storing 16MB of Entries in 10MB of RAM
 Problem: Given a sequence of numbers from 0 to 16MB, where each number can hold a Boolean value, design a solution to store this information in 10MB of RAM.
