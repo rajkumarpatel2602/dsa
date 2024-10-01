@@ -4265,6 +4265,7 @@ https://www.baeldung.com/cs/os-deadlock
 
 Cache
 
+https://www.youtube.com/watch?v=dDA3PUr16As&t=13s (find DMA and other topics as well, this is the one for interrupt.)
 How does cache memory work in embedded systems?
 What are the strategies for cache optimization in embedded systems?
 https://library.fiveable.me/embedded-systems-design/unit-11/cache-optimization-strategies/study-guide/IQn5yXgVpESBZV4U#:~:text=Cache%20optimization%20strategies%20are%20crucial,caches%20for%20instructions%20and%20data.
@@ -4314,3 +4315,6 @@ Dynamic vs static scheduling in embedded systems
 Scheduler latency and how to minimize it
 How to debug scheduling issues in embedded systems
 These links should provide you with a wealth of information and community insights on these critical topics in embedded systems. Feel free to explore these discussions for more detailed explanations and practical advice.
+
+Interview questions
+https://www.youtube.com/watch?v=qR0rygzxnE4&list=PLW4ZYwPyx8R1V3FUMHb26cRQr1APmZ6fX (Dinesh Panicker 45QnA list on youtube)
