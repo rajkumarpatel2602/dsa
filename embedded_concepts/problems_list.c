@@ -168,6 +168,99 @@ int main() {
 
 ```
 
+// traffic light
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h> // For sleep function
+
+// Define the states of the traffic light
+typedef enum {
+    RED,
+    GREEN,
+    YELLOW
+} TrafficLightState;
+
+// Function prototypes
+void trafficLightInit();
+void trafficLightRun();
+void trafficLightChangeState(TrafficLightState newState);
+void displayTrafficLightState(TrafficLightState state);
+
+// Global variable to hold the current state of the traffic light
+TrafficLightState currentState;
+
+// Main function
+int main() {
+    // Initialize the traffic light
+    trafficLightInit();
+
+    // Run the traffic light state machine
+    trafficLightRun();
+
+    return 0;
+}
+
+// Function to initialize the traffic light state machine
+void trafficLightInit() {
+    currentState = RED; // Start with RED light
+}
+
+// Function to run the traffic light state machine
+void trafficLightRun() {
+    while (1) {
+        switch (currentState) {
+            case RED:
+                displayTrafficLightState(RED);
+                sleep(5); // Red light duration
+                trafficLightChangeState(GREEN);
+                break;
+
+            case GREEN:
+                displayTrafficLightState(GREEN);
+                sleep(5); // Green light duration
+                trafficLightChangeState(YELLOW);
+                break;
+
+            case YELLOW:
+                displayTrafficLightState(YELLOW);
+                sleep(2); // Yellow light duration
+                trafficLightChangeState(RED);
+                break;
+
+            default:
+                fprintf(stderr, "Error: Invalid Traffic Light State\n");
+                exit(EXIT_FAILURE);
+        }
+    }
+}
+
+// Function to change the state of the traffic light
+void trafficLightChangeState(TrafficLightState newState) {
+    currentState = newState;
+}
+
+// Function to display the current state of the traffic light
+void displayTrafficLightState(TrafficLightState state) {
+    switch (state) {
+        case RED:
+            printf("Traffic Light is RED\n");
+            break;
+        case GREEN:
+            printf("Traffic Light is GREEN\n");
+            break;
+        case YELLOW:
+            printf("Traffic Light is YELLOW\n");
+            break;
+        default:
+            fprintf(stderr, "Error: Invalid Traffic Light State\n");
+            exit(EXIT_FAILURE);
+    }
+}
+
+```
+
 // bitwise logics
 
 #include <stdio.h>
