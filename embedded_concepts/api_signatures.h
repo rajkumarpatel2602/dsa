@@ -363,3 +363,27 @@ memmove(dest, src, n);
 
 // 30. VOLATILE_WRITE: Writes to a volatile variable.
 #define VOLATILE_WRITE(x, val) (*(volatile typeof(x) *)&(x) = (val))
+
+
+// passing an array
+int arr[3]
+print(arr); in function definition, print(int *arr) or print(int arr[])
+array name is pointer to first element of the array.
+here, arr means pointer to int. i.e. int *arr
+if arr is 2D. ie..e arr[3][4]
+print(arr), then while catching
+it is interpreted as, pointer to first element, which is int [4]
+i.e. print(int (*arr)[4]), which is basically pointer to array of 4 integer.
+catching collumn size is mandatory as it will give idea to compiler about step size, while increamenting.
+hence, if we want to print 2D array, one need to pass additional row element, as use, 
+might not be aware of how many pointer to int [4] array might be having.
+
+
+malloc rule:
+collecting pointer type and malloc return pointer type has to be same.
+malloc return type's dereference will be type of used inside sizeof()
+so if we have int **arr.
+and we want to do malloc
+arr = (int **)malloc(sizeof(int *) * num)
+if you see here, arr is double pointer, but dereferncing double pointer will give int *
+which is inside sizeof().
