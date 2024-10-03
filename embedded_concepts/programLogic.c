@@ -577,3 +577,7 @@ mynode *recursive_search(int item, mynode *root)
     if(item<root->info)return{recursive_search(item, root->left);}
     return{recursive_search(item, root->right);}
 }
+
+// synchronization logic
+
+
