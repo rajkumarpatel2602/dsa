@@ -579,5 +579,15 @@ mynode *recursive_search(int item, mynode *root)
 }
 
 // synchronization logic
+https://www.youtube.com/watch?v=mtjcoL-sGEM
+https://www.youtube.com/watch?v=Bue0ozYd7DM
+https://www.youtube.com/watch?v=NuEXG6jW3nY
+producer always post semaphore after producing, and consuder always consume after getting semaphore
+consumer will always be of hight priority and should get blocked asap. prodcuer will be of lower priority
 
-
+void isr (void) {
+    // disable interrupt
+    // ack interrupt, clear interrupt
+    // post semaphore or do some work
+    // enable all itnerrupts
+}
