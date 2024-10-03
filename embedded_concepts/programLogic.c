@@ -8,6 +8,14 @@ DS operations
 -- merging of an arrays (arrays has to be sorted)
 -- add data in sorted list
 
+2. String
+-- Permutation
+-- Combination
+-- strlen, strcat, strtok, strstr
+-- reverse
+-- finding duplicates
+-- Counting words, vowels, letters, alphabets
+
 // use bit map for finding sequence, missing in sequence, duplicate entry, presence of a number or not. most of the time, data will be unsorted.
 // these operations doesn't need to store element, it just need to validate if number is there or not.
 
