@@ -1,3 +1,13 @@
+// Datastructure suggestions
+DS operations
+1. array
+- Improving linear search in array
+-- transpostion, or move to head method can help here, where we are moving recently searched element forward.
+-- find max, min
+-- bring negative in one size, positive in other side.
+-- merging of an arrays (arrays has to be sorted)
+-- add data in sorted list
+
 // use bit map for finding sequence, missing in sequence, duplicate entry, presence of a number or not. most of the time, data will be unsorted.
 // these operations doesn't need to store element, it just need to validate if number is there or not.
 
