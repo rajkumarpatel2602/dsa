@@ -24,9 +24,33 @@ DS operations
 -- Search
 -- Delete
 -- insert
--- sorted insert
+-- sorted insert https://www.udemy.com/course/datastructurescncpp/learn/lecture/13133238#overview
 -- Remove duplicate in sorted list
 -- Reverse a list, recursively as well as iteratively
+///////////////////////////////
+rev(first){
+    r = NULL, q = NULL, p = head;
+    while(p){
+        //first 3 for movmenet forward
+        //last for link change
+        r = q;
+        q = p;
+        p = p->next;
+        q->next = r;
+    } 
+    head = q; // head assumed to be global.
+}
+//////////////////////////////
+rev(q, p) {
+    if(p){
+        rev(p, p->next);
+        p->next = q;
+    } else {
+        first = q;
+    }
+} // hear head is assumted to be globle.
+//////////////////////////////
+
 -- Merge 2 sorted list, concate 2 list
 -- circular list
 -- doubly linked list and all operation
