@@ -7,6 +7,7 @@ DS operations
 -- bring negative in one size, positive in other side.
 -- merging of an arrays (arrays has to be sorted)
 -- add data in sorted list
+-- array vs list
 
 2. String
 -- Permutation
