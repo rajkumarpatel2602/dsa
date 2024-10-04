@@ -62,6 +62,7 @@ rev(q, p) {
 -- Compare list
 -- find circle in node
 -- finding middle element in list
+-- comparision of lists https://www.udemy.com/course/datastructurescncpp/learn/lecture/13145274#overview
 
 5. bitwise
 - set, 
