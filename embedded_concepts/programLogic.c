@@ -34,7 +34,7 @@ DS operations
 -- inorder of bst gives a sorted list.
 -- no duplicates
 -- Searching can be done recursively, as well as using loop. generally changing recursion to iteration needs stack, but that's not always. here, using iterative loop doesn't need stack in this case.
--- create, search, insert (need extra/tail pointer), delete (need to remmeber this logic)
+-- create, search, insert (need extra/tail pointer), delete (need to remmeber this logic https://www.udemy.com/course/datastructurescncpp/learn/lecture/13190284#overview)
 // use bit map for finding sequence, missing in sequence, duplicate entry, presence of a number or not. most of the time, data will be unsorted.
 // these operations doesn't need to store element, it just need to validate if number is there or not.
 
