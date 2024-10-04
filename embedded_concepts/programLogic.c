@@ -52,6 +52,7 @@ rev(q, p) {
 //////////////////////////////
 
 -- Merge 2 sorted list, concate 2 list
+    https://www.udemy.com/course/datastructurescncpp/learn/lecture/13133298#overview
 -- circular list
 -- doubly linked list and all operation
 -- delete in circular and doubly linkedlist
