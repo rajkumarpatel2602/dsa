@@ -15,7 +15,11 @@ DS operations
 -- reverse
 -- finding duplicates
 -- Counting words, vowels, letters, alphabets
+-- Anagram, palindrom
 
+3. Linkedlist
+-- 
+    
 // use bit map for finding sequence, missing in sequence, duplicate entry, presence of a number or not. most of the time, data will be unsorted.
 // these operations doesn't need to store element, it just need to validate if number is there or not.
 
