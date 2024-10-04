@@ -55,6 +55,7 @@ rev(q, p) {
     https://www.udemy.com/course/datastructurescncpp/learn/lecture/13133298#overview
 -- circular list
     display in iteration need do..while, for recursion, it uses static flag.
+    in circular there's no need for head movment for insertion operation.
 -- doubly linked list and all operation
 -- delete in circular and doubly linkedlist
 -- Reverse a doubly linkedlist
