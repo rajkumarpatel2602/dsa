@@ -26,8 +26,15 @@ DS operations
     go to right, and repeat same. such, level by level keep on adding left and right child to tree. [check uploaded pic]
     POST order iterative is a bit trickier. 
 -- traversing can happen in preorder, postorder and inorder. recursion is really easy, but for iteration we need to maintain our own stack.
--- inorder of bst gives a sorted list.
+-- level order travarsing need queue.
+-- most of the problems like finding height, counting nodes, counting nodes with 2 child, these can be solved by performing post order traversal. left, right, print method.
+-- for given n number of nodes, 2nCn/(n+1) these many trees can be gneerated.
     
+5. BST
+-- inorder of bst gives a sorted list.
+-- no duplicates
+-- Searching can be done recursively, as well as using loop. generally changing recursion to iteration needs stack, but that's not always. here, using iterative loop doesn't need stack in this case.
+-- create, search, insert (need extra/tail pointer), delete (need to remmeber this logic)
 // use bit map for finding sequence, missing in sequence, duplicate entry, presence of a number or not. most of the time, data will be unsorted.
 // these operations doesn't need to store element, it just need to validate if number is there or not.
 
