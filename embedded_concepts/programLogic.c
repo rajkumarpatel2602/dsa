@@ -19,6 +19,14 @@ DS operations
 
 3. Linkedlist
 -- 
+
+4. binary tree
+-- creating binary tree we need 2 data structure. 1st is linkedlist and 2nd is queue. https://www.udemy.com/course/datastructurescncpp/learn/lecture/13168486#overview
+    method to create is. first have root as input from user, push address to queue. enter while, p = dequeue(q); and ask for left child, if present, alloc temp, update fields, point p->left = temp, and enqueue temp.
+    go to right, and repeat same. such, level by level keep on adding left and right child to tree. [check uploaded pic]
+    POST order iterative is a bit trickier. 
+-- traversing can happen in preorder, postorder and inorder. recursion is really easy, but for iteration we need to maintain our own stack.
+-- inorder of bst gives a sorted list.
     
 // use bit map for finding sequence, missing in sequence, duplicate entry, presence of a number or not. most of the time, data will be unsorted.
 // these operations doesn't need to store element, it just need to validate if number is there or not.
