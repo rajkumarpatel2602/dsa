@@ -18,7 +18,34 @@ DS operations
 -- Anagram, palindrom
 
 3. Linkedlist
--- 
+-- Display, recursively display,
+-- counting nodes
+-- Sum of nodes, max, min in list
+-- Search
+-- Delete
+-- insert
+-- sorted insert
+-- Remove duplicate in sorted list
+-- Reverse a list, recursively as well as iteratively
+-- Merge 2 sorted list, concate 2 list
+-- circular list
+-- doubly linked list and all operation
+-- delete in circular and doubly linkedlist
+-- Reverse a doubly linkedlist
+-- Compare list
+-- find circle in node
+-- finding middle element in list
+
+5. bitwise
+- set, 
+- clear, 
+- toggle, 
+- byte shift, 
+- bit shift, 
+- swap byte, 
+- swap bit, 
+- xor as inequality checker and also for toggling, 
+- finding power 
 
 4. binary tree
 -- creating binary tree we need 2 data structure. 1st is linkedlist and 2nd is queue. https://www.udemy.com/course/datastructurescncpp/learn/lecture/13168486#overview
