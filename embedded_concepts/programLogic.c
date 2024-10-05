@@ -684,3 +684,361 @@ void isr (void) {
     // post semaphore or do some work
     // enable all itnerrupts
 }
+
+// Little or big endian
+// using union
+#include <stdio.h>
+
+union {
+    unsigned int i;
+    char c[4];
+} u;
+
+int main(void) {
+    u.i = 1; // Set the integer value to 1
+
+    if (u.c[0] == 1) { // Check the first byte
+        printf("Little Endian\n");
+    } else {
+        printf("Big Endian\n");
+    }
+
+    return 0;
+}
+// using pointer
+#include <stdio.h>
+
+int main(void) {
+    unsigned int i = 1; // Initialize an integer with value 1
+    char *c = (char *) &i; // Point to the first byte of the integer
+
+    if (*c == 1) { // If the first byte is 1
+        printf("Little Endian\n");
+    } else {
+        printf("Big Endian\n");
+    }
+
+    return 0;
+}
+
+// stack direction
+#include <stdio.h>
+
+void fun(int *main_local_addr) {
+    int fun_local; // Local variable in fun
+    if (main_local_addr < &fun_local) {
+        printf("Stack grows upward\n");
+    } else {
+        printf("Stack grows downward\n");
+    }
+}
+
+int main() {
+    int main_local; // Local variable in main
+    fun(&main_local); // Pass address of main's local variable
+    return 0;
+}
+
+// custom malloc which supports alignment
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+void* aligned_malloc(size_t size, size_t alignment) {
+    // Ensure alignment is a power of 2
+    if (alignment & (alignment - 1)) {
+        return NULL; // Not a power of 2
+    }
+
+    // Allocate extra memory for alignment adjustment
+    void* ptr = malloc(size + alignment + sizeof(void*));
+    if (!ptr) {
+        return NULL; // Allocation failed
+    }
+
+    // Calculate the aligned address
+    uintptr_t addr = (uintptr_t)ptr + sizeof(void*);
+    uintptr_t aligned_addr = (addr + (alignment - 1)) & ~(alignment - 1);
+
+    // Store the original pointer just before the aligned address
+    *((void**)(aligned_addr - sizeof(void*))) = ptr;
+
+    return (void*)aligned_addr; // Return the aligned address
+}
+
+void aligned_free(void* ptr) {
+    if (!ptr) return; // Nothing to free
+
+    // Retrieve the original pointer
+    void* original_ptr = *((void**)((uintptr_t)ptr - sizeof(void*)));
+    free(original_ptr); // Free the original pointer
+}
+
+int main() {
+    size_t alignment = 32; // Desired alignment
+    size_t size = 100;     // Size of allocation
+
+    void* aligned_ptr = aligned_malloc(size, alignment);
+    
+    if (aligned_ptr == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    printf("Aligned pointer: %p\n", aligned_ptr);
+    
+    // Use the allocated memory...
+    
+    aligned_free(aligned_ptr); // Free the allocated memory
+
+    return 0;
+}
+Considerations
+Error Handling: The implementation checks for allocation failures and invalid alignments.
+Performance: This implementation may introduce overhead due to additional calculations and storage.
+Thread Safety: This code does not handle multithreading; consider using mutexes or other synchronization mechanisms if needed.
+Alignment Requirements: Ensure that your system supports the requested alignments, especially for larger values.
+
+/// Poll allocator using dynamic memory
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct MemoryPool {
+    size_t block_size;      // Size of each block
+    size_t block_count;     // Number of blocks
+    void* pool;             // Pointer to the memory pool
+    char* free_list;        // Pointer to the free list
+} MemoryPool;
+
+// Initialize the memory pool
+MemoryPool* create_pool(size_t block_size, size_t block_count) {
+    MemoryPool* pool = (MemoryPool*)malloc(sizeof(MemoryPool));
+    if (!pool) return NULL;
+
+    pool->block_size = block_size;
+    pool->block_count = block_count;
+    pool->pool = malloc(block_size * block_count);
+    if (!pool->pool) {
+        free(pool);
+        return NULL;
+    }
+
+    // Initialize the free list
+    pool->free_list = (char*)pool->pool;
+    for (size_t i = 0; i < block_count - 1; ++i) {
+        *(void**)(pool->free_list + i * block_size) = pool->free_list + (i + 1) * block_size;
+    }
+    *(void**)(pool->free_list + (block_count - 1) * block_size) = NULL; // Last block points to NULL
+
+    return pool;
+}
+
+// Allocate a block from the pool
+void* pool_malloc(MemoryPool* pool) {
+    if (!pool->free_list) return NULL; // No free blocks available
+
+    void* block = pool->free_list; // Get the first free block
+    pool->free_list = *(void**)block; // Update the free list to the next free block
+
+    return block;
+}
+
+// Allocate a zero-initialized block from the pool (similar to calloc)
+void* pool_calloc(MemoryPool* pool) {
+    void* block = pool_malloc(pool);
+    if (block) {
+        memset(block, 0, pool->block_size); // Zero-initialize the allocated memory
+    }
+    return block;
+}
+
+// Free a block back to the pool
+void pool_free(MemoryPool* pool, void* ptr) {
+    if (!ptr || ptr < pool->pool || ptr >= (char*)pool->pool + (pool->block_size * pool->block_count)) {
+        return; // Invalid pointer
+    }
+
+    *(void**)ptr = pool->free_list; // Add the block back to the free list
+    pool->free_list = (char*)ptr;   // Update the free list
+}
+
+// Destroy the memory pool and free all resources
+void destroy_pool(MemoryPool* pool) {
+    if (pool) {
+        free(pool->pool);
+        free(pool);
+    }
+}
+
+int main() {
+    const size_t BLOCK_SIZE = 32;
+    const size_t BLOCK_COUNT = 10;
+
+    MemoryPool* my_pool = create_pool(BLOCK_SIZE, BLOCK_COUNT);
+    
+    if (!my_pool) {
+        printf("Failed to create memory pool\n");
+        return 1;
+    }
+
+    // Allocate some blocks
+    void* ptr1 = pool_malloc(my_pool);
+    void* ptr2 = pool_calloc(my_pool);
+
+    if (ptr1 && ptr2) {
+        printf("Allocated blocks at %p and %p\n", ptr1, ptr2);
+        
+        // Free blocks back to the pool
+        pool_free(my_pool, ptr1);
+        printf("Freed block at %p\n", ptr1);
+
+        void* ptr3 = pool_malloc(my_pool); // Reallocate from freed space
+        printf("Reallocated block at %p\n", ptr3);
+        
+        // Free remaining blocks
+        pool_free(my_pool, ptr2);
+        printf("Freed block at %p\n", ptr2);
+        
+        // Freeing again should work for ptr3 too
+        pool_free(my_pool, ptr3);
+        printf("Freed reallocated block at %p\n", ptr3);
+        
+        destroy_pool(my_pool); // Clean up memory pool
+        printf("Memory pool destroyed\n");
+        
+        return 0;
+    }
+
+    destroy_pool(my_pool); // Clean up on failure
+    return 1;
+}
+
+// array based
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define POOL_SIZE 1024 // Total size of the memory pool
+#define BLOCK_SIZE 32  // Size of each block
+
+typedef struct MemoryPool {
+    char pool[POOL_SIZE];       // Memory pool
+    int free_map[POOL_SIZE / BLOCK_SIZE]; // Free block map
+} MemoryPool;
+
+// Initialize the memory pool
+MemoryPool* create_pool() {
+    MemoryPool* pool = (MemoryPool*)malloc(sizeof(MemoryPool));
+    if (!pool) return NULL;
+
+    memset(pool->free_map, 0, sizeof(pool->free_map)); // Initialize free map to 0 (all blocks are free)
+    return pool;
+}
+
+// Allocate a block from the pool
+void* pool_malloc(MemoryPool* pool) {
+    for (int i = 0; i < (POOL_SIZE / BLOCK_SIZE); ++i) {
+        if (pool->free_map[i] == 0) { // Check if the block is free
+            pool->free_map[i] = 1; // Mark the block as used
+            return (void*)&pool->pool[i * BLOCK_SIZE]; // Return pointer to the allocated block
+        }
+    }
+    return NULL; // No free blocks available
+}
+
+// Free a block back to the pool
+void pool_free(MemoryPool* pool, void* ptr) {
+    if (ptr < (void*)pool->pool || ptr >= (void*)(pool->pool + POOL_SIZE)) {
+        return; // Pointer out of bounds
+    }
+
+    // Calculate block index and mark it as free
+    int index = ((char*)ptr - pool->pool) / BLOCK_SIZE;
+    if (index >= 0 && index < (POOL_SIZE / BLOCK_SIZE)) {
+        pool->free_map[index] = 0; // Mark the block as free
+    }
+}
+
+// Destroy the memory pool and free resources
+void destroy_pool(MemoryPool* pool) {
+    if (pool) {
+        free(pool);
+    }
+}
+
+int main() {
+    MemoryPool* my_pool = create_pool();
+    
+    if (!my_pool) {
+        printf("Failed to create memory pool\n");
+        return 1;
+    }
+
+    // Allocate some blocks from the pool
+    void* ptr1 = pool_malloc(my_pool);
+    void* ptr2 = pool_malloc(my_pool);
+
+    if (ptr1 && ptr2) {
+        printf("Allocated blocks at %p and %p\n", ptr1, ptr2);
+        
+        // Free blocks back to the pool
+        pool_free(my_pool, ptr1);
+        printf("Freed block at %p\n", ptr1);
+
+        void* ptr3 = pool_malloc(my_pool); // Reallocate from freed space
+        printf("Reallocated block at %p\n", ptr3);
+        
+        // Free remaining blocks
+        pool_free(my_pool, ptr2);
+        printf("Freed block at %p\n", ptr2);
+        
+        // Freeing again should work for ptr3 too
+        pool_free(my_pool, ptr3);
+        printf("Freed reallocated block at %p\n", ptr3);
+        
+        destroy_pool(my_pool); // Clean up memory pool
+        printf("Memory pool destroyed\n");
+        
+        return 0;
+    }
+
+    destroy_pool(my_pool); // Clean up on failure
+    return 1;
+}
+
+Considerations
+Fixed Size: This implementation only supports fixed-size allocations defined by BLOCK_SIZE. If you need variable sizes, consider implementing multiple pools or more complex management techniques.
+Performance: This allocator is efficient for scenarios with many small allocations and deallocations.
+Error Handling: Basic error handling is included but could be expanded for robustness in production code.
+Thread Safety: This implementation is not thread-safe. If used in multi-threaded applications, consider adding synchronization mechanisms.
+
+// macros
+#include <stddef.h>
+
+#define offset_of(TYPE, MEMBER) ((size_t) &((TYPE *)0)->MEMBER)
+Explanation:
+This macro takes two parameters: the type of the structure (TYPE) and the member name (MEMBER).
+It effectively computes the offset by taking the address of the member in a hypothetical instance of the structure located at address 0. 
+This is safe because it only uses the type information, not the actual memory.
+
+#define container_of(ptr, type, member) ({ \
+    const typeof(((type *)0)->member) *__mptr = (ptr); \
+    (type *)((char *)__mptr - offset_of(type, member)); \
+})
+How It Works:
+The first line creates a pointer (__mptr) that points to the member specified by ptr.
+The second line calculates the address of the containing structure by subtracting the offset of that member from the address stored in __mptr.
+
+#include <stdlib.h>
+#include <stddef.h>
+
+#define aligned_alloc(size, alignment) \
+    (((size) + (alignment) - 1) & ~((alignment) - 1))
+This macro adjusts a given size up to ensure it is aligned to a specified boundary.
+Parameters:
+size: The size of memory requested.
+alignment: The desired alignment (must be a power of two).
+How It Works:
+The expression ensures that size is rounded up to the nearest multiple of alignment.
