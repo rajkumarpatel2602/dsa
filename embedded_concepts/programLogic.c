@@ -1176,6 +1176,18 @@ int main() {
    return 0;
 }
 
+Explanation of the Code:
+Data Structures:
+Node: Represents each entry in the LRU Cache with pointers for a doubly linked list.
+LRUCache: Contains pointers for head and tail nodes of the linked list and an array for the hash map.
+Functions:
+createNode: Allocates memory for a new node.
+createCache: Initializes an LRU Cache with specified capacity.
+removeNode: Removes a specified node from the linked list.
+addToFront: Adds a specified node to the front of the linked list.
+get: Retrieves a value by key and moves it to the front of the list.
+put: Inserts or updates a key-value pair and manages eviction if necessary.
+Memory Management: The freeCache function ensures that all allocated memory is released when done.
 // macros
 #include <stddef.h>
 
