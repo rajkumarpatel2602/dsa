@@ -1188,6 +1188,103 @@ addToFront: Adds a specified node to the front of the linked list.
 get: Retrieves a value by key and moves it to the front of the list.
 put: Inserts or updates a key-value pair and manages eviction if necessary.
 Memory Management: The freeCache function ensures that all allocated memory is released when done.
+
+// cache miss problem
+count hit and miss on cache.
+#include <stdio.h>
+#include <stdlib.h>
+
+#define CACHE_SIZE 5 // Size of the cache
+
+typedef struct Cache {
+    int* data;
+    int size;
+    int hits;
+    int misses;
+} Cache;
+
+// Function to create a new cache
+Cache* createCache(int size) {
+    Cache* cache = (Cache*)malloc(sizeof(Cache));
+    cache->data = (int*)malloc(size * sizeof(int));
+    for (int i = 0; i < size; i++) {
+        cache->data[i] = -1; // Initialize with -1 indicating empty
+    }
+    cache->size = size;
+    cache->hits = 0;
+    cache->misses = 0;
+    return cache;
+}
+
+// Function to access data from the cache
+void accessCache(Cache* cache, int value) {
+    int found = 0;
+
+    // Check for a hit
+    for (int i = 0; i < cache->size; i++) {
+        if (cache->data[i] == value) {
+            found = 1;
+            printf("Cache Hit: %d\n", value);
+            cache->hits++;
+            break;
+        }
+    }
+
+    // If not found, it's a miss
+    if (!found) {
+        printf("Cache Miss: %d\n", value);
+        cache->misses++;
+
+        // Add to the cache (simple FIFO eviction)
+        for (int i = 0; i < cache->size - 1; i++) {
+            cache->data[i] = cache->data[i + 1]; // Shift left
+        }
+        cache->data[cache->size - 1] = value; // Add new value at the end
+    }
+}
+
+// Function to print statistics
+void printStats(Cache* cache) {
+    printf("Total Hits: %d\n", cache->hits);
+    printf("Total Misses: %d\n", cache->misses);
+}
+
+// Function to free the allocated memory
+void freeCache(Cache* cache) {
+    free(cache->data);
+    free(cache);
+}
+
+// Test the Cache Simulation
+int main() {
+    Cache* myCache = createCache(CACHE_SIZE);
+
+    int accesses[] = {1, 2, 3, 4, 5, 2, 3, 6, 2, 4};
+    
+    for (int i = 0; i < sizeof(accesses) / sizeof(accesses[0]); i++) {
+        accessCache(myCache, accesses[i]);
+    }
+
+    printStats(myCache); // Print hit/miss statistics
+
+    freeCache(myCache); // Free allocated memory
+
+    return 0;
+}
+
+Cache Miss: 1
+Cache Miss: 2
+Cache Miss: 3
+Cache Miss: 4
+Cache Miss: 5
+Cache Hit: 2
+Cache Hit: 3
+Cache Miss: 6
+Cache Hit: 2
+Cache Miss: 4
+Total Hits: 5
+Total Misses: 5
+
 // macros
 #include <stddef.h>
 
