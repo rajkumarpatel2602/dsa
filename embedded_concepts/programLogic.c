@@ -1285,6 +1285,159 @@ Cache Miss: 4
 Total Hits: 5
 Total Misses: 5
 
+// FSM
+always ask for states, those are enum values
+always ask conditions for transitions, those will be signal of state machine sequence. 
+    
+1. Vending Machine State Machine
+Question: Design a state machine for a vending machine that accepts coins (nickels, dimes, quarters) and dispenses a product once the correct amount is inserted.
+Solution:
+The vending machine can be modeled as a finite state machine with the following states:
+States:
+S0: 0 cents
+S1: 5 cents
+S2: 10 cents
+S3: 15 cents
+S4: 20 cents (product dispensed)
+Inputs:
+NICKEL: Adds 5 cents
+DIME: Adds 10 cents
+QUARTER: Adds 25 cents
+Outputs:
+Dispense product when reaching S4.
+
+#include <stdio.h>
+
+typedef enum {S0, S1, S2, S3, S4} State;
+
+void dispenseProduct() {
+    printf("Product Dispensed!\n");
+}
+
+int main() {
+    State currentState = S0;
+    char input;
+
+    while (1) {
+        printf("Insert coin (n for nickel, d for dime, q for quarter, r to reset): ");
+        scanf(" %c", &input);
+
+        switch (currentState) {
+            case S0:
+                if (input == 'n') currentState = S1;
+                else if (input == 'd') currentState = S2;
+                else if (input == 'q') currentState = S3;
+                break;
+            case S1:
+                if (input == 'n') currentState = S2;
+                else if (input == 'd') currentState = S3;
+                else if (input == 'q') {
+                    dispenseProduct();
+                    currentState = S4;
+                }
+                break;
+            case S2:
+                if (input == 'n') currentState = S3;
+                else if (input == 'd') {
+                    dispenseProduct();
+                    currentState = S4;
+                }
+                break;
+            case S3:
+                if (input == 'n') {
+                    dispenseProduct();
+                    currentState = S4;
+                }
+                break;
+            case S4:
+                if (input == 'r') currentState = S0; // Reset
+                break;
+        }
+    }
+
+    return 0;
+}
+
+2. Traffic light
+#include <stdio.h>
+#include <unistd.h> // For sleep function
+
+typedef enum {RED, GREEN, YELLOW} TrafficLightState;
+
+int main() {
+    TrafficLightState state = RED;
+
+    while (1) {
+        switch (state) {
+            case RED:
+                printf("Traffic Light: RED\n");
+                sleep(5); // Red for 5 seconds
+                state = GREEN; // Transition to GREEN
+                break;
+
+            case GREEN:
+                printf("Traffic Light: GREEN\n");
+                sleep(5); // Green for 5 seconds
+                state = YELLOW; // Transition to YELLOW
+                break;
+
+            case YELLOW:
+                printf("Traffic Light: YELLOW\n");
+                sleep(2); // Yellow for 2 seconds
+                state = RED; // Transition back to RED
+                break;
+        }
+    }
+
+    return 0;
+}
+
+3. Game Controller State Machine
+Question: Design a state machine for a game controller that manages different modes like idle, active, and sleep.
+Solution:
+The game controller can have the following states:
+States:
+IDLE
+ACTIVE
+SLEEP
+Transitions:
+From IDLE to ACTIVE on button press.
+From ACTIVE to SLEEP after inactivity.
+From SLEEP to IDLE on button press.
+
+#include <stdio.h>
+
+typedef enum {IDLE, ACTIVE, SLEEP} ControllerState;
+
+int main() {
+    ControllerState state = IDLE;
+    char input;
+
+    while (1) {
+        switch (state) {
+            case IDLE:
+                printf("Controller is IDLE. Press 'a' to activate.\n");
+                scanf(" %c", &input);
+                if (input == 'a') state = ACTIVE; // Transition to ACTIVE
+                break;
+
+            case ACTIVE:
+                printf("Controller is ACTIVE. Press 's' to sleep.\n");
+                scanf(" %c", &input);
+                if (input == 's') state = SLEEP; // Transition to SLEEP
+                break;
+
+            case SLEEP:
+                printf("Controller is in SLEEP mode. Press 'r' to wake up.\n");
+                scanf(" %c", &input);
+                if (input == 'r') state = IDLE; // Transition back to IDLE
+                break;
+        }
+    }
+
+    return 0;
+}
+
 // macros
 #include <stddef.h>
 
