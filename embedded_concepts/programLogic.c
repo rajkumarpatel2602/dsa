@@ -1014,6 +1014,168 @@ Performance: This allocator is efficient for scenarios with many small allocatio
 Error Handling: Basic error handling is included but could be expanded for robustness in production code.
 Thread Safety: This implementation is not thread-safe. If used in multi-threaded applications, consider adding synchronization mechanisms.
 
+//LRU fully functional program
+#include <stdio.h>
+#include <stdlib.h>
+
+#define CACHE_SIZE 3 // Define the maximum size of the cache
+
+typedef struct Node {
+    int key;
+    int value;
+    struct Node* prev;
+    struct Node* next;
+} Node;
+
+typedef struct LRUCache {
+    Node* head;
+    Node* tail;
+    Node** hashMap; // Hash map for O(1) access
+    int capacity;
+} LRUCache;
+
+// Function to create a new node
+Node* createNode(int key, int value) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->key = key;
+    newNode->value = value;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to create an LRU Cache
+LRUCache* createCache(int capacity) {
+    LRUCache* cache = (LRUCache*)malloc(sizeof(LRUCache));
+    cache->capacity = capacity;
+    cache->head = NULL;
+    cache->tail = NULL;
+    cache->hashMap = (Node**)malloc(sizeof(Node*) * capacity);
+    
+    for (int i = 0; i < capacity; i++) {
+        cache->hashMap[i] = NULL; // Initialize hash map
+    }
+    
+    return cache;
+}
+
+// Function to remove a node from the linked list
+void removeNode(LRUCache* cache, Node* node) {
+    if (node->prev) {
+        node->prev->next = node->next;
+    } else {
+        cache->head = node->next; // Update head if needed
+    }
+    
+    if (node->next) {
+        node->next->prev = node->prev;
+    } else {
+        cache->tail = node->prev; // Update tail if needed
+    }
+}
+
+// Function to add a node to the front of the linked list
+void addToFront(LRUCache* cache, Node* node) {
+    node->next = cache->head;
+
+    if (cache->head) {
+        cache->head->prev = node;
+    }
+
+    cache->head = node;
+
+    if (!cache->tail) {
+        cache->tail = node; // First element added
+    }
+
+    node->prev = NULL;
+}
+
+// Function to get a value from the cache
+int get(LRUCache* cache, int key) {
+    int index = key % cache->capacity; // Simple hash function
+
+    Node* node = cache->hashMap[index];
+    
+    if (!node) {
+        return -1; // Not found
+    }
+
+    // Move the accessed node to the front (most recently used)
+    removeNode(cache, node);
+    addToFront(cache, node);
+
+    return node->value; // Return the value
+}
+
+// Function to put a key-value pair into the cache
+void put(LRUCache* cache, int key, int value) {
+    int index = key % cache->capacity;
+
+    if (cache->hashMap[index]) {
+        // Key already exists, update the value and move it to front
+        Node* existingNode = cache->hashMap[index];
+        existingNode->value = value;
+
+        removeNode(cache, existingNode);
+        addToFront(cache, existingNode);
+        
+        return;
+    }
+
+    // If we reach capacity, remove the least recently used item
+    if (cache->tail && !cache->hashMap[cache->tail->key % cache->capacity]) {
+        // Remove from hash map
+        int tailKey = cache->tail->key;
+        removeNode(cache, cache->tail);
+        free(cache->hashMap[tailKey % cache->capacity]);
+        cache->hashMap[tailKey % cache->capacity] = NULL; // Remove from hash map
+    }
+
+    // Create a new node and add it to the front
+    Node* newNode = createNode(key, value);
+    
+    addToFront(cache, newNode);
+    
+    // Add to hash map
+    cache->hashMap[key % cache->capacity] = newNode;
+}
+
+// Function to free the LRU Cache memory
+void freeCache(LRUCache* cache) {
+    Node* current = cache->head;
+    
+    while (current) {
+        Node* temp = current;
+        current = current->next;
+        free(temp);
+    }
+    
+   free(cache->hashMap);
+   free(cache);
+}
+
+// Test the LRU Cache implementation
+int main() {
+   LRUCache* lruCache = createCache(CACHE_SIZE);
+
+   put(lruCache, 1, 1);
+   put(lruCache, 2, 2);
+   printf("Get 1: %d\n", get(lruCache, 1)); // Returns 1
+
+   put(lruCache, 3, 3); // Evicts key 2
+   printf("Get 2: %d\n", get(lruCache, 2)); // Returns -1 (not found)
+
+   put(lruCache, 4, 4); // Evicts key 1
+   printf("Get 1: %d\n", get(lruCache, 1)); // Returns -1 (not found)
+   printf("Get 3: %d\n", get(lruCache, 3)); // Returns 3
+   printf("Get 4: %d\n", get(lruCache, 4)); // Returns 4
+
+   freeCache(lruCache); // Free allocated memory
+
+   return 0;
+}
+
 // macros
 #include <stddef.h>
 
