@@ -1438,6 +1438,104 @@ int main() {
     return 0;
 }
 
+// ringbuffer
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <semaphore.h>
+#include <unistd.h>  // For sleep()
+
+#define BUFFER_SIZE 5
+
+typedef struct {
+    int buffer[BUFFER_SIZE];
+    int head;
+    int tail;
+    sem_t empty;
+    sem_t full;
+    pthread_mutex_t mutex;
+} RingBuffer;
+
+RingBuffer rb;  // Global ring buffer
+
+void init(RingBuffer *rb) {
+    rb->head = 0;
+    rb->tail = 0;
+    sem_init(&rb->empty, 0, BUFFER_SIZE);
+    sem_init(&rb->full, 0, 0);
+    pthread_mutex_init(&rb->mutex, NULL);
+}
+
+void produce(RingBuffer *rb, int item) {
+    sem_wait(&rb->empty);
+    pthread_mutex_lock(&rb->mutex);
+    
+    rb->buffer[rb->head] = item;
+    rb->head = (rb->head + 1) % BUFFER_SIZE;
+
+    pthread_mutex_unlock(&rb->mutex);
+    sem_post(&rb->full);
+}
+
+int consume(RingBuffer *rb) {
+    sem_wait(&rb->full);
+    pthread_mutex_lock(&rb->mutex);
+
+    int item = rb->buffer[rb->tail];
+    rb->tail = (rb->tail + 1) % BUFFER_SIZE;
+
+    pthread_mutex_unlock(&rb->mutex);
+    sem_post(&rb->empty);
+    
+    return item;
+}
+
+void* producer(void* arg) {
+    int item = 0;
+
+    while (1) {
+        produce(&rb, item);
+        printf("Produced: %d\n", item++);
+        sleep(1); // Simulate work by sleeping
+    }
+    
+    return NULL; // This line will never be reached
+}
+
+void* consumer(void* arg) {
+    
+    while (1) {
+        int item = consume(&rb);
+        printf("Consumed: %d\n", item);
+        sleep(2); // Simulate work by sleeping
+    }
+    
+    return NULL; // This line will never be reached
+}
+
+int main() {
+    init(&rb);
+
+    pthread_t prod, cons;
+
+    pthread_create(&prod, NULL, producer, NULL);
+    pthread_create(&cons, NULL, consumer, NULL);
+
+    // Wait for threads to finish (they won't unless interrupted)
+    pthread_join(prod, NULL);
+    pthread_join(cons, NULL);
+
+    // Clean up resources (this part will never be reached)
+    sem_destroy(&rb.empty);
+    sem_destroy(&rb.full);
+    pthread_mutex_destroy(&rb.mutex);
+
+    return 0;
+}
+
+```
+
 // macros
 #include <stddef.h>
 
