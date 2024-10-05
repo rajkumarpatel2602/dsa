@@ -1536,6 +1536,73 @@ int main() {
 
 ```
 
+// writting test for read-write
+```c
+#include <stdint.h>
+
+#define READ_REGISTER(base, offset) (*(volatile uint32_t *)((base) + (offset)))
+#define WRITE_REGISTER(base, offset, value) (*(volatile uint32_t *)((base) + (offset)) = (value))
+
+// Function to get the value of a specific register
+void get_register_value(uint32_t base_address, uint32_t offset, uint32_t *value) {
+    *value = READ_REGISTER(base_address, offset);  // Correctly assign the read value
+}
+
+// Function to set the value of a specific register
+void set_register_value(uint32_t base_address, uint32_t offset, uint32_t value) {
+    WRITE_REGISTER(base_address, offset, value);
+}
+
+```
+
+```cpp
+#include <gtest/gtest.h>
+#include <cstring>
+
+// Mock register variable
+static uint32_t mock_register;
+
+// Mock functions to replace actual hardware access
+extern "C" {
+    #define READ_REGISTER(base, offset) (mock_register)
+    #define WRITE_REGISTER(base, offset, value) (mock_register = (value))
+}
+
+// Test fixture for setting up tests
+class RegisterTest : public ::testing::Test {
+protected:
+    void SetUp() override {
+        // Reset mock register before each test
+        mock_register = 0;
+    }
+
+    void TearDown() override {
+        // Cleanup if needed
+    }
+};
+
+// Test case for reading the register value
+TEST_F(RegisterTest, ReadRegisterValue) {
+    WRITE_REGISTER(0x40000000, 0x04, 42);  // Write to mock register
+    uint32_t value;
+    get_register_value(0x40000000, 0x04, &value); // Get the value
+    EXPECT_EQ(value, 42);                      // Check read value
+}
+
+// Test case for writing to the register value
+TEST_F(RegisterTest, WriteRegisterValue) {
+    set_register_value(0x40000000, 0x04, 100); // Set mock register value
+    EXPECT_EQ(mock_register, 100);            // Verify the mock register value
+}
+
+// Main function to run tests
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+
+```
+
 // macros
 #include <stddef.h>
 
