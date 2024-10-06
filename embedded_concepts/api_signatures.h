@@ -165,6 +165,20 @@ while (1) {
 mq_close(mq);
 mq_unlink(QUEUE_NAME);
 
+// spinlock
+
+volatile bool lock = false;
+
+void SpinlockAcquire(void) {
+    while (__sync_lock_test_and_set(&lock, 1)) {
+        // Busy-wait until the lock is acquired
+    }
+}
+
+void SpinlockRelease(void) {
+    __sync_lock_release(&lock);
+}
+
 // Macros
 
 // 1. offsetof: Finds the offset of a member within a structure.
