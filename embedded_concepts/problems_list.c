@@ -1,3 +1,8 @@
+// ascii
+A-Z - 65-90
+a-z - 97-122
+0-9 48-57
+
 // file copy operation
 Write your own copy() function
 Here is some C code that simulates a file copy action.
