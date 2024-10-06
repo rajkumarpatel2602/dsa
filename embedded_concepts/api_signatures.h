@@ -87,6 +87,10 @@ void countingSort(int arr[], int size);
 Pthread_mutex_t mutexOb;
 Pthreas_mutex_lock(&mutexOb);
 Pthread_mutex_unlock(&mutexOb);
+pthread_mutexattr_t attr;
+pthread_mutexattr_init(&attr);
+pthread_mutexattr_setprotocol(&attr, PTHREAD_PRIO_INHERIT);
+pthread_mutex_init(&resource_mutex, &attr);
 
 // spinlock
 pthread_spin_lock()
