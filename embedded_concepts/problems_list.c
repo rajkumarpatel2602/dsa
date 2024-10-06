@@ -1,3 +1,76 @@
+//HW timer example
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+#define MAX_TIMERS 10
+
+typedef void (*timer_callback_t)(void);
+
+typedef struct {
+    uint32_t duration;       // Duration in milliseconds
+    uint32_t start_time;    // Start time in milliseconds
+    timer_callback_t callback; // Callback function
+    bool active;            // Timer status
+} Timer;
+
+static Timer timers[MAX_TIMERS]; // Array of timers
+static uint32_t current_time = 0; // Simulated current time in milliseconds
+
+// Function to initialize timers
+void init_timers() {
+    for (int i = 0; i < MAX_TIMERS; i++) {
+        timers[i].active = false;
+    }
+}
+
+// Function to create a new timer
+bool create_timer(uint32_t duration, timer_callback_t callback) {
+    for (int i = 0; i < MAX_TIMERS; i++) {
+        if (!timers[i].active) {
+            timers[i].duration = duration;
+            timers[i].start_time = current_time;
+            timers[i].callback = callback;
+            timers[i].active = true;
+            return true;
+        }
+    }
+    return false; // No available timers
+}
+
+// Function to simulate the hardware timer interrupt
+void hardware_timer_interrupt() {
+    current_time++; // Increment simulated time
+
+    for (int i = 0; i < MAX_TIMERS; i++) {
+        if (timers[i].active && (current_time - timers[i].start_time >= timers[i].duration)) {
+            timers[i].callback(); // Call the associated callback
+            timers[i].active = false; // Deactivate the timer
+        }
+    }
+}
+
+// Example callback function for the timer
+void my_timer_callback() {
+    printf("Timer expired!\n");
+}
+
+int main() {
+    init_timers(); // Initialize the timer system
+
+    // Create a timer that expires after 5 seconds (5000 ms)
+    create_timer(5000, my_timer_callback);
+
+    // Simulate the passage of time with hardware timer interrupts
+    for (int i = 0; i < 6000; i++) { // Simulate 6 seconds
+        hardware_timer_interrupt();
+        usleep(1000); // Sleep for 1 ms to simulate real-time passage
+    }
+
+    return 0;
+}
+
 // Ringbuffer logic
 // when to read? when both are pointing to one location, buffer is empty
 if (read != write) read increament;
