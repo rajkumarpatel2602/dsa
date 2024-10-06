@@ -1,3 +1,41 @@
+// memmove
+#include <stdio.h>
+#include <stddef.h> // for size_t
+
+void* my_memmove(void* dest, const void* src, size_t n) {
+    unsigned char* d = (unsigned char*)dest;
+    const unsigned char* s = (const unsigned char*)src;
+
+    // Check if the memory areas overlap
+    if (d < s || d >= s + n) {
+        // No overlap, copy from start
+        while (n--) {
+            *d++ = *s++;
+        }
+    } else {
+        // Overlap, copy from end
+        d += n;
+        s += n;
+        while (n--) {
+            *(--d) = *(--s);
+        }
+    }
+    
+    return dest; // Return pointer to destination
+}
+
+int main() {
+    char str1[] = "Hello, World!";
+    printf("Before memmove: %s\n", str1);
+    
+    // Example of overlapping memory regions
+    my_memmove(str1 - 1, str1, 9); // Move "Hello," to "World!"
+    
+    printf("After memmove: %s\n", str1 - 1);
+    
+    return 0;
+}
+
 //HW timer example
 #include <stdint.h>
 #include <stdio.h>
