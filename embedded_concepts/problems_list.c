@@ -1,3 +1,44 @@
+// convert from little endian to big endian.
+int myreversefunc(int num)
+{
+    int byte0, byte1, byte2, byte3;
+    byte0 = (num & x000000FF) >> 0 ;
+    byte1 = (num & x0000FF00) >> 8 ;
+    byte2 = (num & x00FF0000) >> 16 ;
+    byte3 = (num & xFF000000) >> 24 ;
+    return((byte0 << 24) | (byte1 << 16) | (byte2 << 8) | (byte3 << 0));
+}
+
+//TODO
+int reverseBytes(int num){
+    int result= 0;
+    for(i = 0; i < 4; i++) {
+        result |= (num >> i * 8 && 0xff) << ( 8 * (4 - i - 1));
+    }
+}
+// swap for endianness
+uint8_t swap_nibbles_in_byte(uint8_t byte) {
+    return ((byte & 0x0F) << 4) | ((byte & 0xF0) >> 4);
+}
+
+#define MAX 3
+
+int swap_bytes(unsigned int num) {
+    unsigned int swapped = 0;
+    uint8_t src = &num;
+    uint8_t dest = &swapped;
+    for(int i=0; i<=MAX; i++){
+        dest[i] = src[MAX - i];        
+    }
+}
+
+#include <stdio.h>
+int reverseBytes(int num){
+    int result= 0;
+    for(int i = 0; i < 4; i++) {
+        result = result << 8;
+        result = result | ((num >> (i * 8)) & 0XFF);
+    }
 // fibonacci
 int fib(int n)
 {
