@@ -523,6 +523,76 @@ if (read != write) read increament;
 // when to write? when head is 1 step back from tail, buffer is full
 if (head + 1 != read) write increamnet;
 
+// shell expansion routine
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX_EXPANSION 256
+
+// Function to perform tilde expansion
+char* tilde_expand(const char* input) {
+    if (input[0] == '~') {
+        const char* home = getenv("HOME");
+        if (home) {
+            char* expanded = malloc(strlen(home) + strlen(input));
+            sprintf(expanded, "%s%s", home, input + 1);
+            return expanded;
+        }
+    }
+    return strdup(input); // No tilde to expand
+}
+
+// Function to perform brace expansion
+void brace_expand(const char* input) {
+    char* start = strchr(input, '{');
+    char* end = strchr(input, '}');
+
+    if (start && end && start < end) {
+        // Extract preamble and postscript
+        size_t pre_len = start - input;
+        size_t post_len = strlen(end + 1);
+        char preamble[MAX_EXPANSION];
+        char postscript[MAX_EXPANSION];
+        
+        strncpy(preamble, input, pre_len);
+        preamble[pre_len] = '\0';
+        strncpy(postscript, end + 1, post_len);
+        postscript[post_len] = '\0';
+
+        // Extract options between braces
+        char* options = strndup(start + 1, end - start - 1);
+        char* token = strtok(options, ",");
+        
+        while (token) {
+            printf("%s%s%s\n", preamble, token, postscript);
+            token = strtok(NULL, ",");
+        }
+        
+        free(options);
+    } else {
+        printf("%s\n", input); // No braces to expand
+    }
+}
+
+// Main function to demonstrate expansions
+int main() {
+    const char* test_tilde = "~/.bashrc";
+    const char* test_brace = "file{1,2,3}.txt";
+
+    // Tilde Expansion
+    char* expanded_tilde = tilde_expand(test_tilde);
+    printf("Tilde Expansion: %s\n", expanded_tilde);
+    free(expanded_tilde);
+
+    // Brace Expansion
+    printf("Brace Expansion:\n");
+    brace_expand(test_brace);
+
+    return 0;
+}
+    
 //LRU cache
 
 ```c
@@ -693,6 +763,77 @@ int main() {
 
 ```
 
+// 64bit timer using 32bit timer
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <time.h>
+
+typedef struct {
+    uint32_t lower;      // Lower 32 bits
+    uint32_t upper;      // Upper 32 bits (overflow count)
+    uint32_t timeout;    // Timeout in microseconds
+    void (*callback)(void); // Callback function
+} Timer64;
+
+// Global timer variable
+Timer64 myTimer;
+
+// Function to call when the timer expires
+void timerCallback() {
+    printf("Timer expired! Callback executed.\n");
+}
+
+// Timer handler for simulating the timer expiration
+void timerHandler(int signum) {
+    myTimer.lower++;
+    if (myTimer.lower == 0) { // Check for overflow
+        myTimer.upper++;
+    }
+
+    // Check if the timeout has been reached
+    if ((myTimer.upper * (UINT32_MAX + 1) + myTimer.lower) >= myTimer.timeout) {
+        myTimer.callback(); // Call the callback function
+        exit(0); // Exit after callback for demonstration purposes
+    }
+}
+
+// Function to initialize and start the timer
+void startTimer(uint32_t timeoutMicroseconds, void (*callback)(void)) {
+    myTimer.lower = 0;
+    myTimer.upper = 0;
+    myTimer.timeout = timeoutMicroseconds;
+    myTimer.callback = callback;
+
+    // Set up the signal handler for the timer
+    signal(SIGALRM, timerHandler);
+    
+    // Set up a timer to trigger every microsecond
+    struct itimerval it_val;
+    it_val.it_value.tv_sec = 0;
+    it_val.it_value.tv_usec = 1; // Trigger every microsecond
+    it_val.it_interval.tv_sec = 0;
+    it_val.it_interval.tv_usec = 1; // Repeat every microsecond
+
+    setitimer(ITIMER_REAL, &it_val, NULL);
+}
+
+int main() {
+    printf("Starting 64-bit Timer...\n");
+    
+    // Start the timer for 5 seconds (5,000,000 microseconds)
+    startTimer(5000000, timerCallback);
+    
+    // Keep the program running to allow the timer to work
+    while (1) {
+        pause(); // Wait for signals (timer events)
+    }
+
+    return 0;
+}
+    
 // traffic light
 
 ```c
