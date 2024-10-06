@@ -1,3 +1,14 @@
+//Write a program to print numbers from 1 to 100 without using loops!
+
+Method1 (Using recursion)
+void printUp(int startNumber, int endNumber)
+{
+    if (startNumber > endNumber)
+    return;
+    printf("[%d]\n", startNumber++);
+    printUp(startNumber, endNumber);
+}
+
 //How to add two numbers without using the plus operator?
 Actually,
 SUM = A XOR B
