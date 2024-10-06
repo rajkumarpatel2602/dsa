@@ -1,3 +1,41 @@
+//How to add two numbers without using the plus operator?
+Actually,
+SUM = A XOR B
+CARRY = A AND B
+On a wicked note, you can add two numbers wihtout using the + operator as follows
+a - (- b)
+
+//How can we sum the digits of a given number in single statement?
+
+# include<stdio.h>
+void main()
+{
+int num=123456;
+int sum=0;
+for(;num>0;sum+=num%10,num/=10); // This is the "single line".
+printf("\nsum = [%d]\n", sum);
+}
+
+Write code to round numbers
+Use something like
+(int)(num < 0 ? (num - 0.5) : (num + 0.5))
+
+//How to fast multiply a number by 7?
+Try
+(num<<3 - num)
+
+//How do you get the line numbers in C?
+Use the following Macros
+__FILE__ Source file name (string constant) format "patx.c"
+__LINE__ Current source line number (integer)
+__DATE__ Date compiled (string constant)format "Dec 14 1985"
+__TIME__ Time compiled (string constant) format "15:24:26"
+__TIMESTAMP__ Compile date/time (string constant)format "Tue Nov 19 11:39:12 1997"
+
+//How to scan a string till we hit a new line using scanf()?
+Use
+scanf("%[^\n]", address);
+
 // leap year logic
 if(year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
 divisible by 4, but not by 100, but by 400.
