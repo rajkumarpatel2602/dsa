@@ -1,3 +1,29 @@
+Write your own strcat() function
+Here is a C function which implements the strcat() function...
+/* Function to concatenate string t to end of s; return s */
+char *myStrcat(char *s, const char *t)
+{
+    char *p = s;
+    if (s == NULL || t == NULL)
+    return s; /* we need not have to do anything */
+    
+    while (*s) s++;
+    
+    while (*s++ = *t++);
+    
+    return p;
+}
+
+//Write a C program to implement your own strdup() function.
+Here is a C program to implement the strdup() function.
+char *mystrdup(char *s)
+{
+    char *result = (char*)malloc(strlen(s) + 1);
+    if (result == (char*)0){return (char*)0;}
+    strcpy(result, s);
+    return result;
+}
+
 // ascii
 A-Z - 65-90
 a-z - 97-122
