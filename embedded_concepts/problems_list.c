@@ -1,3 +1,20 @@
+// fibonacci
+int fib(int n)
+{
+    if (n <= 2) return 1
+    else return fib(n-1) + fib(n-2)
+}
+int fib(int n)
+{
+    int a = 1, b = 1;
+    for (int i = 3; i <= n; i++)
+    {
+        int c = a + b;
+        a = b;
+        b = c;
+    }
+    return a;
+}
 // string reverse
 for(int i = 0, j = reversed.Length - 1; i < j; i++, j--)
 {
