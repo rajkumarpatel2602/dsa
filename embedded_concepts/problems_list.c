@@ -1,4 +1,28 @@
-Write your own strcat() function
+// string reverse
+for(int i = 0, j = reversed.Length - 1; i < j; i++, j--)
+{
+    char temp = reversed[i];
+    reversed[i] = reversed[j];
+    reversed[j] = temp;
+}
+
+
+// swap
+a=a+b;
+b=a-b;
+a=a-b;
+
+swap(int *a, int *b)
+{
+    *a ^= *b ^= *a ^= *b;
+}
+
+int temp;
+temp=temp;
+temp=b;
+b=temp;
+
+//Write your own strcat() function
 Here is a C function which implements the strcat() function...
 /* Function to concatenate string t to end of s; return s */
 char *myStrcat(char *s, const char *t)
