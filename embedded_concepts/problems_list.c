@@ -1011,19 +1011,6 @@ void TimerISR(void) {
     }
 }
 
-void InitHardwareTimer(void) {
-    // Configure the hardware timer to generate an interrupt every 500 milliseconds
-    // This is platform-specific and depends on the microcontroller being used
-}
-
-int main(void) {
-    InitHardwareTimer();
-    while (1) {
-        // Main loop
-    }
-    return 0;
-}
-
 /*
 2. UART Communication with Circular Buffer
 Concepts: UART, circular buffer, interrupt handling
@@ -1830,36 +1817,6 @@ int main(void) {
 }
 
 /*
-18. Low-Power Modes and Wake-Up Sources
-Concepts: Low-power modes, wake-up sources, power management
-
-Problem: Implement a system that enters a low-power mode and wakes up on an external interrupt.
- */
-#include <stdint.h>
-#include <stdbool.h>
-
-void EnterLowPowerMode(void) {
-    // Configure the system to enter a low-power mode
-}
-
-void WakeUpISR(void) {
-    // Handle wake-up event
-}
-
-void InitWakeUpSource(void) {
-    // Configure external interrupt as wake-up source
-}
-
-int main(void) {
-    InitWakeUpSource();
-    while (1) {
-        EnterLowPowerMode();
-        // System will wake up on external interrupt
-    }
-    return 0;
-}
-
-/*
 19. Implementing a Bootloader
 Concepts: Bootloader, firmware update, memory management
 
@@ -2636,7 +2593,6 @@ void LowPriorityTask(void) {
     // Access shared resource
     resource++;
     pthread_mutex_unlock(&resource_mutex);
-```c
     pthread_mutex_unlock(&resource_mutex);
 }
 
