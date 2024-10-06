@@ -135,6 +135,36 @@ set pshared = 0 for threads, for precess give ~0 value.
 5. sef_destroy(sem_t * sem);
 /* destroy the thrad after use */
 
+//message quuee
+#include <mqueue.h>
+#define QUEUE_NAME "/message_queue"
+#define MAX_MESSAGES 10
+#define MAX_MESSAGE_SIZE 256
+mqd_t mq;
+
+struct mq_attr attr;
+attr.mq_flags = 0;
+attr.mq_maxmsg = MAX_MESSAGES;
+attr.mq_msgsize = MAX_MESSAGE_SIZE;
+attr.mq_curmsgs = 0;
+
+mq = mq_open(QUEUE_NAME, O_CREAT | O_RDWR, 0644, &attr);
+
+char message[MAX_MESSAGE_SIZE] = "Hello, World!";
+while (1) {
+    mq_send(mq, message, sizeof(message), 0);
+    sleep(1);
+}
+
+char message[MAX_MESSAGE_SIZE];
+while (1) {
+    mq_receive(mq, message, sizeof(message), NULL);
+    printf("Received message: %s\n", message);
+}
+
+mq_close(mq);
+mq_unlink(QUEUE_NAME);
+
 // Macros
 
 // 1. offsetof: Finds the offset of a member within a structure.
