@@ -1,3 +1,28 @@
+// binary search 
+int binarySearch(int arr[],int size, int item)
+{
+    int left, right, middle;
+    left = 0;
+    right = size-1;
+    while(left<=right)
+    {
+        middle = ((left + right)/2);
+        if(item == arr[middle])
+        {
+            return(middle);
+        }
+        if(item > arr[middle])
+        {
+            left = middle+1;
+        }
+        else
+        {
+            right = middle-1;
+        }
+    }
+    return(-1);
+}
+
 // matrix multiplication
 Write a C program to multiply two matrices.
 Are you sure you know this? A lot of people think they already know this, but guess what? So take a good look at this C program. Its
