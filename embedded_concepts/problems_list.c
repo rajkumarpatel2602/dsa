@@ -1,3 +1,25 @@
+// leap year logic
+if(year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+divisible by 4, but not by 100, but by 400.
+
+// compare floats
+int compareFloats(float f1, float f2)
+{
+    char *b1, *b2;
+    int i;
+    b1 = (char *)&f1;
+    b2 = (char *)&f2;
+    /* Assuming sizeof(float) is 4 bytes) */
+    for (i = 0; i<4; i++, b1++, b2++)
+        {
+        if (*b1 != *b2)
+        {
+            return(NOT_EQUAL); /* You must have defined this before */
+        }
+    }
+    return(EQUAL);
+}
+
 // binary search 
 int binarySearch(int arr[],int size, int item)
 {
