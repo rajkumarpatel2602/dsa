@@ -1535,8 +1535,62 @@ int main() {
 }
 
 ```
-
+// our code
 // writting test for read-write
+OUR REPO
+
+#include <gmock/gmock.h>
+#include <gmock-global/gmock-global.h>
+
+// for registering the mock api
+MOCK_GLOBAL_FUNC2(mock_write_reg32, void(volatile uint32_t *, uint32_t));
+MOCK_GLOBAL_FUNC2(mock_read_reg32, void(volatile uint32_t *, uint32_t *));
+// for mapping
+USE_GMOCK(write_reg32, mock_write_reg32);
+USE_GMOCK(read_reg32, mock_read_reg32);
+
+#include <gtest/gtest.h>
+#include <cstring>
+
+// Test fixture for setting up tests
+class RegisterTest : public ::testing::Test {
+protected:
+    void SetUp() override {
+        // Reset mock register before each test
+        mock_register = 0;
+    }
+
+    void TearDown() override {
+        // Cleanup if needed
+    }
+};
+
+//
+TEST_F(RegisterTest, ReadRegisterValue) {
+	//
+	EXPECT_GLOBAL_CALL(mock_write_reg32, mock_write_reg32(_, _)).Times(2); // set expectation of exact calls
+	ON_GLOBAL_NICE_CALL(mock_read_reg32, mock_read_reg32(_, _)).WillByDefault(Return()); // do nothing and return
+	ON_GLOBAL_NICE_CALL(mock_write_reg32, mock_write_reg32(_, _)).WillByDefault(Return());
+	ON_GLOBAL_NICE_CALL(mock_read_reg32, mock_read_reg32(_, _))
+	.WillByDefault(SetArgPointee<1>(0x02)); // set value.
+    EXPECT_GLOBAL_CALL(mock_read_reg32, mock_read_reg32(_,
+			   _)).Times(AtLeast(1)).WillRepeatedly(SetArgPointee<1>(0));
+	EXPECT_GLOBAL_CALL(mock_write_reg32, mock_write_reg32(_, _)).Times(AtLeast(1));
+	EXPECT_GLOBAL_CALL(mock_wait_for, mock_wait_for(_, _, _)).WillRepeatedly(Return(true));
+
+
+    EXPECT_GLOBAL_CALL(mock_npi_mmio_get_pfvf_map, mock_npi_mmio_get_pfvf_map(_, _, _, _)).Times(1)
+	.WillOnce(DoAll(SetArgPointee<2>(base), SetArgPointee<3>(len)));
+}
+
+class mmg__ut_npi_sram : public mmg__ut_npi_no_init_base,
+	public WithParamInterface<std::tuple<npi_quirk_state /* quirk state */, uint32_t /* device state */>> {};
+INSTANTIATE_TEST_SUITE_P(Instance_of_, mmg__ut_npi_sram,
+			 /* all combinations of listed quirk states and device states */
+			 Combine(Values(NPI_QUIRK_DISABLE, NPI_QUIRK_ENABLE), Values(NVME_CPF_SYS_STATE_HW_CLEAN,
+					 NVME_CPF_SYS_STATE_HW_INITIALIZED)));
+//
+GPT
 ```c
 #include <stdint.h>
 
@@ -1599,6 +1653,25 @@ TEST_F(RegisterTest, WriteRegisterValue) {
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
+}
+
+```
+
+// writting test for read-write
+```c
+#include <stdint.h>
+
+#define READ_REGISTER(base, offset) (*(volatile uint32_t *)((base) + (offset)))
+#define WRITE_REGISTER(base, offset, value) (*(volatile uint32_t *)((base) + (offset)) = (value))
+
+// Function to get the value of a specific register
+void get_register_value(uint32_t base_address, uint32_t offset, uint32_t *value) {
+    *value = READ_REGISTER(base_address, offset);  // Correctly assign the read value
+}
+
+// Function to set the value of a specific register
+void set_register_value(uint32_t base_address, uint32_t offset, uint32_t value) {
+    WRITE_REGISTER(base_address, offset, value);
 }
 
 ```
