@@ -1,3 +1,9 @@
+// Ringbuffer logic
+// when to read? when both are pointing to one location, buffer is empty
+if (read != write) read increament;
+// when to write? when head is 1 step back from tail, buffer is full
+if (head + 1 != read) write increamnet;
+
 //LRU cache
 
 ```c
@@ -4415,6 +4421,79 @@ int main() {
 }
 These examples cover a wide range of topics relevant to embedded systems engineering, including OS internals, process/thread synchronization, memory layout and access, timers, and memory utilization. Each example provides a working C program to help you understand the concepts and prepare for coding interviews. If you need further explanations or additional examples, feel free to ask!
 
+// PIPE
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+    // Get and print the process ID
+    pid_t pid = getpid();
+    printf("Current Process ID: %d\n", pid);
+
+    // Create a pipe
+    int pipefd[2];
+    if (pipe(pipefd) == -1) {
+        perror("pipe");
+        return 1;
+    }
+
+    // Fork a new process
+    pid_t child_pid = fork();
+    if (child_pid == -1) {
+        perror("fork");
+        return 1;
+    }
+
+    if (child_pid == 0) { // Child process
+        close(pipefd[1]); // Close write end
+        char buffer[100];
+        read(pipefd[0], buffer, sizeof(buffer)); // Read from pipe
+        printf("Child received: %s\n", buffer);
+        close(pipefd[0]);
+    } else { // Parent process
+        close(pipefd[0]); // Close read end
+        const char *message = "Hello from parent!";
+        write(pipefd[1], message, sizeof(message)); // Write to pipe
+        close(pipefd[1]);
+    }
+
+    return 0;
+}
+
+// Important headerfile
+Header File	Description	Common Functions/Macros/Types
+<stdio.h>	Input/Output functions	printf(), scanf(), fopen(), FILE
+<stdlib.h>	General utility functions	malloc(), free(), atoi(), exit()
+<string.h>	String handling functions	strlen(), strcpy(), strcat(), strcmp()
+<math.h>	Mathematical functions	sin(), cos(), pow(), sqrt()
+<ctype.h>	Character handling functions	isalpha(), isdigit(), toupper(), tolower()
+<time.h>	Date and time functions	time(), asctime(), gmtime()
+<float.h>	Limits of floating-point types	Constants like FLT_MAX, DBL_MIN
+<limits.h>	Size of basic data types	Constants like CHAR_BIT, INT_MAX
+<errno.h>	Error handling	Macros like errno, functions like perror()
+<signal.h>	Signal handling	Functions like signal(), macros like SIGINT
+<stdint.h>  typedefs for int typess. like uint8_t, UINT8_MAX etc.
+
+// time usage
+#include <stdio.h>
+#include <time.h>
+
+int main(void) {
+    // Declare a variable to hold the time
+    time_t rawtime;
+    struct tm *timeinfo;
+
+    // Get the current time
+    time(&rawtime);
+
+    // Convert it to local time representation
+    timeinfo = localtime(&rawtime);
+
+    // Print the formatted date and time
+    printf("Current local time and date: %s", asctime(timeinfo));
+
+    return 0;
+}
 
 Thread synchornization apis:
 1. accessing hall with 10Guest capacity
