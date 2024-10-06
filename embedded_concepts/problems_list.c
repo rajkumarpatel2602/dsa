@@ -1,3 +1,12 @@
+// finding struct size without sizeof
+int main()
+{
+    struct MyStruct *p=0;
+    int size = ((char*)(p+1))-((char*)p);
+    printf("\nSIZE : [%d]\nSIZE : [%d]\n", size);
+    return 0;
+}
+
 // ARRAY ALLOC
 Two dimensional array
 Method1
