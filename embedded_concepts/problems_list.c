@@ -1,3 +1,14 @@
+//substring
+void mySubstr(char *dest, char *src, int position, int length)
+{
+    while(length > 0)
+    {
+        *dest = *(src+position);
+        dest++;src++;
+        length--;
+    }
+}
+
 // memmove
 #include <stdio.h>
 #include <stddef.h> // for size_t
