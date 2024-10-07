@@ -1,5 +1,77 @@
 //DS signatures
 
+// LRU
+#define CACHE_SIZE 3 // Define the maximum size of the cache
+
+typedef struct Node {
+    int key;
+    int value;
+    struct Node* prev;
+    struct Node* next;
+} Node;
+
+typedef struct LRUCache {
+    Node* head;
+    Node* tail;
+    Node** hashMap; // Hash map for O(1) access
+    int capacity;
+} LRUCache;
+LRUCache* createCache(int capacity);
+void removeNode(LRUCache* cache, Node* node);
+void addToFront(LRUCache* cache, Node* node);
+int get(LRUCache* cache, int key);
+void put(LRUCache* cache, int key, int value);
+void freeCache(LRUCache* cache);
+
+// lru cache miss
+typedef struct Cache {
+    int* data;
+    int size;
+    int hits;
+    int misses;
+} Cache;
+
+void accessCache(Cache* cache, int value);
+Cache* createCache(int size);
+
+//ut
+#include <gmock/gmock.h>
+#include <gmock-global/gmock-global.h>
+// for registering the mock api
+MOCK_GLOBAL_FUNC2(mock_write_reg32, void(volatile uint32_t *, uint32_t));
+MOCK_GLOBAL_FUNC2(mock_read_reg32, void(volatile uint32_t *, uint32_t *));
+// for mapping
+USE_GMOCK(write_reg32, mock_write_reg32);
+USE_GMOCK(read_reg32, mock_read_reg32);
+#include <gtest/gtest.h>
+// Test fixture for setting up tests
+class RegisterTest : public ::testing::Test {
+protected:
+    void SetUp() override {
+        // Reset mock register before each test
+        mock_register = 0;
+    }
+
+    void TearDown() override {
+        // Cleanup if needed
+    }
+};
+
+//
+TEST_F(RegisterTest, ReadRegisterValue){
+    EXPECT_GLOBAL_CALL(mock_write_reg32, mock_write_reg32(_, _)).Times(2); // set expectation of exact calls
+	ON_GLOBAL_NICE_CALL(mock_read_reg32, mock_read_reg32(_, _)).WillByDefault(Return()); // do nothing and return
+	ON_GLOBAL_NICE_CALL(mock_write_reg32, mock_write_reg32(_, _)).WillByDefault(Return());
+	ON_GLOBAL_NICE_CALL(mock_read_reg32, mock_read_reg32(_, _))
+	.WillByDefault(SetArgPointee<1>(0x02)); // set value.
+    EXPECT_GLOBAL_CALL(mock_read_reg32, mock_read_reg32(_,
+			   _)).Times(AtLeast(1)).WillRepeatedly(SetArgPointee<1>(0));
+	EXPECT_GLOBAL_CALL(mock_write_reg32, mock_write_reg32(_, _)).Times(AtLeast(1));
+	EXPECT_GLOBAL_CALL(mock_wait_for, mock_wait_for(_, _, _)).WillRepeatedly(Return(true));
+    EXPECT_GLOBAL_CALL(mock_npi_mmio_get_pfvf_map, mock_npi_mmio_get_pfvf_map(_, _, _, _)).Times(1)
+	.WillOnce(DoAll(SetArgPointee<2>(base), SetArgPointee<3>(len)));
+}
+
 // Arrays
 
 void insert(int arr[], int *size, int element, int position);
