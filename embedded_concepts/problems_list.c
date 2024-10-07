@@ -592,6 +592,87 @@ int main() {
 
     return 0;
 }
+
+
+// RR scheduler
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_PROCESSES 10
+#define TIME_QUANTUM 2
+
+typedef struct {
+    int id;
+    int arrival_time;
+    int burst_time;
+    int remaining_time;
+    int completion_time;
+    int turnaround_time;
+    int waiting_time;
+} Process;
+
+void round_robin(Process processes[], int n) {
+    int time = 0, done = 0;
+    int queue[MAX_PROCESSES], front = 0, rear = 0;
+
+    while (done < n) {
+        for (int i = 0; i < n; i++) {
+            if (processes[i].arrival_time <= time && processes[i].remaining_time > 0) {
+                if (processes[i].remaining_time > TIME_QUANTUM) {
+                    time += TIME_QUANTUM;
+                    processes[i].remaining_time -= TIME_QUANTUM;
+                } else {
+                    time += processes[i].remaining_time;
+                    processes[i].remaining_time = 0;
+                    processes[i].completion_time = time;
+                    done++;
+                }
+                
+                // Add process back to queue if not finished
+                if (processes[i].remaining_time > 0) {
+                    queue[rear] = i;
+                    rear = (rear + 1) % MAX_PROCESSES;
+                }
+            }
+        }
+        
+        // If no process is ready, increment time
+        if (front == rear) {
+            time++;
+        }
+    }
+
+    // Calculate turnaround time and waiting time
+    for (int i = 0; i < n; i++) {
+        processes[i].turnaround_time = processes[i].completion_time - processes[i].arrival_time;
+        processes[i].waiting_time = processes[i].turnaround_time - processes[i].burst_time;
+    }
+}
+
+int main() {
+    int n;
+    Process processes[MAX_PROCESSES];
+
+    printf("Enter the number of processes: ");
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        processes[i].id = i + 1;
+        printf("Enter arrival time and burst time for process %d: ", i + 1);
+        scanf("%d %d", &processes[i].arrival_time, &processes[i].burst_time);
+        processes[i].remaining_time = processes[i].burst_time;
+    }
+
+    round_robin(processes, n);
+
+    printf("\nProcess\tTurnaround Time\tWaiting Time\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d\t%d\t\t%d\n", processes[i].id, processes[i].turnaround_time, processes[i].waiting_time);
+    }
+
+    return 0;
+}
+
     
 //LRU cache
 
