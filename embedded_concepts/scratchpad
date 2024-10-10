@@ -1,0 +1,169 @@
+Today::
+complete
+= sorting - 
+= searching (bst) -- done
+= traversal of bst, array, binary (pre, post, in)
+= ringbuffer -- done
+= queue -- done
+= stack -- done
+==================================================
+Problems
+= Crack the coding interview
+= Thread synchronization // almost done
+
+
+-- programming practice
+
+---- crack the coding interview standard question like, reversal of ll, finding loop, etc.
+- operations on float
+- memset, memmove operations, like that other operations, tokenization.
+- bitwise and byte based prateek narang and other notted problem practice
+-- pratik narang list, array, bitwise, string, 2 pointer, sliding window practic problems
+-- hipify. create, insert, delete, traversal in datastructures -- hash, bst, list, stack, queue, heap(know complexity), graph (bfs, dfs),
+
+-- listing of all problems related to embedded
+- malloc free, with alignmnet - done
+- pool allocator - done
+- offest of, container off, and alignment macros - done
+- timer based logic - 
+- producer - consumer problems - 
+- tcp-upd program and synchronization - 
+- bitwise operations - 
+- statemachine - done
+- ringbuffer - done
+- uart, i2c, spi with RTOS - done
+- LRU cache problem and cache miss - done
+- timer based setting (using 64bit timer, with 32bit timer) - 
+- if system is little endian or big endian - done
+- if stack is upgrowing or downgrowin - done
+- implement OS task scheduler (how SP will work here. find answer on chatgpt from google doc) 
+- implement RR in C (https://www.youtube.com/watch?v=N0ET__T4sc0&t=876s)
+
+I was asked why I applied for Google.
+
+OS task scheduler,
+concurrency question, 
+ringbuffer with locking,
+Write code for converting two 32 bit timers into one 64 bit timer.
+Find all cycles in a directed graph without repetition.
+I was asked why I applied for Google.
+Calculate the offset of a binary tree in each level to so that you can print it in a specified way.
+How to implement a memcpy in C.
+Write a C function to count the number of bits set in a bit vector.
+Write a bash shell expansion routine
+byte shifting questions
+Know your binary trees and hash tables.
+hashtable implementation in C. done.
+Nested strings in parenthesis to be repeated the number of times mentioned by an index alongside in square brackets.
+Question was about using a shared resource between two threads. Basic Produ	cer/Cosumer model.
+If you didn't have access to the functions malloc() and free(), describe how you would implement them.
+standard bootloader routine -- steps
+watchdog timer -- steps
+LRU cache 
+how to test -- UT approach.
+Calculate the offset of a binary tree in each level in order to print it in a specified way.
+
+
+// they want to see, what I think and how we can solve this, and then how I can code. makesure to code neatly.
+-- structure/class name in PascalCase, 
+// how much tradeoffs I can pick about it.
+task sysnchronization, thread working and synchronization, ringbuffer, LRU cache example, watchdog timer, timer problems, macros, offset.
+
+INTRO for all:
+Hi Myself, Rajkumar Patel. I hold 7+ years of firmware and embedded software development activity throught my career. 
+Media storage, Cloud storage, Network storage and IoT are some of the areas I have worked in.
+Which also includes writing baremetal firmware, RTOS based application and building SDK and hands-on with complete product development lifecycle, with Agile methodologies.
+My main programming language has been C and for close to one year also used python.
+CPP is something I have been using for developing tests for our software products for a long period.
+I am seeing ample amout of scope in expanding my learning in embedded systems domain, working core implementation of linux kernel and would like to get hang of device driver development in coming years.
+
+
+
+brushing up past experience.
+
+system design:
+approach, as an user 
+1. what you want from product.
+2. what are the use case of the product? 
+	- in which environment prodcuts can be used?
+3. MVP -- minimal viable product to take care of the scenarios.
+	- dont' complicate
+	- dealing with ambiguity
+4. Smart -- is it a connected product?
+	- does it interface to a GateWay, Cloud Service, etc.
+	- [direct to your strength here.]
+5. Now, play on your strength sw/fw or hw engineering
+6. Rational, HW - SW partitioning. Give Rationale, performance, battery life, cost.
+7. non functional requirement -- modularity, configurability, maintainablility, deployability. [can be talked about trade-offs]
+8. Choice of platform [are you aware of any platform]  -- bring past experiences. it's important to relate to your knowledge.
+9. Communicate
+	-- confirming/assumption I am making while deciding requirement
+	-- design -- block diagram
+	-- tech stack, also know trade-offs
+	-- state machine [very good to show-case]
+	
+	
+- first we talk about MVP [peripheral]
+- then we talk about connectivity
+- then we talk about power related trade-offs [battery or line power]
+- then we talk about tech stack and capacity for any design [mqtt, http, e.g. device management, software update [then check flash requirements], identity managment, pairing of devices, plug-and-play device on-boarding, authenticating firmware] system got installed, then how consumer can configure, consume.
+- 
+
+
+
+QnA
+- general guidelines of using controller
+	-- if VR headset -- HPF qualcomm [read about pixer because, that's where they want us to hire for], multicore, low power, low cost, high performance, hight speed, OS Support (what kind of responsiveness we want here? these kind of questions comes for OS selection), there are cirteria. [know which platforms are popular with therse matrix items and how why they are leading that segment?]
+	-- if you don't know matrix make faire asumptions.
+	-- knowing application speicific which platforms to be used / controller to be used, ask to AI.
+	-- ask about google AI prodcuts, nest, pixer, etc.
+	https://www.youtube.com/watch?v=RZUqHaIzOu8
+	
+	
+-- levarage from the background
+
+
+
+-- what makes something priviledge and something unpriviledge?
+MPU makes region or partition of memory region.
+and it marks each region with several attributes, like priviledge leveles, kind of accesses properties, sharable or not, ordering, type of device of device, write through, or writeback is it or not [port access, if it's input or output], etc.
+
+types of memory can be. 
+normal memory (data + code)
+device memory (IO peripheral, memory mapped io)
+system memory (NVIC regiseter, MPU register, sys tick registers)
+
+ARM has 2 modes of operations
+priviledged -- access to all. e.g. syste control memory, OS programming clock, memory mapping, interrupt vector table, reset handler.
+unpriviledged -- restricted for devices and system memory, other unpriviledged code/task.
+SO each code/instrcution in particular region has priviledge mapped and based on that access of memory can be done.
+
+PSR and PCR has priviledge bit.
+MSR, MRS instruction are used to set priviledge for code/instruction.
+based on instruction, cpsr will check priviledge and decide if operand memories are valid or not.
+
+MPU checks the priviledge level, and then check the memory region of the instruction, and depending on that, it allows, or generates the fault.
+
+-- MPU is for physical memory access validation check,
+MPU region table is global. OS and RTOS need to take care of giving illusion of differential access rights of memory by taking
+reference of this table. so during context switch, OS needs to reprogram the MPU register. TCB will have copy of MPU register.
+for each task there will be TCB and each TCB will have MPU table snapshot. 
+-- MMUu is for virtual to  page table management and address translation.
+-- ultimately things are coming in physical memory, so that is getting protected by MPU.
+-- MMU page table are per each process.
+when to use MPU?
+-- when everythig is application and no operating system. so no overhead of programming such tables.
+-- in multitasking sysytem, these regions can be reprogrammed dynamically, or per task basis or per process basis.
+e.g. if task A is an IO task, and taskB is an compuatational task, then we don't want task B to access task A IO memory regions,
+and hence table entries will get changed and it will be per task basis. so this is the overhead of using MPU.
+-- In OS less system, we have default memory map, which denotes, that everythig is accessible to everything. [flat memory]
+-- basic configuration of this map is still required, because, we want to give null pointer referencing issues, stack overflow, memory corruption, invalid access by other process.[loader/linker does NULL to some invalid memory assignment or safe memory pointing.]
+-- e.g. SafeRTOS, embedded linux to have bifrucation between OS and application segregation for physical memory.
+
+-- whenever context switch happens, MPU registers are there, these snapshot will get stored in task TCB and next OS while bringing in coming task, will store its previous task's context. MPU, CPU and FPU, all these resigers will be stored during context switch.
+To access such registers, priviledge mode is required, and OS has that.
+-- task runs in user mode, and it needs OS service so uses system call, switches to priviledge mode and then MPU register read/write and other memory access happnes.
+
+appln or task (unpriviledge) -> system call(unpriviledge) -> svs#number (priviledge).
+
+https://youtube.com/watch?v=A6awNzC_2g4
