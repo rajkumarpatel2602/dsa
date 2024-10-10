@@ -28,6 +28,13 @@ DS operations
 -- sorted insert https://www.udemy.com/course/datastructurescncpp/learn/lecture/13133238#overview
 -- Remove duplicate in sorted list
 -- Reverse a list, recursively as well as iteratively
+
+* Heap
+- can be max heap/ min heap. can have duplicate node.
+- only condition is that it has to be complete/almost complete binary tree. i.e. no blank spaces in array representation. 
+- as it is a complete binary tree. hieght will be always logN.
+- insert: add at the end of array, check with parent, if parent is small(in case of max heap) swap, repeat this operation until condition fails.
+- 
 ///////////////////////////////
 rev(first){
     r = NULL, q = NULL, p = head;
