@@ -40,7 +40,6 @@ Problems
 - implement RR in C (https://www.youtube.com/watch?v=N0ET__T4sc0&t=876s)
 
 I was asked why I applied for Google.
-
 OS task scheduler,
 concurrency question, 
 ringbuffer with locking,
@@ -83,35 +82,7 @@ my preparation for coming days.
 
 brushing up past experience.
 
-system design:
-approach, as an user 
-1. what you want from product.
-2. what are the use case of the product? 
-	- in which environment prodcuts can be used?
-3. MVP -- minimal viable product to take care of the scenarios.
-	- dont' complicate
-	- dealing with ambiguity
-4. Smart -- is it a connected product?
-	- does it interface to a GateWay, Cloud Service, etc.
-	- [direct to your strength here.]
-5. Now, play on your strength sw/fw or hw engineering
-6. Rational, HW - SW partitioning. Give Rationale, performance, battery life, cost.
-7. non functional requirement -- modularity, configurability, maintainablility, deployability. [can be talked about trade-offs]
-8. Choice of platform [are you aware of any platform]  -- bring past experiences. it's important to relate to your knowledge.
-9. Communicate
-	-- confirming/assumption I am making while deciding requirement
-	-- design -- block diagram
-	-- tech stack, also know trade-offs
-	-- state machine [very good to show-case]
-	
-	
-- first we talk about MVP [peripheral]
-- then we talk about connectivity
-- then we talk about power related trade-offs [battery or line power]
-- then we talk about tech stack and capacity for any design [mqtt, http, e.g. device management, software update [then check flash requirements], identity managment, pairing of devices, plug-and-play device on-boarding, authenticating firmware] system got installed, then how consumer can configure, consume.
-- 
-
-
+System design
 
 QnA
 - general guidelines of using controller
