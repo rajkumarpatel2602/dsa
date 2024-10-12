@@ -9,8 +9,8 @@ complete
 ==================================================
 Problems
 = Crack the coding interview
-= Thread synchronization // almost done
-
+= Thread synchronization
+= github programs and logics
 
 -- programming practice
 
@@ -67,16 +67,18 @@ Calculate the offset of a binary tree in each level in order to print it in a sp
 // they want to see, what I think and how we can solve this, and then how I can code. makesure to code neatly.
 -- structure/class name in PascalCase, 
 // how much tradeoffs I can pick about it.
+I don't want to consume extra information.
+I want to make sure that I understand and code, what I know.
 task sysnchronization, thread working and synchronization, ringbuffer, LRU cache example, watchdog timer, timer problems, macros, offset.
 
-INTRO for all:
 Hi Myself, Rajkumar Patel. I hold 7+ years of firmware and embedded software development activity throught my career. 
 Media storage, Cloud storage, Network storage and IoT are some of the areas I have worked in.
-Which also includes writing baremetal firmware, RTOS based application and building SDK and hands-on with complete product development lifecycle, with Agile methodologies.
+Which also includes writing baremetal firmware, RTOS based application and building IoT Gateway SDK and hands-on with complete product development lifecycle, with Agile methodologies.
 My main programming language has been C and for close to one year also used python.
 CPP is something I have been using for developing tests for our software products for a long period.
-I am seeing ample amout of scope in expanding my learning in embedded systems domain, working core implementation of linux kernel and would like to get hang of device driver development in coming years.
+I am seeing my learning in embedded systems domain, working on and implementing core domain of linux kernel and would like to get hang of device driver development in coming years.
 
+my preparation for coming days.
 
 
 brushing up past experience.
@@ -167,3 +169,115 @@ To access such registers, priviledge mode is required, and OS has that.
 appln or task (unpriviledge) -> system call(unpriviledge) -> svs#number (priviledge).
 
 https://youtube.com/watch?v=A6awNzC_2g4
+
+
+Designing a bootloader for a microcontroller involves several key steps and considerations. A bootloader is a small program that runs when the microcontroller is powered on or reset, and it is responsible for loading the main application code into the microcontroller's memory. Here’s a high-level overview of the bootloader design process and a contingency plan:
+
+Bootloader Design
+1. Define Requirements
+Memory Constraints: Determine the size of the bootloader and the available memory.
+Communication Protocol: Decide how the bootloader will receive the application code (e.g., UART, SPI, I2C, USB).
+Security: Implement security features such as encryption and authentication to prevent unauthorized code loading.
+Update Mechanism: Define how the bootloader will handle firmware updates.
+2. Initialize Hardware
+Configure the necessary hardware peripherals (e.g., clocks, communication interfaces).
+Set up the microcontroller’s memory map, including the bootloader and application code regions.
+3. Communication Interface
+Implement the chosen communication protocol to receive the application code.
+Ensure reliable data transfer with error checking mechanisms (e.g., CRC, checksums).
+4. Memory Management
+Implement functions to erase, write, and verify the application code in the microcontroller’s flash memory.
+Ensure that the bootloader does not overwrite itself or critical system areas.
+5. Application Code Verification
+Verify the integrity and authenticity of the received application code before executing it.
+Implement a rollback mechanism in case the new application code is corrupted or fails to execute.
+6. Jump to Application Code
+Implement a function to jump from the bootloader to the main application code.
+Ensure proper initialization of the system before transferring control.
+7. Testing and Debugging
+Thoroughly test the bootloader under various scenarios to ensure reliability.
+Use debugging tools to troubleshoot and optimize the bootloader code.
+Example Bootloader Flowchart
+Yes
+No
+Valid
+Invalid
+Power On/Reset
+Initialize Hardware
+Check for Update Command
+Receive Application Code
+Jump to Application Code
+Verify Application Code
+Write to Flash Memory
+Error Handling
+Jump to Application Code
+Contingency Plan
+1. Backup Bootloader
+Implement a secondary bootloader or a recovery mode that can be activated if the primary bootloader fails.
+Store the backup bootloader in a protected memory region.
+2. Watchdog Timer
+Use a watchdog timer to reset the microcontroller if the bootloader or application code hangs or crashes.
+Ensure the watchdog timer is properly configured and regularly serviced.
+3. Fail-Safe Mechanisms
+Implement fail-safe mechanisms to detect and recover from errors during the bootloading process.
+Use redundant checks and validation steps to ensure data integrity.
+4. Logging and Diagnostics
+Implement logging mechanisms to record bootloader activities and errors.
+Provide diagnostic tools to analyze and troubleshoot bootloader issues.
+5. User Notification
+Implement mechanisms to notify the user of bootloader status and errors (e.g., LEDs, serial output).
+Provide clear instructions for recovery procedures in case of bootloader failure.
+6. Regular Updates and Maintenance
+Regularly update the bootloader to fix bugs and improve security.
+Perform routine maintenance checks to ensure the bootloader is functioning correctly.
+By following these design steps and contingency plans, you can create a robust and reliable bootloader for your microcontroller, ensuring smooth and secure firmware updates.
+
+If you need more detailed information or specific code examples, feel free to ask!
+
+
+
+
+System design:
+1. firmware update scenarion.
+2. Traffic light signal.
+3. Design a software timer.
+4. Design a home automation system.
+5. read about threading
+6. comunication protocol comparisions.
+7. power module system
+8. omar experience
+
+
+things to remember:
+define assumptions
+define components
+define interaction methods
+define speed
+
+know google products, next, pixer, etc, which processor is used etc.
+
+1. what you want from product.
+2. what are the use case of the product? 
+	- in which environment prodcuts can be used?
+3. MVP -- minimal viable product to take care of the scenarios.
+	- dont' complicate
+	- dealing with ambiguity
+4. Smart -- is it a connected product?
+	- does it interface to a GateWay, Cloud Service, etc.
+	- [direct to your strength here.]
+5. Now, play on your strength sw/fw or hw engineering
+6. Rational, HW - SW partitioning. Give Rationale, performance, battery life, cost.
+7. non functional requirement -- modularity, configurability, maintainablility, deployability. [can be talked about trade-offs]
+8. Choice of platform [are you aware of any platform]  -- bring past experiences. it's important to relate to your knowledge.
+9. Communicate
+	-- confirming/assumption I am making while deciding requirement
+	-- design -- block diagram
+	-- tech stack, also know trade-offs
+	-- state machine [very good to show-case]
+	
+- first we talk about MVP [peripheral]
+- then we talk about connectivity
+- then we talk about power related trade-offs [battery or line power]
+- then we talk about tech stack and capacity for any design 
+[mqtt, http, e.g. device management, software update [then check flash requirements], 
+identity managment, pairing of devices, plug-and-play device on-boarding, authenticating firmware] system got installed, then how consumer can configure, consume.
