@@ -1,0 +1,1961 @@
+Certainly! Here is an extended list of 50 important embedded domain programming questions that are highly relevant for an embedded developer role at companies like Google and Amazon:
+
+- What is an embedded system?
+- Explain the difference between microcontroller and microprocessor.
+- What are the different types of memory in an embedded system?
+- Describe the function of a watchdog timer in an embedded system.
+- What is the role of an interrupt in an embedded system?
+- Explain the concept of real-time operating systems (RTOS).
+- What are the differences between hard real-time and soft real-time systems?
+- How do you handle concurrency in embedded systems?
+- What is the purpose of a bootloader in an embedded system?
+- Explain the concept of memory-mapped I/O.
+- What are the common communication protocols used in embedded systems?
+- Describe the I2C protocol and its use cases.
+- Explain the SPI protocol and its advantages.
+- What is UART and how does it work?
+- How do you perform debugging in an embedded system?
+- What are the common power management techniques in embedded systems?
+- Explain the concept of DMA (Direct Memory Access).
+- What is the role of a linker in embedded programming?
+- How do you optimize code for embedded systems?
+- What are the common challenges in embedded system design?
+- Explain the concept of interrupt latency and how to minimize it.
+- What is the role of a real-time clock (RTC) in an embedded system?
+- How do you ensure the reliability and robustness of an embedded system?
+- What are the different types of sensors used in embedded systems?
+- Explain the concept of pulse-width modulation (PWM).
+- What is the role of a digital signal processor (DSP) in embedded systems?
+- How do you handle firmware updates in an embedded system?
+- What are the common security concerns in embedded systems?
+- Explain the concept of a finite state machine (FSM) and its applications.
+- What are the best practices for writing embedded C code?
+- What is the difference between volatile and const keywords in C?
+- How do you manage memory allocation in embedded systems?
+- Explain the concept of stack overflow and how to prevent it.
+- What is the role of a task scheduler in an RTOS?
+- How do you implement a circular buffer in C?
+- What are the differences between synchronous and asynchronous communication?
+- Explain the concept of bit-banging and its use cases.
+- What is the role of a GPIO (General Purpose Input/Output) in embedded systems?
+- How do you handle error detection and correction in embedded systems?
+- What are the common debugging tools used in embedded development?
+- Explain the concept of a memory leak and how to detect it.
+- What is the role of a compiler in embedded programming?
+- How do you handle timing constraints in real-time systems?
+- What are the differences between polling and interrupt-driven I/O?
+- Explain the concept of a semaphore and its use in RTOS.
+- What is the role of a mutex in concurrent programming?
+- How do you implement a priority-based scheduling algorithm?
+- What are the common techniques for reducing power consumption in embedded systems?
+- Explain the concept of a boot sequence in an embedded system.
+- What are the differences between static and dynamic linking?
+These additional questions further cover a wide range of topics, including memory management, 
+concurrency, communication protocols, debugging, optimization, and real-time systems. Preparing for 
+these questions will help you demonstrate your comprehensive knowledge and expertise in the embedded domain during interviews at top tech companies like Google and Amazon.
+
+
+Certainly! Here are 30 C programming questions along with their answers, focusing on practical problems that are relevant for an embedded developer role:
+
+Write a program to check if the system is little-endian or big-endian.
+c
+#include <stdio.h>
+
+void checkEndianness() {
+    unsigned int x = 1;
+    char *c = (char*)&x;
+    if (*c) {
+        printf("Little Endian\n");
+    } else {
+        printf("Big Endian\n");
+    }
+}
+
+int main() {
+    checkEndianness();
+    return 0;
+}
+Write a program to reverse a string in C.
+c
+#include <stdio.h>
+#include <string.h>
+
+void reverseString(char *str) {
+    int n = strlen(str);
+    for (int i = 0; i < n / 2; i++) {
+        char temp = str[i];
+        str[i] = str[n - i - 1];
+        str[n - i - 1] = temp;
+    }
+}
+
+int main() {
+    char str[] = "Hello, World!";
+    reverseString(str);
+    printf("Reversed string: %s\n", str);
+    return 0;
+}
+Write a program to find the factorial of a number using recursion.
+c
+#include <stdio.h>
+
+int factorial(int n) {
+    if (n == 0) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+int main() {
+    int num = 5;
+    printf("Factorial of %d is %d\n", num, factorial(num));
+    return 0;
+}
+Write a program to implement a simple linked list.
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+void printList(struct Node* n) {
+    while (n != NULL) {
+        printf("%d ", n->data);
+        n = n->next;
+    }
+}
+
+int main() {
+    struct Node* head = NULL;
+    struct Node* second = NULL;
+    struct Node* third = NULL;
+
+    head = (struct Node*)malloc(sizeof(struct Node));
+    second = (struct Node*)malloc(sizeof(struct Node));
+    third = (struct Node*)malloc(sizeof(struct Node));
+
+    head->data = 1;
+    head->next = second;
+
+    second->data = 2;
+    second->next = third;
+
+    third->data = 3;
+    third->next = NULL;
+
+    printList(head);
+    return 0;
+}
+Write a program to implement a stack using an array.
+c
+#include <stdio.h>
+#define MAX 100
+
+int stack[MAX];
+int top = -1;
+
+void push(int x) {
+    if (top == MAX - 1) {
+        printf("Stack overflow\n");
+        return;
+    }
+    stack[++top] = x;
+}
+
+int pop() {
+    if (top == -1) {
+        printf("Stack underflow\n");
+        return -1;
+    }
+    return stack[top--];
+}
+
+int main() {
+    push(10);
+    push(20);
+    push(30);
+    printf("Popped element: %d\n", pop());
+    printf("Popped element: %d\n", pop());
+    return 0;
+}
+Write a program to implement a queue using an array.
+c
+#include <stdio.h>
+#define MAX 100
+
+int queue[MAX];
+int front = -1;
+int rear = -1;
+
+void enqueue(int x) {
+    if (rear == MAX - 1) {
+        printf("Queue overflow\n");
+        return;
+    }
+    if (front == -1) front = 0;
+    queue[++rear] = x;
+}
+
+int dequeue() {
+    if (front == -1 || front > rear) {
+        printf("Queue underflow\n");
+        return -1;
+    }
+    return queue[front++];
+}
+
+int main() {
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    printf("Dequeued element: %d\n", dequeue());
+    printf("Dequeued element: %d\n", dequeue());
+    return 0;
+}
+Write a program to find the GCD of two numbers using recursion.
+c
+    #```c
+#include <stdio.h>
+
+int gcd(int a, int b) {
+    if (b == 0) {
+        return a;
+    }
+    return gcd(b, a % b);
+}
+
+int main() {
+    int num1 = 56, num2 = 98;
+    printf("GCD of %d and %d is %d\n", num1, num2, gcd(num1, num2));
+    return 0;
+}
+Write a program to implement binary search on a sorted array.
+c
+#include <stdio.h>
+
+int binarySearch(int arr[], int l, int r, int x) {
+    if (r >= l) {
+        int mid = l + (r - l) / 2;
+
+        if (arr[mid] == x) {
+            return mid;
+        }
+
+        if (arr[mid] > x) {
+            return binarySearch(arr, l, mid - 1, x);
+        }
+
+        return binarySearch(arr, mid + 1, r, x);
+    }
+
+    return -1;
+}
+
+int main() {
+    int arr[] = {2, 3, 4, 10, 40};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int x = 10;
+    int result = binarySearch(arr, 0, n - 1, x);
+    (result == -1) ? printf("Element is not present in array\n")
+                   : printf("Element is present at index %d\n", result);
+    return 0;
+}
+Write a program to implement a simple circular buffer.
+c
+#include <stdio.h>
+#define SIZE 5
+
+int buffer[SIZE];
+int head = 0;
+int tail = 0;
+int count = 0;
+
+void enqueue(int x) {
+    if (count == SIZE) {
+        printf("Buffer overflow\n");
+        return;
+    }
+    buffer[tail] = x;
+    tail = (tail + 1) % SIZE;
+    count++;
+}
+
+int dequeue() {
+    if (count == 0) {
+        printf("Buffer underflow\n");
+        return -1;
+    }
+    int x = buffer[head];
+    head = (head + 1) % SIZE;
+    count--;
+    return x;
+}
+
+int main() {
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    printf("Dequeued element: %d\n", dequeue());
+    printf("Dequeued element: %d\n", dequeue());
+    return 0;
+}
+Write a program to find the length of a linked list.
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+int getLength(struct Node* head) {
+    int length = 0;
+    struct Node* current = head;
+    while (current != NULL) {
+        length++;
+        current = current->next;
+    }
+    return length;
+}
+
+int main() {
+    struct Node* head = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* second = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* third = (struct Node*)malloc(sizeof(struct Node));
+
+    head->data = 1;
+    head->next = second;
+
+    second->data = 2;
+    second->next = third;
+
+    third->data = 3;
+    third->next = NULL;
+
+    printf("Length of linked list: %d\n", getLength(head));
+    return 0;
+}
+Write a program to merge two sorted arrays.
+c
+#include <stdio.h>
+
+void mergeArrays(int arr1[], int arr2[], int n1, int n2, int arr3[]) {
+    int i = 0, j = 0, k = 0;
+
+    while (i < n1 && j < n2) {
+        if (arr1[i] < arr2[j]) {
+            arr3[k++] = arr1[i++];
+        } else {
+            arr3[k++] = arr2[j++];
+        }
+    }
+
+    while (i < n1) {
+        arr3[k++] = arr1[i++];
+    }
+
+    while (j < n2) {
+        arr3[k++] = arr2[j++];
+    }
+}
+
+int main() {
+    int arr1[] = {1, 3, 5, 7};
+    int n1 = sizeof(arr1) / sizeof(arr1[0]);
+
+    int arr2[] = {2, 4, 6, 8};
+    int n2 = sizeof(arr2) / sizeof(arr2[0]);
+
+    int arr3[n1 + n2];
+    mergeArrays(arr1, arr2, n```c
+    int arr3[n1 + n2];
+    mergeArrays(arr1, arr2, n1, n2, arr3);
+
+    printf("Merged array: ");
+    for (int i = 0; i < n1 + n2; i++) {
+        printf("%d ", arr3[i]);
+    }
+    printf("\n");
+    return 0;
+}
+Write a program to find the maximum and minimum elements in an array.
+c
+#include <stdio.h>
+
+void findMaxMin(int arr[], int n, int *max, int *min) {
+    *max = arr[0];
+    *min = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (arr[i] > *max) {
+            *max = arr[i];
+        }
+        if (arr[i] < *min) {
+            *min = arr[i];
+        }
+    }
+}
+
+int main() {
+    int arr[] = {3, 5, 7, 2, 8, -1, 4, 10, 12};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int max, min;
+    findMaxMin(arr, n, &max, &min);
+    printf("Maximum element: %d\n", max);
+    printf("Minimum element: %d\n", min);
+    return 0;
+}
+Write a program to implement a binary tree and perform in-order traversal.
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+
+struct Node* newNode(int data) {
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+void inOrderTraversal(struct Node* root) {
+    if (root != NULL) {
+        inOrderTraversal(root->left);
+        printf("%d ", root->data);
+        inOrderTraversal(root->right);
+    }
+}
+
+int main() {
+    struct Node* root = newNode(1);
+    root->left = newNode(2);
+    root->right = newNode(3);
+    root->left->left = newNode(4);
+    root->left->right = newNode(5);
+
+    printf("In-order traversal: ");
+    inOrderTraversal(root);
+    printf("\n");
+    return 0;
+}
+Write a program to implement a simple hash table using linear probing.
+c
+#include <stdio.h>
+#include <stdlib.h>
+#define SIZE 10
+
+int hashTable[SIZE];
+
+void initHashTable() {
+    for (int i = 0; i < SIZE; i++) {
+        hashTable[i] = -1;
+    }
+}
+
+int hashFunction(int key) {
+    return key % SIZE;
+}
+
+void insert(int key) {
+    int index = hashFunction(key);
+    while (hashTable[index] != -1) {
+        index = (index + 1) % SIZE;
+    }
+    hashTable[index] = key;
+}
+
+int search(int key) {
+    int index = hashFunction(key);
+    while (hashTable[index] != -1) {
+        if (hashTable[index] == key) {
+            return index;
+        }
+        index = (index + 1) % SIZE;
+    }
+    return -1;
+}
+
+int main() {
+    initHashTable();
+    insert(10);
+    insert(20);
+    insert(30);
+    printf("Element 20 found at index: %d\n", search(20));
+    printf("Element 40 found at index: %d\n", search(40));
+    return 0;
+}
+Write a program to implement a doubly linked list.
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+    struct Node* prev;
+};
+
+void printList(struct Node* node) {
+    struct Node* last;
+    printf("Traversal in forward direction: ");
+    while (node != NULL) {
+        printf("%d ", node->data);
+        last = node;
+        node = node->next;
+    }
+    printf("\nTraversal in reverse direction: ");
+    while (last != NULL) {
+        printf("%d ", last->data);
+        last = last->prev;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+    struct Node* second = NULL;
+    struct Node* third = NULL;
+
+    head = (struct Node*)malloc(sizeof(struct Node));
+    second = (struct Node*)malloc(sizeof(structNode));
+    third = (struct Node*)malloc(sizeof(struct Node));
+
+    head->data = 1;
+    head->next = second;
+    head->prev = NULL;
+
+    second->data = 2;
+    second->next = third;
+    second->prev = head;
+
+    third->data = 3;
+    third->next = NULL;
+    third->prev = second;
+
+    printList(head);
+    return 0;
+}
+Write a program to implement a binary search tree (BST) and perform insertion.
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+
+struct Node* newNode(int data) {
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+struct Node* insert(struct Node* node, int data) {
+    if (node == NULL) {
+        return newNode(data);
+    }
+    if (data < node->data) {
+        node->left = insert(node->left, data);
+    } else if (data > node->data) {
+        node->right = insert(node->right, data);
+    }
+    return node;
+}
+
+void inOrderTraversal(struct Node* root) {
+    if (root != NULL) {
+        inOrderTraversal(root->left);
+        printf("%d ", root->data);
+        inOrderTraversal(root->right);
+    }
+}
+
+int main() {
+    struct Node* root = NULL;
+    root = insert(root, 50);
+    insert(root, 30);
+    insert(root, 20);
+    insert(root, 40);
+    insert(root, 70);
+    insert(root, 60);
+    insert(root, 80);
+
+    printf("In-order traversal: ");
+    inOrderTraversal(root);
+    printf("\n");
+    return 0;
+}
+Write a program to find the depth of a binary tree.
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+
+struct Node* newNode(int data) {
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+int maxDepth(struct Node* node) {
+    if (node == NULL) {
+        return 0;
+    } else {
+        int leftDepth = maxDepth(node->left);
+        int rightDepth = maxDepth(node->right);
+
+        if (leftDepth > rightDepth) {
+            return (leftDepth + 1);
+        } else {
+            return (rightDepth + 1);
+        }
+    }
+}
+
+int main() {
+    struct Node* root = newNode(1);
+    root->left = newNode(2);
+    root->right = newNode(3);
+    root->left->left = newNode(4);
+    root->left->right = newNode(5);
+
+    printf("Depth of tree is %d\n", maxDepth(root));
+    return 0;
+}
+Write a program to implement a simple circular linked list.
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    if (head != NULL) {
+        do {
+            printf("%d ", temp->data);
+            temp = temp->next;
+        } while (temp != head);
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+    struct Node* second = NULL;
+    struct Node* third = NULL;
+
+    head = (struct Node*)malloc(sizeof(struct Node));
+    second = (struct Node*)malloc(sizeof(struct Node));
+    third = (struct Node*)malloc(sizeof(struct Node));
+
+    head->data = 1;
+    head->next = second;
+
+    second->data = 2;
+    second->next = third;
+
+    third->data = 3;
+    third->next = head;
+
+    printList(head);
+    return 0;
+}
+Write a program to implement a simple priority queue using a linked list.
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    int priority;
+    struct Node* next;
+};
+
+struct Node* newNode(int data, int priority) {
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+    temp->data = data;
+    temp->priority = priority;
+    temp->next = NULL```c
+    temp->data = data;
+    temp->priority = priority;
+    temp->next = NULL;
+    return temp;
+}
+
+void push(struct Node** head, int data, int priority) {
+    struct Node* start = (*head);
+    struct Node* temp = newNode(data, priority);
+
+    if ((*head)->priority > priority) {
+        temp->next = *head;
+        (*head) = temp;
+    } else {
+        while (start->next != NULL && start->next->priority < priority) {
+            start = start->next;
+        }
+        temp->next = start->next;
+        start->next = temp;
+    }
+}
+
+int pop(struct Node** head) {
+    struct Node* temp = *head;
+    (*head) = (*head)->next;
+    int data = temp->data;
+    free(temp);
+    return data;
+}
+
+int main() {
+    struct Node* pq = newNode(4, 1);
+    push(&pq, 5, 2);
+    push(&pq, 6, 3);
+    push(&pq, 7, 0);
+
+    printf("Popped element: %d\n", pop(&pq));
+    printf("Popped element: %d\n", pop(&pq));
+    return 0;
+}
+Write a program to implement a simple LRU (Least Recently Used) cache.
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int key;
+    struct Node* next;
+    struct Node* prev;
+};
+
+struct LRUCache {
+    int capacity;
+    int count;
+    struct Node* head;
+    struct Node* tail;
+    struct Node** hashTable;
+};
+
+struct Node* newNode(int key) {
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+    temp->key = key;
+    temp->next = NULL;
+    temp->prev = NULL;
+    return temp;
+}
+
+struct LRUCache* createCache(int capacity) {
+    struct LRUCache* cache = (struct LRUCache*)malloc(sizeof(struct LRUCache));
+    cache->capacity = capacity;
+    cache->count = 0;
+    cache->head = NULL;
+    cache->tail = NULL;
+    cache->hashTable = (struct Node**)malloc(capacity * sizeof(struct Node*));
+    for (int i = 0; i < capacity; i++) {
+        cache->hashTable[i] = NULL;
+    }
+    return cache;
+}
+
+void moveToHead(struct LRUCache* cache, struct Node* node) {
+    if (cache->head == node) {
+        return;
+    }
+    if (node->prev != NULL) {
+        node->prev->next = node->next;
+    }
+    if (node->next != NULL) {
+        node->next->prev = node->prev;
+    }
+    if (cache->tail == node) {
+        cache->tail = node->prev;
+    }
+    node->next = cache->head;
+    node->prev = NULL;
+    if (cache->head != NULL) {
+        cache->head->prev = node;
+    }
+    cache->head = node;
+    if (cache->tail == NULL) {
+        cache->tail = node;
+    }
+}
+
+void put(struct LRUCache* cache, int key) {
+    struct Node* node = cache->hashTable[key % cache->capacity];
+    if (node == NULL) {
+        node = newNode(key);
+        cache->hashTable[key % cache->capacity] = node;
+        if (cache->count < cache->capacity) {
+            cache->count++;
+        } else {
+            struct Node* tail = cache->tail;
+            cache->tail = tail->prev;
+            if (cache->tail != NULL) {
+                cache->tail->next = NULL;
+            }
+            cache->hashTable[tail->key % cache->capacity] = NULL;
+            free(tail);
+        }
+    }
+    moveToHead(cache, node);
+}
+
+int get(struct LRUCache* cache, int key) {
+    struct Node* node = cache->hashTable[key % cache->capacity];
+    if (node == NULL) {
+        return -1;
+    }
+    moveToHead(cache, node);
+    return node->key;
+}
+
+int main() {
+    struct LRUCache* cache = createCache(2);
+    put(cache, 1);
+    put(cache, 2);
+    printf("Get 1: %d\n", get(cache, 1));
+    put(cache, 3);
+    printf("Get 2: %d\n", get(cache, 2));
+    put(cache, 4);
+    printf("Get 1: %d\n", get(cache, 1));
+    printf("Get 3:```c
+    printf("Get 1: %d\n", get(cache, 1));
+    printf("Get 3: %d\n", get(cache, 3));
+    printf("Get 4: %d\n", get(cache, 4));
+    return 0;
+}
+Write a program to implement a simple semaphore.
+c
+#include <stdio.h>
+#include <pthread.h>
+#include <semaphore.h>
+
+sem_t semaphore;
+
+void* threadFunction(void* arg) {
+    sem_wait(&semaphore);
+    printf("Entered critical section\n");
+    sleep(1);
+    printf("Exiting critical section\n");
+    sem_post(&semaphore);
+    return NULL;
+}
+
+int main() {
+    pthread_t thread1, thread2;
+    sem_init(&semaphore, 0, 1);
+
+    pthread_create(&thread1, NULL, threadFunction, NULL);
+    pthread_create(&thread2, NULL, threadFunction, NULL);
+
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
+
+    sem_destroy(&semaphore);
+    return 0;
+}
+Write a program to implement a simple mutex.
+c
+#include <stdio.h>
+#include <pthread.h>
+
+pthread_mutex_t mutex;
+
+void* threadFunction(void* arg) {
+    pthread_mutex_lock(&mutex);
+    printf("Entered critical section\n");
+    sleep(1);
+    printf("Exiting critical section\n");
+    pthread_mutex_unlock(&mutex);
+    return NULL;
+}
+
+int main() {
+    pthread_t thread1, thread2;
+    pthread_mutex_init(&mutex, NULL);
+
+    pthread_create(&thread1, NULL, threadFunction, NULL);
+    pthread_create(&thread2, NULL, threadFunction, NULL);
+
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
+
+    pthread_mutex_destroy(&mutex);
+    return 0;
+}
+Write a program to implement a simple producer-consumer problem using semaphores.
+c
+#include <stdio.h>
+#include <pthread.h>
+#include <semaphore.h>
+
+#define BUFFER_SIZE 5
+int buffer[BUFFER_SIZE];
+int count = 0;
+
+sem_t empty;
+sem_t full;
+pthread_mutex_t mutex;
+
+void* producer(void* arg) {
+    int item;
+    for (int i = 0; i < 10; i++) {
+        item = i;
+        sem_wait(&empty);
+        pthread_mutex_lock(&mutex);
+        buffer[count++] = item;
+        printf("Produced: %d\n", item);
+        pthread_mutex_unlock(&mutex);
+        sem_post(&full);
+    }
+    return NULL;
+}
+
+void* consumer(void* arg) {
+    int item;
+    for (int i = 0; i < 10; i++) {
+        sem_wait(&full);
+        pthread_mutex_lock(&mutex);
+        item = buffer[--count];
+        printf("Consumed: %d\n", item);
+        pthread_mutex_unlock(&mutex);
+        sem_post(&empty);
+    }
+    return NULL;
+}
+
+int main() {
+    pthread_t prod, cons;
+    sem_init(&empty, 0, BUFFER_SIZE);
+    sem_init(&full, 0, 0);
+    pthread_mutex_init(&mutex, NULL);
+
+    pthread_create(&prod, NULL, producer, NULL);
+    pthread_create(&cons, NULL, consumer, NULL);
+
+    pthread_join(prod, NULL);
+    pthread_join(cons, NULL);
+
+    sem_destroy(&empty);
+    sem_destroy(&full);
+    pthread_mutex_destroy(&mutex);
+    return 0;
+}
+Write a program to implement a simple thread pool.
+c
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+
+#define THREAD_POOL_SIZE 4
+#define TASK_QUEUE_SIZE 10
+
+typedef struct {
+    void (*function)(void*);
+    void* argument;
+} Task;
+
+typedef struct {
+    pthread_mutex_t mutex;
+    pthread_cond_t cond;
+    pthread_t threads[THREAD_POOL_SIZE];
+    Task taskQueue[TASK_QUEUE_SIZE];
+    int taskCount;
+    int head;
+    int tail;
+    int stop;
+} ThreadPool;
+
+void* threadFunction(void* arg) {
+    ThreadPool* pool = (ThreadPool*)arg;
+    while (1) {
+        pthread_mutex_lock(&pool->mutex);
+        while (pool->taskCount == 0 && !pool->stop) {
+            pthread_cond_wait(&pool->cond, &pool->mutex);
+        }
+        if (pool->stop) {
+            pthread_mutex_unlock(&pool->mutex);
+            break;
+        }
+        Task task = pool->taskQueue[pool->head];
+        pool->head = (pool->head + 1) % TASK_QUEUE_SIZE;
+        pool->taskCount--;
+        pthread_mutex_unlock(&pool->mutex);
+        task.function(task.argument(argument);
+    }
+    return NULL;
+}
+
+ThreadPool* createThreadPool() {
+    ThreadPool* pool = (ThreadPool*)malloc(sizeof(ThreadPool));
+    pthread_mutex_init(&pool->mutex, NULL);
+    pthread_cond_init(&pool->cond, NULL);
+    pool->taskCount = 0;
+    pool->head = 0;
+    pool->tail = 0;
+    pool->stop = 0;
+    for (int i = 0; i < THREAD_POOL_SIZE; i++) {
+        pthread_create(&pool->threads[i], NULL, threadFunction, pool);
+    }
+    return pool;
+}
+
+void addTask(ThreadPool* pool, void (*function)(void*), void* argument) {
+    pthread_mutex_lock(&pool->mutex);
+    pool->taskQueue[pool->tail].function = function;
+    pool->taskQueue[pool->tail].argument = argument;
+    pool->tail = (pool->tail + 1) % TASK_QUEUE_SIZE;
+    pool->taskCount++;
+    pthread_cond_signal(&pool->cond);
+    pthread_mutex_unlock(&pool->mutex);
+}
+
+void destroyThreadPool(ThreadPool* pool) {
+    pthread_mutex_lock(&pool->mutex);
+    pool->stop = 1;
+    pthread_cond_broadcast(&pool->cond);
+    pthread_mutex_unlock(&pool->mutex);
+    for (int i = 0; i < THREAD_POOL_SIZE; i++) {
+        pthread_join(pool->threads[i], NULL);
+    }
+    pthread_mutex_destroy(&pool->mutex);
+    pthread_cond_destroy(&pool->cond);
+    free(pool);
+}
+
+void exampleTask(void* arg) {
+    int num = *(int*)arg;
+    printf("Task %d is being processed\n", num);
+}
+
+int main() {
+    ThreadPool* pool = createThreadPool();
+    int tasks[10];
+    for (int i = 0; i < 10; i++) {
+        tasks[i] = i;
+        addTask(pool, exampleTask, &tasks[i]);
+    }
+    sleep(2);
+    destroyThreadPool(pool);
+    return 0;
+}
+Write a program to implement a simple memory allocator.
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MEMORY_SIZE 1024
+
+char memory[MEMORY_SIZE];
+int freeIndex = 0;
+
+void* myMalloc(size_t size) {
+    if (freeIndex + size > MEMORY_SIZE) {
+        return NULL;
+    }
+    void* ptr = &memory[freeIndex];
+    freeIndex += size;
+    return ptr;
+}
+
+void myFree(void* ptr) {
+    // Simple allocator does not support free
+}
+
+int main() {
+    int* arr = (int*)myMalloc(10 * sizeof(int));
+    if (arr == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+    for (int i = 0; i < 10; i++) {
+        arr[i] = i;
+    }
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+    return 0;
+}
+Write a program to implement a simple event-driven system.
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_EVENTS 10
+
+typedef void (*EventHandler)(void*);
+
+typedef struct {
+    int eventType;
+    EventHandler handler;
+    void* data;
+} Event;
+
+Event eventQueue[MAX_EVENTS];
+int eventCount = 0;
+
+void addEvent(int eventType, EventHandler handler, void* data) {
+    if (eventCount < MAX_EVENTS) {
+        eventQueue[eventCount].eventType = eventType;
+        eventQueue[eventCount].handler = handler;
+        eventQueue[eventCount].data = data;
+        eventCount++;
+    }
+}
+
+void processEvents() {
+    for (int i = 0; i < eventCount; i++) {
+        eventQueue[i].handler(eventQueue[i].data);
+    }
+    eventCount = 0;
+}
+
+void exampleEventHandler(void* data) {
+    int num = *(int*)data;
+    printf("Event %d processed\n", num);
+}
+
+int main() {
+    int eventData1 = 1;
+    int eventData2 = 2;
+    addEvent(1, exampleEventHandler, &eventData1);
+    addEvent(2, exampleEventHandler, &eventData2);
+    processEvents();
+    return 0;
+}
+Write a program to implement a simple finite state machine (FSM).
+c
+#include <stdio.h>
+
+typedef enum {
+    STATE_IDLE,
+    STATE_RUNNING,
+    STATE_STOPPED
+} State;
+
+typedef struct {
+    State currentState;
+} FSM;
+
+void handleEvent(FSM*```c
+typedef struct {
+    State currentState;
+} FSM;
+
+void handleEvent(FSM* fsm, int event) {
+    switch (fsm->currentState) {
+        case STATE_IDLE:
+            if (event == 1) {
+                printf("Transitioning from IDLE to RUNNING\n");
+                fsm->currentState = STATE_RUNNING;
+            }
+            break;
+        case STATE_RUNNING:
+            if (event == 2) {
+                printf("Transitioning from RUNNING to STOPPED\n");
+                fsm->currentState = STATE_STOPPED;
+            }
+            break;
+        case STATE_STOPPED:
+            if (event == 3) {
+                printf("Transitioning from STOPPED to IDLE\n");
+                fsm->currentState = STATE_IDLE;
+            }
+            break;
+    }
+}
+
+int main() {
+    FSM fsm = {STATE_IDLE};
+    handleEvent(&fsm, 1);
+    handleEvent(&fsm, 2);
+    handleEvent(&fsm, 3);
+    return 0;
+}
+Write a program to implement a simple timer using pthread and sleep.
+c
+#include <stdio.h>
+#include <pthread.h>
+#include <unistd.h>
+
+void* timerFunction(void* arg) {
+    int seconds = *(int*)arg;
+    sleep(seconds);
+    printf("Timer expired after %d seconds\n", seconds);
+    return NULL;
+}
+
+int main() {
+    pthread_t timerThread;
+    int duration = 5;
+    pthread_create(&timerThread, NULL, timerFunction, &duration);
+    pthread_join(timerThread, NULL);
+    return 0;
+}
+Write a program to implement a simple ring buffer.
+c
+#include <stdio.h>
+#define SIZE 5
+
+int buffer[SIZE];
+int head = 0;
+int tail = 0;
+int count = 0;
+
+void enqueue(int x) {
+    if (count == SIZE) {
+        printf("Buffer overflow\n");
+        return;
+    }
+    buffer[tail] = x;
+    tail = (tail + 1) % SIZE;
+    count++;
+}
+
+int dequeue() {
+    if (count == 0) {
+        printf("Buffer underflow\n");
+        return -1;
+    }
+    int x = buffer[head];
+    head = (head + 1) % SIZE;
+    count--;
+    return x;
+}
+
+int main() {
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    printf("Dequeued element: %d\n", dequeue());
+    printf("Dequeued element: %d\n", dequeue());
+    return 0;
+}
+Write a program to implement a simple memory pool.
+c
+#include <stdio.h>
+#include <stdlib.h>
+
+#define POOL_SIZE 1024
+#define BLOCK_SIZE 32
+
+char memoryPool[POOL_SIZE];
+int freeBlocks[POOL_SIZE / BLOCK_SIZE];
+int freeBlockCount = POOL_SIZE / BLOCK_SIZE;
+
+void initMemoryPool() {
+    for (int i = 0; i < freeBlockCount; i++) {
+        freeBlocks[i] = i;
+    }
+}
+
+void* allocateBlock() {
+    if (freeBlockCount == 0) {
+        return NULL;
+    }
+    int blockIndex = freeBlocks[--freeBlockCount];
+    return &memoryPool[blockIndex * BLOCK_SIZE];
+}
+
+void freeBlock(void* ptr) {
+    int blockIndex = ((char*)ptr - memoryPool) / BLOCK_SIZE;
+    freeBlocks[freeBlockCount++] = blockIndex;
+}
+
+int main() {
+    initMemoryPool();
+    void* block1 = allocateBlock();
+    void* block2 = allocateBlock();
+    printf("Allocated block1 at %p\n", block1);
+    printf("Allocated block2 at %p\n", block2);
+    freeBlock(block1);
+    freeBlock(block2);
+    return 0;
+}
+These questions and answers cover a wide range of practical problems that are relevant for an embedded 
+developer role. Preparing for these questions will help you demonstrate your coding skills and problem-solving 
+abilities during interviews at top tech companies like Google and Amazon.
+
+Certainly! Here are 20 additional C programming questions along with their answers, focusing on practical problems relevant for an embedded system interview:
+
+Write a program to implement a simple debounce algorithm for a button press.
+c
+#include <stdio.h>
+#include <unistd.h>
+
+#define DEBOUNCE_DELAY 200 // milliseconds
+
+int readButton() {
+    // Simulate button press
+    return 1;
+}
+
+int debounceButton() {
+    int buttonState = readButton();
+    usleep(DEBOUNCE_DELAY * 1000);
+    if (buttonState == readButton()) {
+        return buttonState;
+    }
+    return 0;
+}
+
+int main() {
+    if (debounceButton()) {
+        printf("Button pressed\n");
+    } else {
+        printf("Button not pressed\n");
+    }
+    return 0;
+}
+Write a program to implement a simple state machine for a traffic light system.
+c
+#include <stdio.h>
+
+typedef enum {
+    RED,
+    GREEN,
+    YELLOW
+} TrafficLightState;
+
+void handleTrafficLight(TrafficLightState* state) {
+    switch (*state) {
+        case RED:
+            printf("Red Light\n");
+            *state = GREEN;
+            break;
+        case GREEN:
+            printf("Green Light\n");
+            *state = YELLOW;
+            break;
+        case YELLOW:
+            printf("Yellow Light\n");
+            *state = RED;
+            break;
+    }
+}
+
+int main() {
+    TrafficLightState state = RED;
+    for (int i = 0; i < 6; i++) {
+        handleTrafficLight(&state);
+    }
+    return 0;
+}
+Write a program to implement a simple CRC (Cyclic Redundancy Check) algorithm.
+c
+#include <stdio.h>
+
+unsigned int crc32(unsigned char *message, int length) {
+    unsigned int crc = 0xFFFFFFFF;
+    for (int i = 0; i < length; i++) {
+        crc ^= message[i];
+        for (int j = 0; j < 8; j++) {
+            if (crc & 1) {
+                crc = (crc >> 1) ^ 0xEDB88320;
+            } else {
+                crc >>= 1;
+            }
+        }
+    }
+    return ~crc;
+}
+
+int main() {
+    unsigned char message[] = "Hello, World!";
+    unsigned int crc = crc32(message, sizeof(message) - 1);
+    printf("CRC32: %08X\n", crc);
+    return 0;
+}
+Write a program to implement a simple digital filter (e.g., moving average filter).
+c
+#include <stdio.h>
+
+#define FILTER_SIZE 5
+
+float movingAverageFilter(float input) {
+    static float buffer[FILTER_SIZE];
+    static int index = 0;
+    static float sum = 0;
+
+    sum -= buffer[index];
+    buffer[index] = input;
+    sum += input;
+    index = (index + 1) % FILTER_SIZE;
+
+    return sum / FILTER_SIZE;
+}
+
+int main() {
+    float inputs[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    for (int i = 0; i < 10; i++) {
+        printf("Filtered value: %f\n", movingAverageFilter(inputs[i]));
+    }
+    return 0;
+}
+Write a program to implement a simple PID (Proportional-Integral-Derivative) controller.
+c
+    #include <stdio.h>
+
+    typedef struct {
+        float kp;
+        float ki;
+        float kd;
+        float previousError;
+        float integral;
+    } PIDController;
+
+    float pidControl(PIDController* pid, float setpoint, float measuredValue) {
+        float error = setpoint - measuredValue;
+        pid->integral += error;
+        float derivative = error - pid->previousError;
+        pid->previousError = error;
+        return pid->kp * error + pid->ki * pid->integral + pid->kd * derivative;
+    }
+
+    int main() {
+        PIDController pid = {1.0, 0.1, 0.01, 0, 0};
+        float setpoint = 100;
+        float measuredValue = 90;
+        float controlSignal = pidControl(&pid, setpoint, measuredValue);
+        printf("Control Signal: %f\n", controlSignal);
+        return 0.
+
+36. **Write a program to implement a simple UART communication.**
+
+    ```c
+    #include <stdio.h>
+    #include <termios.h>
+    #include <unistd.h>
+    #include <fcntl.h>
+
+    int uartInit(const char* port) {
+        int uart0_filestream = open(port, O_RDWR | O_NOCTTY | O_NDELAY);
+        if (uart0_filestream == -1) {
+            printf("Error - Unable to open UART.\n");
+            return -1;
+        }
+
+        struct termios options;
+        tcgetattr(uart0_filestream, &options);
+        options.c_cflag = B9600 | CS8 | CLOCAL | CREAD;
+        options.c_iflag = IGNPAR;
+        options.c_oflag = 0;
+        options.c_lflag = 0;
+        tcflush(uart0_filestream, TCIFLUSH);
+        tcsetattr(uart0_filestream, TCSANOW, &options);
+
+        return uart0_filestream;
+    }
+
+    void uartClose(int uart0_filestream) {
+        close(uart0_filestream);
+    }
+
+    int main() {
+        int uart0_filestream = uartInit("/dev/ttyAMA0");
+        if (uart0_filestream == -1) {
+            return -1;
+        }
+
+        unsigned char tx_buffer[] = "Hello, UART!";
+        int count = write(uart0_filestream, tx_buffer, sizeof(tx_buffer) - 1);
+        if (count < 0) {
+            printf("UART TX error\n");
+        }
+
+        uartClose(uart0_filestream);
+        return 0;
+    }
+Write a program to implement a simple I2C communication.
+c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+
+int main() {
+    int file;
+    char *filename = (char*)"/dev/i2c-1";
+    if ((file = open(filename, O_RDWR)) < 0) {
+        printf("Failed to open the i2c bus\n");
+        return -1;
+    }
+
+    int addr = 0x48;
+    if (ioctl(file, I2C_SLAVE, addr) < 0) {
+        printf("Failed to acquire bus access and/or talk to slave\n");
+        return -1;
+    }
+
+    char buf[10] = {0};
+    buf[0] = 0x01;
+    buf[1] = 0x80;
+    if (write(file, buf, 2) != 2) {
+        printf("Failed to write to the i2c bus\n");
+    }
+
+    if (read(file, buf, 2) != 2) {
+        printf("Failed to read from the i2c bus\n");
+    } else {
+        printf("Data read: %02x %02x\n", buf[0], buf[1]);
+    }
+
+    close(file);
+    return 0;
+}
+Write a program to implement a simple SPI communication.
+c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <linux/spi/spidev.h>
+
+int main() {
+    int file;
+    const char *device = "/dev/spidev0.0";
+    if ((file = open(device, O_RDWR)) < 0) {
+        printf("Failed to open the SPI bus\n");
+        return -1;
+    }
+
+    uint8_t mode = SPI_MODE_0;
+    uint8_t bits = 8;
+    uint32_t speed = 500000;
+    if (ioctl(file, SPI_IOC_WR_MODE, &mode) < 0 ||
+        ioctl(file, SPI_IOC_WR_BITS_PER_WORD, &bits) < 0 ||
+        ioctl(file, SPI_IOC_WR_MAX_SPEED_HZ, &speed) < 0) {
+        printf("Failed to set SPI parameters\n");
+        return -1;
+    }
+
+    uint8_t tx[] = {0x01, 0x02, 0x03};
+    uint8_t rx[3] = {0};
+    struct spi_ioc_transfer tr = {
+        .tx_buf = (unsigned long)tx,
+        .rx_buf = (unsigned long)rx,
+        .len = sizeof(tx),
+        .speed_hz = speed,
+        .bits_per_word = bits,
+    };
+
+    if (ioctl(file, SPI_IOC_MESSAGE(1), &tr) < 0) {
+        printf```c
+    if (ioctl(file, SPI_IOC_MESSAGE(1), &tr) < 0) {
+        printf("Failed to send SPI message\n");
+        return -1;
+    }
+
+    printf("Received: %02x %02x %02x\n", rx[0], rx[1], rx[2]);
+    close(file);
+    return 0;
+}
+Write a program to implement a simple PWM (Pulse Width Modulation) signal generation.
+c
+#include <stdio.h>
+#include <wiringPi.h>
+
+#define PWM_PIN 1
+
+int main() {
+    if (wiringPiSetup() == -1) {
+        printf("Setup wiringPi failed!\n");
+        return -1;
+    }
+
+    pinMode(PWM_PIN, PWM_OUTPUT);
+    int dutyCycle = 512; // 50% duty cycle
+    pwmWrite(PWM_PIN, dutyCycle);
+
+    printf("PWM signal generated with 50%% duty cycle\n");
+    return 0;
+}
+Write a program to implement a simple ADC (Analog-to-Digital Converter) reading.
+c
+#include <stdio.h>
+#include <wiringPi.h>
+#include <mcp3004.h>
+
+#define BASE 100
+#define SPI_CHAN 0
+
+int main() {
+    if (wiringPiSetup() == -1) {
+        printf("Setup wiringPi failed!\n");
+        return -1;
+    }
+
+    mcp3004Setup(BASE, SPI_CHAN);
+    int adcValue = analogRead(BASE + 0);
+    printf("ADC Value: %d\n", adcValue);
+    return 0;
+}
+Write a program to implement a simple temperature sensor reading using I2C.
+c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+
+int main() {
+    int file;
+    char *filename = (char*)"/dev/i2c-1";
+    if ((file = open(filename, O_RDWR)) < 0) {
+        printf("Failed to open the i2c bus\n");
+        return -1;
+    }
+
+    int addr = 0x48;
+    if (ioctl(file, I2C_SLAVE, addr) < 0) {
+        printf("Failed to acquire bus access and/or talk to slave\n");
+        return -1;
+    }
+
+    char buf[2] = {0};
+    if (read(file, buf, 2) != 2) {
+        printf("Failed to read from the i2c bus\n");
+    } else {
+        int temp = (buf[0] << 8 | buf[1]) >> 4;
+        printf("Temperature: %d°C\n", temp);
+    }
+
+    close(file);
+    return 0;
+}
+Write a program to implement a simple digital-to-analog converter (DAC) output.
+c
+#include <stdio.h>
+#include <wiringPi.h>
+#include <mcp4725.h>
+
+#define DAC_ADDR 0x60
+
+int main() {
+    if (wiringPiSetup() == -1) {
+        printf("Setup wiringPi failed!\n");
+        return -1;
+    }
+
+    int fd = mcp4725Setup(100, DAC_ADDR);
+    if (fd == -1) {
+        printf("Failed to setup MCP4725\n");
+        return -1;
+    }
+
+    int value = 2048; // Mid-scale value for 12-bit DAC
+    analogWrite(100, value);
+    printf("DAC output set to mid-scale value\n");
+    return 0;
+}
+Write a program to implement a simple watchdog timer.
+c
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <linux/watchdog.h>
+#include <sys/ioctl.h>
+
+int main() {
+    int fd = open("/dev/watchdog", O_RDWR);
+    if (fd == -1) {
+        printf("Failed to open watchdog device\n");
+        return -1;
+    }
+
+    int timeout = 10;
+    ioctl(fd, WDIOC_SETTIMEOUT, &timeout);
+    printf("Watchdog timer set to %d seconds\n", timeout);
+
+    while (1) {
+        ioctl(fd, WDIOC_KEEPALIVE, 0);
+        printf("Watchdog timer reset\n");
+        sleep(5);
+        sleep(5);
+    }
+
+    close(fd);
+    return 0;
+}
+Write a program to implement a simple real-time clock (RTC) reading.
+c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <linux/rtc.h>
+#include <sys/ioctl.h>
+#include <time.h>
+
+int main() {
+    int fd = open("/dev/rtc0", O_RDONLY);
+    if (fd == -1) {
+        printf("Failed to open RTC device\n");
+        return -1;
+    }
+
+    struct rtc_time rtc;
+    if (ioctl(fd, RTC_RD_TIME, &rtc) == -1) {
+        printf("Failed to read RTC time\n");
+        close(fd);
+        return -1;
+    }
+
+    printf("Current RTC time: %04d-%02d-%02d %02d:%02d:%02d\n",
+           rtc.tm_year + 1900, rtc.tm_mon + 1, rtc.tm_mday,
+           rtc.tm_hour, rtc.tm_min, rtc.tm_sec);
+
+    close(fd);
+    return 0;
+}
+Write a program to implement a simple CAN (Controller Area Network) communication.
+c
+#include <stdio.h>
+#include <string.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <linux/can.h>
+#include <linux/can/raw.h>
+#include <net/if.h>
+
+int main() {
+    int s = socket(PF_CAN, SOCK_RAW, CAN_RAW);
+    if (s == -1) {
+        printf("Failed to create CAN socket\n");
+        return -1;
+    }
+
+    struct ifreq ifr;
+    strcpy(ifr.ifr_name, "can0");
+    ioctl(s, SIOCGIFINDEX, &ifr);
+
+    struct sockaddr_can addr;
+    addr.can_family = AF_CAN;
+    addr.can_ifindex = ifr.ifr_ifindex;
+    if (bind(s, (struct sockaddr *)&addr, sizeof(addr)) == -1) {
+        printf("Failed to bind CAN socket\n");
+        close(s);
+        return -1;
+    }
+
+    struct can_frame frame;
+    frame.can_id = 0x123;
+    frame.can_dlc = 2;
+    frame.data[0] = 0x11;
+    frame.data[1] = 0x22;
+
+    if (write(s, &frame, sizeof(frame)) != sizeof(frame)) {
+        printf("Failed to send CAN frame\n");
+    } else {
+        printf("CAN frame sent\n");
+    }
+
+    close(s);
+    return 0;
+}
+Write a program to implement a simple EEPROM read/write using I2C.
+c
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+
+int main() {
+    int file;
+    char *filename = (char*)"/dev/i2c-1";
+    if ((file = open(filename, O_RDWR)) < 0) {
+        printf("Failed to open the i2c bus\n");
+        return -1;
+    }
+
+    int addr = 0x50;
+    if (ioctl(file, I2C_SLAVE, addr) < 0) {
+        printf("Failed to acquire bus access and/or talk to slave\n");
+        return -1;
+    }
+
+    char writeBuf[2] = {0x00, 0x55};
+    if (write(file, writeBuf, 2) != 2) {
+        printf("Failed to write to the i2c bus\n");
+    }
+
+    char readBuf[1] = {0};
+    if (read(file, readBuf, 1) != 1) {
+        printf("Failed to read from the i2c bus\n");
+    } else {
+        printf("Data read: %02x\n", readBuf[0]);
+    }
+
+    close(file);
+    return 0;
+}
+Write a program to implement a simple stepper motor control.
+c
+#include <stdio.h>
+#include <wiringPi.h>
+
+#define IN1 0
+#define IN2 1
+#define IN3 2
+#define IN4 3
+
+void stepMotor(int step) {
+    switch (step) {
+        case 0:
+            digitalWrite(IN1, HIGH);
+            digitalWrite(IN2,```c
+        case 0:
+            digitalWrite(IN1, HIGH);
+            digitalWrite(IN2, LOW);
+            digitalWrite(IN3, LOW);
+            digitalWrite(IN4, LOW);
+            break;
+        case 1:
+            digitalWrite(IN1, LOW);
+            digitalWrite(IN2, HIGH);
+            digitalWrite(IN3, LOW);
+            digitalWrite(IN4, LOW);
+            break;
+        case 2:
+            digitalWrite(IN1, LOW);
+            digitalWrite(IN2, LOW);
+            digitalWrite(IN3, HIGH);
+            digitalWrite(IN4, LOW);
+            break;
+        case 3:
+            digitalWrite(IN1, LOW);
+            digitalWrite(IN2, LOW);
+            digitalWrite(IN3, LOW);
+            digitalWrite(IN4, HIGH);
+            break;
+    }
+}
+
+int main() {
+    if (wiringPiSetup() == -1) {
+        printf("Setup wiringPi failed!\n");
+        return -1;
+    }
+
+    pinMode(IN1, OUTPUT);
+    pinMode(IN2, OUTPUT);
+    pinMode(IN3, OUTPUT);
+    pinMode(IN4, OUTPUT);
+
+    for (int i = 0; i < 100; i++) {
+        for (int step = 0; step < 4; step++) {
+            stepMotor(step);
+            delay(10);
+        }
+    }
+
+    return 0;
+}
+Write a program to implement a simple ultrasonic distance sensor reading.
+c
+#include <stdio.h>
+#include <wiringPi.h>
+
+#define TRIG 0
+#define ECHO 1
+
+int main() {
+    if (wiringPiSetup() == -1) {
+        printf("Setup wiringPi failed!\n");
+        return -1;
+    }
+
+    pinMode(TRIG, OUTPUT);
+    pinMode(ECHO, INPUT);
+
+    digitalWrite(TRIG, LOW);
+    delay(30);
+
+    digitalWrite(TRIG, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TRIG, LOW);
+
+    while (digitalRead(ECHO) == LOW);
+    long startTime = micros();
+    while (digitalRead(ECHO) == HIGH);
+    long travelTime = micros() - startTime;
+
+    int distance = travelTime / 58;
+    printf("Distance: %d cm\n", distance);
+
+    return 0;
+}
+Write a program to implement a simple IR (Infrared) sensor reading.
+c
+#include <stdio.h>
+#include <wiringPi.h>
+
+#define IR_SENSOR_PIN 0
+
+int main() {
+    if (wiringPiSetup() == -1) {
+        printf("Setup wiringPi failed!\n");
+        return -1;
+    }
+
+    pinMode(IR_SENSOR_PIN, INPUT);
+
+    while (1) {
+        if (digitalRead(IR_SENSOR_PIN) == LOW) {
+            printf("Object detected\n");
+        } else {
+            printf("No object detected\n");
+        }
+        delay(500);
+    }
+
+    return 0;
+}
+Write a program to implement a simple light sensor reading using ADC.
+c
+#include <stdio.h>
+#include <wiringPi.h>
+#include <mcp3004.h>
+
+#define BASE 100
+#define SPI_CHAN 0
+
+int main() {
+    if (wiringPiSetup() == -1) {
+        printf("Setup wiringPi failed!\n");
+        return -1;
+    }
+
+    mcp3004Setup(BASE, SPI_CHAN);
+    int lightValue = analogRead(BASE + 0);
+    printf("Light Sensor Value: %d\n", lightValue);
+    return 0;
+}
+These additional questions and answers cover a wide range of practical problems that are relevant for an embedded developer role. Preparing for these questions will help you demonstrate your coding skills and problem-solving abilities during interviews at top tech companies.
