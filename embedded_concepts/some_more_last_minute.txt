@@ -699,9 +699,6 @@ struct Node* newNode(int data, int priority) {
     struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
     temp->data = data;
     temp->priority = priority;
-    temp->next = NULL```c
-    temp->data = data;
-    temp->priority = priority;
     temp->next = NULL;
     return temp;
 }
@@ -1828,9 +1825,6 @@ c
 
 void stepMotor(int step) {
     switch (step) {
-        case 0:
-            digitalWrite(IN1, HIGH);
-            digitalWrite(IN2,```c
         case 0:
             digitalWrite(IN1, HIGH);
             digitalWrite(IN2, LOW);
