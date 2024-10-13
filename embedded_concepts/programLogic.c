@@ -1021,6 +1021,128 @@ Performance: This allocator is efficient for scenarios with many small allocatio
 Error Handling: Basic error handling is included but could be expanded for robustness in production code.
 Thread Safety: This implementation is not thread-safe. If used in multi-threaded applications, consider adding synchronization mechanisms.
 
+// fully dynamic pool
+	Certainly! Below is a C program that implements a simple memory pool allocator using dynamic memory allocation. This memory pool allocator will allow you to allocate and deallocate fixed-size blocks of memory efficiently.
+
+Memory Pool Allocator in C
+c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define BLOCK_SIZE 32  // Size of each block in the pool
+#define POOL_SIZE 1024 // Total size of the memory pool
+
+typedef struct MemoryBlock {
+    struct MemoryBlock* next;
+} MemoryBlock;
+
+typedef struct MemoryPool {
+    MemoryBlock* freeList;
+    void* pool;
+} MemoryPool;
+
+// Initialize the memory pool
+MemoryPool* createMemoryPool(size_t blockSize, size_t poolSize) {
+    MemoryPool* memoryPool = (MemoryPool*)malloc(sizeof(MemoryPool));
+    if (!memoryPool) {
+        return NULL;
+    }
+
+    memoryPool->pool = malloc(poolSize);
+    if (!memoryPool->pool) {
+        free(memoryPool);
+        return NULL;
+    }
+
+    memoryPool->freeList = NULL;
+    size_t numBlocks = poolSize / blockSize;
+    for (size_t i = 0; i < numBlocks; i++) {
+        MemoryBlock* block = (MemoryBlock*)((char*)memoryPool->pool + i * blockSize);
+        block->next = memoryPool->freeList;
+        memoryPool->freeList = block;
+    }
+
+    return memoryPool;
+}
+
+// Allocate a block from the memory pool
+void* allocateBlock(MemoryPool* memoryPool) {
+    if (!memoryPool->freeList) {
+        return NULL; // No free blocks available
+    }
+
+    MemoryBlock* block = memoryPool->freeList;
+    memoryPool->freeList = block->next;
+    return (void*)block;
+}
+
+// Free a block back to the memory pool
+void freeBlock(MemoryPool* memoryPool, void* block) {
+    MemoryBlock* memoryBlock = (MemoryBlock*)block;
+    memoryBlock->next = memoryPool->freeList;
+    memoryPool->freeList = memoryBlock;
+}
+
+// Destroy the memory pool
+void destroyMemoryPool(MemoryPool* memoryPool) {
+    free(memoryPool->pool);
+    free(memoryPool);
+}
+
+int main() {
+    MemoryPool* memoryPool = createMemoryPool(BLOCK_SIZE, POOL_SIZE);
+    if (!memoryPool) {
+        printf("Failed to create memory pool\n");
+        return 1;
+    }
+
+    // Allocate some blocks
+    void* block1 = allocateBlock(memoryPool);
+    void* block2 = allocateBlock(memoryPool);
+    void* block3 = allocateBlock(memoryPool);
+
+    if (block1) printf("Allocated block1 at %p\n", block1);
+    if (block2) printf("Allocated block2 at %p\n", block2);
+    if (block3) printf("Allocated block3 at %p\n", block3);
+
+    // Free some blocks
+    freeBlock(memoryPool, block1);
+    freeBlock(memoryPool, block2);
+
+    // Allocate again to see if freed blocks are reused
+    void* block4 = allocateBlock(memoryPool);
+    if (block4) printf("Allocated block4 at %p\n", block4);
+
+    // Clean up
+    destroyMemoryPool(memoryPool);
+    return 0;
+}
+Explanation:
+MemoryBlock Structure:
+
+This structure represents a block in the memory pool. It contains a pointer to the next free block.
+MemoryPool Structure:
+
+This structure represents the memory pool. It contains a pointer to the free list and a pointer to the pool of memory.
+createMemoryPool Function:
+
+This function initializes the memory pool by allocating a large block of memory and dividing it into smaller blocks. It then links these blocks into a free list.
+allocateBlock Function:
+
+This function allocates a block from the memory pool by removing a block from the free list and returning it to the caller.
+freeBlock Function:
+
+This function frees a block back to the memory pool by adding it back to the free list.
+destroyMemoryPool Function:
+
+This function cleans up the memory pool by freeing the allocated memory.
+main Function:
+
+This function demonstrates the usage of the memory pool allocator by creating a memory pool, allocating and freeing blocks, and then destroying the memory pool.
+This implementation provides a simple and efficient way to manage memory allocation and deallocation for 
+fixed-size blocks, which is useful in embedded systems and other performance-critical applications.
+	
 //LRU fully functional program
 #include <stdio.h>
 #include <stdlib.h>
