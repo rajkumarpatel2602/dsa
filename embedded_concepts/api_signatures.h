@@ -1,5 +1,26 @@
 //DS signatures
 
+TIMER
+
+typedef struct {
+    uint32_t lower;      // Lower 32 bits
+    uint32_t upper;      // Upper 32 bits (overflow count)
+    uint32_t timeout;    // Timeout in microseconds
+    void (*callback)(void); // Callback function
+} Timer64;
+
+ // Set up the signal handler for the timer
+signal(SIGALRM, timerHandler);
+
+// Set up a timer to trigger every microsecond
+struct itimerval it_val;
+it_val.it_value.tv_sec = 0;
+it_val.it_value.tv_usec = 1; // Trigger every microsecond
+it_val.it_interval.tv_sec = 0;
+it_val.it_interval.tv_usec = 1; // Repeat every microsecond
+
+setitimer(ITIMER_REAL, &it_val, NULL);
+
 // LRU
 #define CACHE_SIZE 3 // Define the maximum size of the cache
 
