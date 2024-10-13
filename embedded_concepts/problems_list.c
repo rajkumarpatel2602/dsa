@@ -11,8 +11,9 @@ void printUp(int startNumber, int endNumber)
 
 //How to add two numbers without using the plus operator?
 Actually,
-SUM = A XOR B
-CARRY = A AND B
+CARRY = (A AND B) OR (CARRY_IN & A & B)
+SUM = A XOR B XOR CARRY
+try bit-by-bit.
 On a wicked note, you can add two numbers wihtout using the + operator as follows
 a - (- b)
 
@@ -519,9 +520,10 @@ int main() {
 
 // Ringbuffer logic
 // when to read? when both are pointing to one location, buffer is empty
-if (read != write) read increament;
+if (head != tail) read increament;
 // when to write? when head is 1 step back from tail, buffer is full
-if (head + 1 != read) write increamnet;
+if (head + 1 != tail) write increamnet;
+// head always points to empty location.
 
 // shell expansion routine
 #include <stdio.h>
