@@ -179,11 +179,21 @@ void countingSort(int arr[], int size);
 // mutex
 Pthread_mutex_t mutexOb;
 Pthreas_mutex_lock(&mutexOb);
+Pthreas_mutex_trylock(&mutexOb); // returns EBUSY if lock is already acquired
+https://youtu.be/OIKr2ll2Nd8?si=Ow5FjHWo8JWvKpzg
 Pthread_mutex_unlock(&mutexOb);
 pthread_mutexattr_t attr;
 pthread_mutexattr_init(&attr);
 pthread_mutexattr_setprotocol(&attr, PTHREAD_PRIO_INHERIT);
 pthread_mutex_init(&resource_mutex, &attr);
+
+// barrier
+pthread_barrier_t barrier; // can be global so that in routine one can wait.
+pthread_barrier_init(&barrier, NULL, barrier_cnt);
+pthread_barrier_destroy(&barrier);
+pthread_barrier_wait(&barrier); // call this in thread routine so that it gets bloacked until barrier_cnt gets hit
+https://www.youtube.com/watch?v=_P-HYxHsVPc&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=14
+https://youtube.com/watch?v=MDgVJVIRBnM&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=15
 
 // spinlock
 pthread_spin_lock()
