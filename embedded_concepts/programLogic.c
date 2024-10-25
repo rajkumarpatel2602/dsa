@@ -460,17 +460,23 @@ Mergesort(a, left, right)
 void bubble_sort(int a[], int n)
 {
     int i, j, temp;
-    for(j = 1; j < n; j++)
+    for(j = 0; j < n - 1; j++)
     {
-        for(i = 0; i < (n - j); i++)
+        for(i = 0; i < (n - 1 - j); i++)
         {
             if(a[i] >= a[i + 1])
             {
             //Swap a[i], a[i+1]
+		// to check if array is sorted, then use flag here. and break
             }
         }
     }
 }
+
+// to get n largets elements do n passes.
+// as we throw stone in lake, it goes down as it's heavy, here also heaviest element is getting at last spot, so bubbles get created on surface, on lower positions, and hence the name.
+// min is O(n) when sorted, if not sorted O(n^2)
+// flag makes it adaptive to O(n)
 
 To improvise this basic algorithm, keep track of whether a particular pass results in any swap or not. If not, you can break out without
 wasting more cycles.
