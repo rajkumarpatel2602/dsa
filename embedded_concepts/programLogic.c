@@ -477,6 +477,8 @@ void bubble_sort(int a[], int n)
 // as we throw stone in lake, it goes down as it's heavy, here also heaviest element is getting at last spot, so bubbles get created on surface, on lower positions, and hence the name.
 // min is O(n) when sorted, if not sorted O(n^2)
 // flag makes it adaptive to O(n)
+// not suitable for linkedlist
+// passes are useful to get highets element. it's stable (same element doesn't need swap) and adaptive(if softed O(n2) becomes O(n)).
 
 To improvise this basic algorithm, keep track of whether a particular pass results in any swap or not. If not, you can break out without
 wasting more cycles.
@@ -578,13 +580,15 @@ void insertion_sort(int a[], int n)
     }
 }
 
-// No useful results in one pass or two passes, as in bubble sort. order is O(n^2)
-// if array is sorted then insertion is O(n) and hence it's self-adaptive. bubble sort we had to make adaptive.
+// No useful results in one pass or two passes, as in bubble sort. order is O(n^2) (if time complexity gets reduced from n2 to n in best case, then it's called adaptive. )
+// if array is sorted then insertion is O(n) and hence it's self-adaptive. bubble sort we had to make adaptive. these two algo are only adaptive. 
+// if same element is tried to get added in list/or tried to find right position, it's not gonna swap with similar element in the softed list, and hence it's stable as bubble sort.
+// merge, bubble and insertion are only stable.
 
 // we consider that we have a sorted array (e.g. arr[0]) and after all elements are to be inserted in this sorted list. so for that, 
 // we start taking one position at a time, and find right place for that element. first arr[1] is checked with sorted list on left side.
 // then arr[2] is checked for right position in sorted list comprising of arr[0] and arr[1]
-// in linkedlist we don't need shifting, and hence it's more useful for linked list. so it's designed for linkedlist.
+// in linkedlist we don't need shifting, and hence it's more useful for linked list. so it's designed for linkedlist. 
 
 //preorder
 preorder(mynode *root)
