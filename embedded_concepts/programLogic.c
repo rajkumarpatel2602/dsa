@@ -460,7 +460,7 @@ Mergesort(a, left, right)
 void bubble_sort(int a[], int n)
 {
     int i, j, temp;
-    for(j = 0; j < n - 1; j++)
+    for(j = 0; j < n - 1; j++) // number of passes
     {
         for(i = 0; i < (n - 1 - j); i++)
         {
@@ -565,7 +565,7 @@ quicksort(a, 0, n - 1);
 void insertion_sort(int a[], int n)
 {
     int i, j, item;
-    for(i = 0; i < n; i++)
+    for(i = 1; i < n; i++) // passes
     {
         item = a[i];
         j = i - 1;
@@ -577,6 +577,15 @@ void insertion_sort(int a[], int n)
         a[j + 1] = item;
     }
 }
+
+// No useful results in one pass or two passes, as in bubble sort. order is O(n^2)
+// if array is sorted then insertion is O(n) and hence it's self-adaptive. bubble sort we had to make adaptive.
+
+// we consider that we have a sorted array (e.g. arr[0]) and after all elements are to be inserted in this sorted list. so for that, 
+// we start taking one position at a time, and find right place for that element. first arr[1] is checked with sorted list on left side.
+// then arr[2] is checked for right position in sorted list comprising of arr[0] and arr[1]
+// in linkedlist we don't need shifting, and hence it's more useful for linked list. so it's designed for linkedlist.
+
 //preorder
 preorder(mynode *root)
 {
