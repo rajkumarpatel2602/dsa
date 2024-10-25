@@ -508,19 +508,27 @@ void selection_sort(int a[], int n)
     {
         small = a[i];
         pos = i;
+
+	// if list is sorted no swap will happen and pos and i will be same.
         for(j = i + 1; j < n; j++)
         {
             if(a[j] < small)
             {
-            small = a[j];
-            pos = j;
+	        small = a[j];
+	        pos = j;
             }
         }
+	
+	// only at the end swap
         temp = a[pos];
         a[pos] = a[i];
         a[i] = temp;
     }
 }
+
+// we select a position (e.g.first position to begin with) to be the right candidate.
+// we need n-1 passes, same as bubble and insertion sort
+// do not swap until you find the right position.
 
 int partition(int a[], int low, int high)
 {
