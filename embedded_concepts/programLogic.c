@@ -506,7 +506,7 @@ void selection_sort(int a[], int n)
     int i, j, small, pos, temp;
     for(i = 0; i < (n - 1); i++)
     {
-        small = a[i];
+        small = a[i];	
         pos = i;
 
 	// if list is sorted no swap will happen and pos and i will be same.
@@ -519,7 +519,7 @@ void selection_sort(int a[], int n)
             }
         }
 	
-	// only at the end swap
+	// only at the end swap // if pos == i, don't swap.
         temp = a[pos];
         a[pos] = a[i];
         a[i] = temp;
@@ -529,6 +529,12 @@ void selection_sort(int a[], int n)
 // we select a position (e.g.first position to begin with) to be the right candidate.
 // we need n-1 passes, same as bubble and insertion sort
 // do not swap until you find the right position.
+// number of comparision O(n2)
+// number of swaps only O(n) swap. only algorithem, do only n-1 swaps, for n element list. very efficient in swapping, as we are using extra pos variable and managing swapping at last.
+// passes are of value here. for k passes, we get k initial sorted elements. same as bubble sort.
+// it is non-adaptive, so slways going to take O(n2)
+// not stable, as if you have repeated elements, still swaping or their placement in list gets changed due to swapping.
+
 
 int partition(int a[], int low, int high)
 {
@@ -539,7 +545,7 @@ int partition(int a[], int low, int high)
     while(1)
     {
         while(i < high && key >= a[i])i++;
-        while(key < a[j])j--;
+        while(j>low && key < a[j])j--;
         if(i < j)
         {
             temp = a[i];
@@ -567,10 +573,17 @@ void quicksort(int a[], int low, int high)
     }
 }
 
+
 int main()
 {// Populate the array a
-quicksort(a, 0, n - 1);
+	quicksort(a, 0, n - 1);
 }
+
+// Quicksort works on the idea that, element is in a sorted position if all elements before are small, and all after the element position are large.
+// so take one element // pivot, and find it's right position.
+// you decide pivot, and then pivot ask to i // left and j // right position to be such that , i>pivot and j<pivot, then ask them to sort.
+// if i<pivot, i++; if j>pivot, j--. keep on doing this till, i<j.
+// once pivot is decided, you say I'm in my position, so you go ahead and take care of yourself.
 
 void insertion_sort(int a[], int n)
 {
