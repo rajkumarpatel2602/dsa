@@ -93,6 +93,93 @@ rev(q, p) {
 -- most of the problems like finding height, counting nodes, counting nodes with 2 child, these can be solved by performing post order traversal. left, right, print method.
 -- for given n number of nodes, 2nCn/(n+1) these many trees can be gneerated.
 
+// most of problems works with left post order traversal type. go left, and right, and compute.
+int foo(node *p){
+	int x, y;
+	if(p != NULL){
+		x = foo(p->left);
+		y = foo(p->right);
+		// find number of nodes
+		return x + y + 1;
+		// sum data of all nodes
+		return x + y + p->data;
+		// find node with 2 child
+		if(p->left && p->right) return x + y + 1;
+		else return x + y;
+		// find height
+		return max(x, y) + 1;
+	}
+	return 0;
+}
+
+// some works in inorder type
+int foo(node *p){
+	int x, y;
+	if(p != NULL){
+		foo(p->left);
+		// find leaves
+		if(!p->left && !p->right) return count++; // make it static.
+
+		foo(p->right);
+	}
+	return 0;
+}
+
+- How many different trees can be constructed using n nodes? :: 2^n - n
+- Write a C program to delete a tree (i.e, free up its nodes) :: Free up the nodes using Postorder traversal!.
+- Write a C program to find the mininum value in a binary search tree.  The idea is to keep on moving till you hit the left most node in the tree
+int minValue(struct node* node)
+{
+	struct node* current = node;
+	while (current->left != NULL)
+	{
+		current = current->left;
+	}
+	return(current->data);
+}
+- if both trees are identical? -- 
+{
+	if (a==NULL && b==NULL){return(true);}
+	else if (a!=NULL && b!=NULL)
+	{
+	return(a->data == b->data &&
+		identical(a->left, b->left) &&
+		identical(a->right, b->right));
+	}
+	else return(false);
+}
+
+-  create a new mirror copy tree.
+mynode *copy(mynode *root)
+{
+	mynode *temp;
+	if(root==NULL)return(NULL);
+	temp = (mynode *) malloc(sizeof(mynode));
+	
+	temp->value = root->value;
+	temp->left = copy(root->right);
+	temp->right = copy(root->left);
+	
+	return(temp);
+}
+
+This code will will only print the mirror of the tree // change data to make it mirror.
+void tree_mirror(struct node* node)
+{
+	struct node *temp;
+	if (node==NULL)
+	{
+		return;
+	} else {
+		tree_mirror(node->left);
+		tree_mirror(node->right);
+		// Swap the pointers in this node
+		temp = node->left;
+		node->left = node->right;
+		node->right = temp;
+	}
+}
+
 5. BST
 -- inorder of bst gives a sorted list.
 -- no duplicates
