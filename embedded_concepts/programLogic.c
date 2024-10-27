@@ -92,7 +92,7 @@ rev(q, p) {
 -- level order travarsing need queue.
 -- most of the problems like finding height, counting nodes, counting nodes with 2 child, these can be solved by performing post order traversal. left, right, print method.
 -- for given n number of nodes, 2nCn/(n+1) these many trees can be gneerated.
-    
+
 5. BST
 -- inorder of bst gives a sorted list.
 -- no duplicates
@@ -1873,3 +1873,10 @@ size: The size of memory requested.
 alignment: The desired alignment (must be a power of two).
 How It Works:
 The expression ensures that size is rounded up to the nearest multiple of alignment.
+
+// find curren time
+#include <time.h>
+time_t t;
+time(&t);
+printf("%s", ctime(&t));
+https://github.com/rajkumarpatel2602/WheelTimer_Sachinites/blob/master/WheelTimer/libtimer/Course/timerExampleDemo1.c
