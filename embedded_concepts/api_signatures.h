@@ -538,3 +538,35 @@ and we want to do malloc
 arr = (int **)malloc(sizeof(int *) * num)
 if you see here, arr is double pointer, but dereferncing double pointer will give int *
 which is inside sizeof().
+
+// Ideal hashing
+h(x)=x // constant storing and retrival time. disadvantage: collision.
+
+-- resolve collision
+
+- open hashing
+--> allowed to consume extraspaces. 
+- 1. Chaining, 
+make linkedlist in case of collision, keys are inserted in sorted order.
+analysis is based on loading factor. lembda = number of keys / hash table size. 
+if h(x) = x%10, and keys are 100, and as size is 10. lembda = 10. each position takes 10 keys in the idea scenario.
+- search time = 1 + lembda/2. 1 for hash function location, and lembda/2 for searching in list. this is average time.
+- worse case time = 1 + lebda, in unsuccessful search
+- delete is like, delete in linkedlist.
+5, 115, 45, 95, 35, 335, 45. here be wise and choose right hash function. e.g. h(x) = (x/10) % 10. i.e. hashing based on second digit.
+based on key, choose your hash function
+
+- closed hashing
+--> allowed to store at anyother free space. not by force will store at given space only, which is provided by hash function.
+-- open addressing
+1. linear : h'(x) = (h(x) + f(i)) % 10. i = 0, 1, ..., 9
+2. quadratic : h'(x) = (h(x) + i ^ 2) % 10. i = 0, 1, ..., 9 . to store element at distant place, and avoid clustering of elements.
+3. Double hashing : h1(x) = x % 10,  h2(x) = R - (x % R), h'(x) = (h1(x) + i *h2(x)) i = 0, 1, ..., 9. R is closest prime number to size of hash table, i.e. 7.
+here idea is to use all the places which of the table, and also avoid clustering.
+
+-- tree traversal
+- pre, pos, in. if given number of nodes in any traversal manner or order, then 2nCn/(n+1) , catalon number, these many shapes are possible.
+- to create a tree, we need post-in or pre-in these kind of 2 orders for given nodes, then only tree can be generated. pre-post gives more than 1 tree possible shapes.
+- tree level order traversal and creation is possible only using queue.
+- pre, in, post are easy recursive way of traversals.
+
