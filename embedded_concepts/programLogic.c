@@ -1976,3 +1976,6 @@ time_t t;
 time(&t);
 printf("%s", ctime(&t));
 https://github.com/rajkumarpatel2602/WheelTimer_Sachinites/blob/master/WheelTimer/libtimer/Course/timerExampleDemo1.c
+
+* Recursive mutex
+https://github.com/sachinites/MultithreadingBible/tree/master/recursive_mutex
