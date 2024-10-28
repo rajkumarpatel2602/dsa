@@ -106,6 +106,15 @@ int foo(node *p){
 		// find node with 2 child
 		if(p->left && p->right) return x + y + 1;
 		else return x + y;
+		// find node with 1 or 2 child
+		if(p->left || p->right) return x + y + 1;
+		else return x + y;
+		// find node with 0 child
+		if(!p->left && !p->right) return x + y + 1;
+		else return x + y;
+		// find node with exact 1 child
+		if(p->left!=NULL ^ p->right!=NULL) return x + y + 1;
+		else return x + y;
 		// find height
 		return max(x, y) + 1;
 	}
