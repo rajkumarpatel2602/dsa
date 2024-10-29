@@ -1,5 +1,23 @@
 //DS signatures
 
+// row major form (A)mxn, m is row, n is column
+addr(A[i][j]) = Base_addr + [i * n + j] * word_size; // column is needed for row major 
+// column major form
+addr(A[i][j]) = Base_addr + [j * m + i] * word_size; // row is needed for row major
+
+Above calculation changes to this, if index starts with 1. and hence due to its complex computation, indexing start with 1 is avoided.
+// row major form (A)mxn, m is row, n is column
+addr(A[i][j]) = Base_addr + [(i-1) * n + (j-1)] * word_size; // column is needed for row major 
+// column major form
+addr(A[i][j]) = Base_addr + [(j-1) * m + (i-1)] * word_size; // row is needed for row major
+
+for nD array // A[d1][d2][d3][d4]
+// row major
+addr(A[i1][i2][i3][i4]) = Base_addr + [i1 * d2 * d3 * d4 + i2 * d3 * d4 + i3 * d4 + i4 ] * word_size;
+// column major
+addr(A[i1][i2][i3][i4]) = Base_addr + [i4 * d1 * d2 * d3 + i3 * d1 * d2 + i2 * d1 + i1 ] * word_size;
+
+//
 TIMER
 
 typedef struct {
