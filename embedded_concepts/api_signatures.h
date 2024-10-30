@@ -203,6 +203,53 @@ void traverse(DNode *head);
 // then last pointer, which is always waiting for right node to move ahead.
 // fist and second will move in their list respectively.
 // if (f->data > s->data)
+// third = first,
+// last = first,
+// last->next = null;
+// first = first->next;
+// then while(first && second){
+//	if(first < second){
+//		last->next = first, last = first, first = first->next, last->next = NULL;
+//	} else {
+//		last->next = second, last = second, second = second->next, last->next = NULL;
+// 	}
+//	if (first) last->next = first;
+//	else last->next = second;
+//}
+
+// problem check loop
+// fast and slow pointer,
+// keep on going in while, till we have fast pointer doesn't reach null,
+// start with p =head ,q= head, use do while, and keep on progressing, while(q && q!=p);
+
+// circular linkedlist
+// 2 representation. 1 is standard, but then it becomes hard to identify if list is circular or not in case of empty. so there is second representation
+// which helps to have one node, just to make point at any list node. and this special extra node would be called as head node.
+
+// problem: display all elements of circular linked list
+// this needs flag. if(flag == 0 || p != head) {enter the loop}
+
+// problem: insert in circular linkedlist.
+// inserting at head means, reaching to last node, and then modify next pointer, and insert. inserting at head or after last node are same. 
+// if (pos == 0){ 
+//	if (!head) { do something } else {do something. by the way, here, you don't need to change head as it's circular list};
+// 	else add as if inserting at particular position. 
+
+// problem: delete in circluar list. 
+// anyother node (pose-2), head node (move upto last node). 2 cases will be there.
+
+// doubly list
+
+// problem: insert in doubly linkedlist.
+// case
+// 1. head node. directly possible
+// 2. any other node. move to before that location, and play around pointers.
+// t->next = p->next
+// t->prev = p;
+// if(p=>next != NULL) {
+//	p->next->prev = t;
+// }
+// p->next = t;
 
 
 // Trees
