@@ -136,10 +136,74 @@ typedef struct DNode {
     struct DNode *next;
 } DNode;
 
-void insert(DNode **head, int data, int position);
+void insert(DNode **head, int data, int position); // cases, 
+// add at a given position [stop before position]
+// before first node, code is different, after given pos, then need loop till pos-1 and make pointer P point there and change pointers with t, and next node.
+// basically code gets split in pos==0 and pos>0 condition. in while also check if p is non-null.
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13133198#overview
+
+// creating a list
+// you can opt for always adding at last, so use adt and use pointer which is pointing to last
+
+// adding in a sorted list
+// use slow and fast pointer, q=NULL and p=head pinter apporach.
+// use while to just keep on moving, don't forget the condition to check if p is non-null.
+
 void delete(DNode **head, int position);
-DNode* search(DNode *head, int data);
+// case
+// 2 cases are present. 
+// 1. Delete at head
+// 2. Delete the node at given position.
+// two pointers required for deleting at the given position, so use slow and fast pointer. q=NULL and p=head. same as case in adding at sorted list. always check p non-null
+
+DNode* search(DNode *head, int data); 
+// case
+// search the node and move to head.
+// This needs q pointer, slow pointer
+
 void traverse(DNode *head);
+
+// misc
+// problem - check if list is sorted.
+// keep on moving in list, but store the value in x, before moving, so that next time you can compare prev value. if condition fail, then return false.
+
+// problem - remove elements in sorted linkedlist
+// 2 pointers required. p on head, and next q, if current and next data same, then delete next node, and change pointers, delete q, and make q = p->next;
+// while q or fast pointer doesn't get null.
+
+// reversing the linked list
+// case reversing the data
+// this needs extra array, and 2 sequential while loop.
+// case reversing list
+// 1. using sliding pointerse
+// p = first, q, r = NULL. 
+// while(p){
+// 	r = q;
+//	q = p;
+// 	p = p->next;
+//	q->next = r;
+// }
+// first = q;
+
+// 2. recusion
+// void reverse(node *q, node *p){
+// 	if(p){
+//		revese(p, p->next);
+//		p->next = q; // NULL assignment is taken care here.
+//	} else {
+//		head = q;
+//	}
+// }
+
+// problem : concating two list
+// keep until end of first list, and then keep attach next's head as last node's next.
+
+// problem: merging two list
+// you need first third pinter for poiting to new merged list, 
+// then last pointer, which is always waiting for right node to move ahead.
+// fist and second will move in their list respectively.
+// if (f->data > s->data)
+
 
 // Trees
 typedef struct TreeNode {
