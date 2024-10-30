@@ -244,14 +244,79 @@ void traverse(DNode *head);
 // case
 // 1. head node. directly possible
 // 2. any other node. move to before that location, and play around pointers.
-// t->next = p->next
-// t->prev = p;
-// if(p=>next != NULL) {
-//	p->next->prev = t;
+// 
+
+
+// problem: reverse a doubly list
+// while(p){
+//	temp = p->next;
+//	p->next = p->prev;
+// 	p->prev = temp;
+//	p = p->prev;
+// 	// now check for the last node to move head there.
+//	if(p->next == NULL) head = p;
+//}
+
+// problem: finding loop
+// p = q = head;
+// while(q){
+//	q = q->next;
+//	if(q) q = q->next;
+//	p = p->next;
+//	if(p==q) return true;
 // }
-// p->next = t;
+// return false;
+//
+
+// problem: finding intersection
+// p = first;
+// while(p) push(&stk1, p);
+// p = second;
+// while(p) push(&stk2, p);
+// while(top(&stk1) == top(&stk2)){
+//	p = pop(&stk1); pop(&stk2);
+// }
+// printf("%d", p->data);
+
+//HEAP
+
+// problem - insert in heap
+// make sure to start with 1 index, then add at last, check with parent [i/2], swap(just move parent to i location), keep on doing that, until right spot found.
+// at last assign at ith position. (outside loop).
+// you give array and poisiton for heapify
+// insert_heap(int a[], int n){
+//	temp = a[n];
+//	while(i>1 && temp > A[i/2]){
+//		A[i] = A[i/2];
+//		i = i/2;
+//	}
+//	A[i] = temp;
+//}
+
+// problem: delete from heap. always take highest element/root/priority element from the heap.
+// remove root,
+// shift last element to root position
+// compare it's child (left child is j, right is j+1), and swap with max element.
+// now as last lement at the second level, compare its child and swap with max.
+// keep on going, until we reach a point where child are not anymore greater than that element.
+// int x, i =1, j = 2*i;
+// x = A[n];
+// A[1] = A[n];
+// while(j < n-1){
+//	if(a[j+1] > A[j]){
+//		j = j+1;
+//	}
+//	if(A[j] > A[i]){
+//		swap(A[i], A[j]);
+//		i = j;
+//		j = 2*j;
+//	} else {
+//		break;
+//	}
+//}
 
 
+// problem: 
 // Trees
 typedef struct TreeNode {
     int data;
