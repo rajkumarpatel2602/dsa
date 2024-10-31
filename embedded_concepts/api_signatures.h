@@ -322,7 +322,7 @@ void traverse(DNode *head);
 
 // problelm: heapify O(n) // half of elements are not moved.
 // this works opposite to insert/create heap operation O(nlogn)
-// start from mast, and compare with both child, if lesser, swap.
+// start from last, and compare with both child, if lesser, swap.
 // keep on moving towards root node like this.
 
 // problem: 
