@@ -196,6 +196,12 @@ void tree_mirror(struct node* node)
 -- create, search, insert (need extra/tail pointer), delete (need to remmeber this logic https://www.udemy.com/course/datastructurescncpp/learn/lecture/13190284#overview)
 // use bit map for finding sequence, missing in sequence, duplicate entry, presence of a number or not. most of the time, data will be unsorted.
 // these operations doesn't need to store element, it just need to validate if number is there or not.
+// with just preorder or inorder, one can create bst, and for that we need stack.
+// https://www.udemy.com/course/datastructurescncpp/learn/lecture/13190120#overview
+// creating left child, add node p address to stack, and move p to that child. while adding something to right child, don't move address. just move p to that child.
+// decision to add right shall come from checking current node and stack top value. if it lies in between, then add to right.
+// if value is less than current node, then add to left.
+// when value doesn't lie between current node adn the parent(stack top) then popout the address. and move p to that poped out node. again do check.
 
 // get any mask
 
