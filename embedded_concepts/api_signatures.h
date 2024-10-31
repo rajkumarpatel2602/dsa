@@ -215,6 +215,7 @@ void traverse(DNode *head);
 //	} else {
 //		last->next = second, last = second, second = second->next, last->next = NULL;
 // 	}
+//    }
 //	if (first) last->next = first;
 //	else last->next = second;
 //}
@@ -285,8 +286,8 @@ void traverse(DNode *head);
 // problem - insert in heap
 // make sure to start with 1 index, then add at last, check with parent [i/2], swap(just move parent to i location), keep on doing that, until right spot found.
 // at last assign at ith position. (outside loop).
-// you give array and poisiton for heapify
-// insert_heap(int a[], int n){
+// you give array and poisiton for insertion
+// insert_heap(int a[], int n) {
 //	temp = a[n];
 //	while(i>1 && temp > A[i/2]){
 //		A[i] = A[i/2];
@@ -311,7 +312,7 @@ void traverse(DNode *head);
 //	if(A[j] > A[i]){
 //		swap(A[i], A[j]);
 //		i = j;
-//		j = 2*j;
+//		j = 2*i;
 //	} else {
 //		break;
 //	}
