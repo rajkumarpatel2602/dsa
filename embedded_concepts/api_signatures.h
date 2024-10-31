@@ -186,6 +186,8 @@ void traverse(DNode *head);
 // first = q;
 
 // 2. recusion
+// reverse(NULL, head);
+//
 // void reverse(node *q, node *p){
 // 	if(p){
 //		revese(p, p->next);
