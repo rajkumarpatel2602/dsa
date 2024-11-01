@@ -259,6 +259,7 @@ int myreversefunc(int num)
     byte3 = (num & xFF000000) >> 24 ;
     return((byte0 << 24) | (byte1 << 16) | (byte2 << 8) | (byte3 << 0));
 }
+https://www.youtube.com/watch?v=T8E_JRqN0fY
 
 //TODO
 int reverseBytes(int num){
