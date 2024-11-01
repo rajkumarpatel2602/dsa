@@ -30,10 +30,46 @@ https://www.udemy.com/course/datastructurescncpp/learn/lecture/13209424#search
 https://www.udemy.com/course/datastructurescncpp/learn/lecture/13190840#search
 14. delete in heap
 https://www.udemy.com/course/datastructurescncpp/learn/lecture/13190820#search
-15. 
+15. BFS traversal of graph [same as level order of bt]
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13193588#overview
+16. DFS traversal of graph [same as preorder of bt]
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13193704#overview
+17. postfix evaluation
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13168006#overview
+18. infix (with associativity R-L and also brackets) to postifx 
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13167974#overview
+19. infix to postfix using stack1
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13167930#overview
+20. infix to postfix using stack2
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13167944#overview
+21. circular buffer
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13168212#overview
+22. priority queue
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13168238#overview
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13190870#overview [binary heap as PQueues]
+21. DEQueue
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13168232#overview
+[R: inc and add, inc and add, F: inc and delete, inc and delete.] Fidel
+[R: delete and dec, delete and dec, F: add and dec, add and dec] Fadec
+22. Queue using 2 stack
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13168242#overview
+23. Stack using 2 queues
+24. iterative preorder and inorder of bt
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13168610#overview
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13168646#overview
+25. height and count of nodes
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13168834#overview
+26. Create a bt from user input
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13168466#overview
+27. level order traversal of bt
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13209444#overview
 
 
 other
 1. finding k sum in sorted
 https://www.udemy.com/course/datastructurescncpp/learn/lecture/13412376#search
-2. 
+
+
+Embedded:
+1. LRU Cache
+2. Dining philosopher problem
