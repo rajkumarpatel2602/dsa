@@ -1,8 +1,6 @@
 #WIP
 1. power using recursion
 https://www.udemy.com/course/datastructurescncpp/learn/lecture/13123960#overview
-2. Tower of hanoi
-https://www.udemy.com/course/datastructurescncpp/learn/lecture/13124014#overview
 3. permutation
 https://www.udemy.com/course/datastructurescncpp/learn/lecture/13554216#search
 4. Quick sort
@@ -73,3 +71,10 @@ https://www.udemy.com/course/datastructurescncpp/learn/lecture/13412376#search
 Embedded:
 1. LRU Cache
 2. Dining philosopher problem
+
+MICS:
+1. Tower of hanoi
+https://www.udemy.com/course/datastructurescncpp/learn/lecture/13124014#overview
+2. red-black tree
+3. AVL
+4. 2-3 search tree
