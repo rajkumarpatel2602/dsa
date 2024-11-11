@@ -1,3 +1,5 @@
+// https://www.youtube.com/watch?v=_n2hE2gyPxU&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=28
+
 #include <stdio.h>
 #include <string.h>
 #include <pthread.h>
