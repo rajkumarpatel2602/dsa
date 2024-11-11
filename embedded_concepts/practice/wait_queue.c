@@ -1,3 +1,5 @@
+/* https://www.udemy.com/course/multithreading-design-patterns/learn/lecture/27843880#overview */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
