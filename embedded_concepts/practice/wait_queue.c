@@ -98,19 +98,20 @@ void wq_deinit() {
 
 void app_init() {
     disk.shared_data = 100;
-    disk.ready = false;
+    disk.ready = true;
     pthread_mutex_init(&(disk.dmutex), NULL);
 }
 
 void *mySignalingThread( void *args) {
     int i = 10;
     while(i--) {
-        printf("signal waiting threds");
+        printf("signal is pending\n");
         sleep(2);
         pthread_mutex_lock(&(disk.dmutex));
-        disk.ready = true;
+        disk.ready = false;
         pthread_cond_signal(&wq->cv);
         pthread_mutex_unlock(&(disk.dmutex));
+        printf("signaled ready\n");
     }
 }
 
@@ -127,6 +128,7 @@ int main(int argc, char *args[]) {
     for(int i = 0; i < 3; i++) {
         pthread_create(&th[i], NULL, myThreadFun, &cnt[i]);
     }
+    
     pthread_create(&th[3], NULL, mySignalingThread, NULL);
 
     int j;
