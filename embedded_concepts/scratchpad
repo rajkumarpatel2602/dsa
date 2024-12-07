@@ -40,6 +40,7 @@ Problems
 - implement RR in C (https://www.youtube.com/watch?v=N0ET__T4sc0&t=876s)
 
 I was asked why I applied for Google.
+
 OS task scheduler,
 concurrency question, 
 ringbuffer with locking,
@@ -82,7 +83,35 @@ my preparation for coming days.
 
 brushing up past experience.
 
-System design
+system design:
+approach, as an user 
+1. what you want from product.
+2. what are the use case of the product? 
+	- in which environment prodcuts can be used?
+3. MVP -- minimal viable product to take care of the scenarios.
+	- dont' complicate
+	- dealing with ambiguity
+4. Smart -- is it a connected product?
+	- does it interface to a GateWay, Cloud Service, etc.
+	- [direct to your strength here.]
+5. Now, play on your strength sw/fw or hw engineering
+6. Rational, HW - SW partitioning. Give Rationale, performance, battery life, cost.
+7. non functional requirement -- modularity, configurability, maintainablility, deployability. [can be talked about trade-offs]
+8. Choice of platform [are you aware of any platform]  -- bring past experiences. it's important to relate to your knowledge.
+9. Communicate
+	-- confirming/assumption I am making while deciding requirement
+	-- design -- block diagram
+	-- tech stack, also know trade-offs
+	-- state machine [very good to show-case]
+	
+	
+- first we talk about MVP [peripheral]
+- then we talk about connectivity
+- then we talk about power related trade-offs [battery or line power]
+- then we talk about tech stack and capacity for any design [mqtt, http, e.g. device management, software update [then check flash requirements], identity managment, pairing of devices, plug-and-play device on-boarding, authenticating firmware] system got installed, then how consumer can configure, consume.
+- 
+
+
 
 QnA
 - general guidelines of using controller
@@ -249,6 +278,583 @@ know google products, next, pixer, etc, which processor is used etc.
 - first we talk about MVP [peripheral]
 - then we talk about connectivity
 - then we talk about power related trade-offs [battery or line power]
-- then we talk about tech stack and capacity for any design 
-[mqtt, http, e.g. device management, software update [then check flash requirements], 
-identity managment, pairing of devices, plug-and-play device on-boarding, authenticating firmware] system got installed, then how consumer can configure, consume.
+- then we talk about tech stack and capacity for any design [mqtt, http, e.g. device management, software update [then check flash requirements], identity managment, pairing of devices, plug-and-play device on-boarding, authenticating firmware] system got installed, then how consumer can configure, consume.
+- 
+
+
+QnA.
+Certainly! Here is an extended list of 50 important embedded domain programming questions that are highly relevant for an embedded developer role at companies like Google and Amazon:
+
+What is an embedded system?
+Explain the difference between microcontroller and microprocessor.
+What are the different types of memory in an embedded system?
+Describe the function of a watchdog timer in an embedded system.
+What is the role of an interrupt in an embedded system?
+Explain the concept of real-time operating systems (RTOS).
+What are the differences between hard real-time and soft real-time systems?
+How do you handle concurrency in embedded systems?
+What is the purpose of a bootloader in an embedded system?
+Explain the concept of memory-mapped I/O.
+What are the common communication protocols used in embedded systems?
+Describe the I2C protocol and its use cases.
+Explain the SPI protocol and its advantages.
+What is UART and how does it work?
+How do you perform debugging in an embedded system?
+What are the common power management techniques in embedded systems?
+Explain the concept of DMA (Direct Memory Access).
+What is the role of a linker in embedded programming?
+How do you optimize code for embedded systems?
+What are the common challenges in embedded system design?
+Explain the concept of interrupt latency and how to minimize it.
+What is the role of a real-time clock (RTC) in an embedded system?
+How do you ensure the reliability and robustness of an embedded system?
+What are the different types of sensors used in embedded systems?
+Explain the concept of pulse-width modulation (PWM).
+What is the role of a digital signal processor (DSP) in embedded systems?
+How do you handle firmware updates in an embedded system?
+What are the common security concerns in embedded systems?
+Explain the concept of a finite state machine (FSM) and its applications.
+What are the best practices for writing embedded C code?
+What is the difference between volatile and const keywords in C?
+How do you manage memory allocation in embedded systems?
+Explain the concept of stack overflow and how to prevent it.
+What is the role of a task scheduler in an RTOS?
+How do you implement a circular buffer in C?
+What are the differences between synchronous and asynchronous communication?
+Explain the concept of bit-banging and its use cases.
+What is the role of a GPIO (General Purpose Input/Output) in embedded systems?
+How do you handle error detection and correction in embedded systems?
+What are the common debugging tools used in embedded development?
+Explain the concept of a memory leak and how to detect it.
+What is the role of a compiler in embedded programming?
+How do you handle timing constraints in real-time systems?
+What are the differences between polling and interrupt-driven I/O?
+Explain the concept of a semaphore and its use in RTOS.
+What is the role of a mutex in concurrent programming?
+How do you implement a priority-based scheduling algorithm?
+What are the common techniques for reducing power consumption in embedded systems?
+Explain the concept of a boot sequence in an embedded system.
+What are the differences between static and dynamic linking?
+
+
+https://github.com/rajkumarpatel2602/dsa/blob/main/embedded_concepts/problems_list.c
+// time Implement a mechanism to handle page faults in a virtual memory system.
+// if time deque
+// 1. Implement a Simple Thread Pool in C
+// with free list 11. Implement a Memory Pool Allocator in C
+//19. Implement a Dynamic Memory Allocator Using a Free List
+
+
+deepcopy(struct Node *p, struct Node *q){
+	
+	head *temp = malloc(sizeof(struct Node *)){
+		temp->data = p->data;
+		temp->next = p->next;
+	}
+}
+
+
+#include <stdint.h>
+#include FreeRTOS.h
+
+#define BUFF_SIZE 256
+uint8_t rb_buffer[BUFF_SIZE];
+voilatile int rb_head = 0, rb_tail = 0 ;
+
+typedef struct RingBuffer{
+	uint8_t buff[256];
+	uint8_t head;
+	uint8_t tail;
+	uint8_t size;
+	pthread_mutex_t lock;
+}RingBuffer;
+
+RingBuffer rb = {.size = 20};
+
+// create a task in main and keep main at halt by waiting or joining api
+
+// uart read task
+void uart_task(void *)
+{
+	uint8_t data[20] = 0;
+	// Polling based, and hence yield is needed.
+	// in interrupt based read can be started by getting notification from isr
+	while(1){
+		read_bytes = uart_read(data, sizeof(data));
+		if(read_bytes) {
+			for(int i=0; i<read_bytes; i++){
+				// do operation like echoing
+				uart_write(&data[i], 1);
+			}
+		}
+		taskDelay(ticks(10));
+	}
+}
+
+// read from ring buffer
+uint8_t uart_read(uint8_t *data, uint8_t len){
+	uint8_t bytes_read = 0;
+	pthread_mutex_lock(&rb.lock);
+	while(bytes_read < len && rx_tail != rx_head){
+		// read from register.
+		data[bytes_read++] = rb[rx_tail];
+		rx_tail = rx_tail + 1 % rx.size;
+	}
+	pthread_mutex_release(&rb.lock);
+	return read_bytes;
+}
+
+void UartIRQHandler() {
+	while(serial_rx_buffer.data){ // read hardware register to check if data present
+		// if queue is not full add data
+		uint8_t received data = UART_DR; // some register read
+		if((rb.head + 1) % rb.size != rb.tail){
+			rb.data[head] = received data;
+			rb.head = (rb.head + 1) % rb.size;
+		}
+	}
+}
+
+int main() {
+	pthread_mutex_init(&(rb.lock));
+	uart init(); // call with uart number and other args.
+	enable_irq(UartIRQHandler);
+	
+	vTaskCreate(UartTask, "Uart task", stack_size, priority);
+	
+	vTaskScheduler();
+}
+
+
+
+Topics for candidates to prepare for a TI
+1. Be ready to describe your past experience related to the project if you have such experience (OpenWRT, Networking, WiFi, Linux)
+2. Be ready to describe specific tasks/challenging implementations/interesting features developed in a relevant subject area.
+3. Be ready to discuss deep technical details about this development. E.g.:networking protocols, build system, debugging techniques, tools, approaches, used during this development.
+4. If some specific technologies stated in CV - be ready to discuss details of these technologies.
+5. Main topics of interest (mandatory to discuss): C Language, Linux, Networking(L2-L5)
+
+
+Macro vs inline vs const:
+Translator stage, assembler stage, linker stage in details 
+OS vs RTOS
+Embedded system booting process - how bootloader load an image.
+VFS
+storage class
+RTOS vs GPOS
+
+
+BT generation
+    POST order iterative is a bit trickier. 
+-- traversing can happen in preorder, postorder and inorder. recursion is really easy, but for iteration we need to maintain our own stack.
+
+#include <timer.h>
+#Include <stdbool.h>
+#include <stdint.h>
+#Include <stdio.h>
+
+typedef void (* timer_callback_t) (void *);
+
+typedef struct sw_timer {
+	uint32_t star_time;
+	uint32_t duration;
+	bool active;
+	timer_callback_t timer_cb;
+}sw_timer;
+
+sw_timers timers[MAX_TIMER];
+static current_time = 0;
+
+// Function to initialize timers
+void init_timers() {
+    for (int i = 0; i < MAX_TIMERS; i++) {
+        timers[i].active = false;
+    }
+}
+
+// hw timer isr.
+void hwISR(){
+	// called at 1ms
+	current_time++;
+	
+	for(int i 0 ; i<MAX_TIMER; i++){
+		if(timer[i].active && current_time >= (timer[i].duration + timer[i].starttime)){
+			timer[i].active = false;
+			timer[i].callback();
+			//timer callback should get called.
+			//worker thread can help.
+		}
+	}
+}
+
+bool create_timer(sw_timer timer, timer_callback_t timer_cb, uint32_t duration){
+	if(timer.active = false){
+		timer.active = true;
+		timer.duration = duration;
+		timer.starttime = current_time;
+		timer.callback = timer_cb;
+		return true;
+	}
+}
+
+
+pppd -detach persist debug local noauth passive lock 192.168.10.1:192.168.10.100 /dev/ttyS0 460800
+
+pppd -detach persist debug local noauth passive lock 192.168.10.2:192.168.10.100 /dev/ttyS0 460800
+
+
+export MEV_NVME_DEVICE_MODE=HW_ACC 
+nvme_cpf_integration_test -c 0000:44:00.7 -n 0000:6a:00.0 -l 1 --gtest_filter=it_target_*.it_target_pos_io_flow
+
+
+sed -i 's/cpf_host = 0/cpf_host = 4/' /usr/bin/cplane/cp_init.cfg
+cat /usr/bin/cplane/cp_init.cfg | grep cpf_host
+cd /usr/bin/cplane && ./imccp 0000:00:01.6 1 cp_init.cfg &
+
+Connect to IMC
+$ sudo screen /dev/ttyUSB2 460800
+$ pppd -detach persist debug local noauth passive lock 192.168.10.1:192.168.10.100 /dev/ttyS0 460800
+On LP:
+sudo pppd local debug noauth passive lock 192.168.10.100:192.168.10.1 /dev/ttyUSB2 460800
+ 
+Connect to ACC
+$ sudo screen /dev/ttyUSB0 460800
+Start PPPD on ACC and host
+On ACC:
+$ pppd -detach persist debug local noauth passive lock 192.168.10.2:192.168.10.100 /dev/ttyS0 460800
+ 
+On LP:
+sudo pppd local debug noauth passive lock 192.168.10.100:192.168.10.2 /dev/ttyUSB0 460800
+ 
+ACC:
+$ scp <file> root@192.168.10.2:/<path>
+IMC:
+$ scp <file> root@192.168.10.1:/<path>
+ 
+ 
+Execute on LinkPartner:
+$ sudo screen -wipe
+$ sudo pkill screen
+$ sudo pkill pppd  # make sure that pppd is not running (ps xaf | grep pppd)
+ 
+Also if the PPPD was set on ACC/IMC you need to Power Cycle MEV card.
+ 
+To reboot Link Partner, you can just type: sudo reboot (there is no need to perform Power Cycle on Link Partner)
+
+
+#include <gmock/gmock.h>
+#include <gmock-global/gmock-global.h>
+
+// for registering the mock api
+MOCK_GLOBAL_FUNC2(mock_write_reg32, void(volatile uint32_t *, uint32_t));
+MOCK_GLOBAL_FUNC2(mock_read_reg32, void(volatile uint32_t *, uint32_t *));
+// for mapping
+USE_GMOCK(write_reg32, mock_write_reg32);
+USE_GMOCK(read_reg32, mock_read_reg32);
+
+#include <gtest/gtest.h>
+#include <cstring>
+
+// Test fixture for setting up tests
+class RegisterTest : public ::testing::Test {
+protected:
+    void SetUp() override {
+        // Reset mock register before each test
+        mock_register = 0;
+    }
+
+    void TearDown() override {
+        // Cleanup if needed
+    }
+};
+
+//
+TEST_F(RegisterTest, ReadRegisterValue) {
+	//
+	EXPECT_GLOBAL_CALL(mock_write_reg32, mock_write_reg32(_, _)).Times(2);
+	ON_GLOBAL_NICE_CALL(mock_read_reg32, mock_read_reg32(_, _)).WillByDefault(Return());
+	ON_GLOBAL_NICE_CALL(mock_write_reg32, mock_write_reg32(_, _)).WillByDefault(Return());
+	ON_GLOBAL_NICE_CALL(mock_read_reg32, mock_read_reg32(_, _))
+	.WillByDefault(SetArgPointee<1>(0x02));
+}
+
+// writting test for read-write
+OUR REPO
+
+#include <gmock/gmock.h>
+#include <gmock-global/gmock-global.h>
+
+// for registering the mock api
+MOCK_GLOBAL_FUNC2(mock_write_reg32, void(volatile uint32_t *, uint32_t));
+MOCK_GLOBAL_FUNC2(mock_read_reg32, void(volatile uint32_t *, uint32_t *));
+// for mapping
+USE_GMOCK(write_reg32, mock_write_reg32);
+USE_GMOCK(read_reg32, mock_read_reg32);
+
+#include <gtest/gtest.h>
+#include <cstring>
+
+// Test fixture for setting up tests
+class RegisterTest : public ::testing::Test {
+protected:
+    void SetUp() override {
+        // Reset mock register before each test
+        mock_register = 0;
+    }
+
+    void TearDown() override {
+        // Cleanup if needed
+    }
+};
+
+//
+TEST_F(RegisterTest, ReadRegisterValue) {
+	//
+	EXPECT_GLOBAL_CALL(mock_write_reg32, mock_write_reg32(_, _)).Times(2); // set expectation of exact calls
+	ON_GLOBAL_NICE_CALL(mock_read_reg32, mock_read_reg32(_, _)).WillByDefault(Return()); // do nothing and return
+	ON_GLOBAL_NICE_CALL(mock_write_reg32, mock_write_reg32(_, _)).WillByDefault(Return());
+	ON_GLOBAL_NICE_CALL(mock_read_reg32, mock_read_reg32(_, _))
+	.WillByDefault(SetArgPointee<1>(0x02)); // set value.
+    EXPECT_GLOBAL_CALL(mock_read_reg32, mock_read_reg32(_,
+			   _)).Times(AtLeast(1)).WillRepeatedly(SetArgPointee<1>(0));
+	EXPECT_GLOBAL_CALL(mock_write_reg32, mock_write_reg32(_, _)).Times(AtLeast(1));
+	EXPECT_GLOBAL_CALL(mock_wait_for, mock_wait_for(_, _, _)).WillRepeatedly(Return(true));
+
+
+    EXPECT_GLOBAL_CALL(mock_npi_mmio_get_pfvf_map, mock_npi_mmio_get_pfvf_map(_, _, _, _)).Times(1)
+	.WillOnce(DoAll(SetArgPointee<2>(base), SetArgPointee<3>(len)));
+}
+
+class mmg__ut_npi_sram : public mmg__ut_npi_no_init_base,
+	public WithParamInterface<std::tuple<npi_quirk_state /* quirk state */, uint32_t /* device state */>> {};
+INSTANTIATE_TEST_SUITE_P(Instance_of_, mmg__ut_npi_sram,
+			 /* all combinations of listed quirk states and device states */
+			 Combine(Values(NPI_QUIRK_DISABLE, NPI_QUIRK_ENABLE), Values(NVME_CPF_SYS_STATE_HW_CLEAN,
+					 NVME_CPF_SYS_STATE_HW_INITIALIZED)));
+//
+GPT
+```c
+#include <stdint.h>
+
+#define READ_REGISTER(base, offset) (*(volatile uint32_t *)((base) + (offset)))
+#define WRITE_REGISTER(base, offset, value) (*(volatile uint32_t *)((base) + (offset)) = (value))
+
+// Function to get the value of a specific register
+void get_register_value(uint32_t base_address, uint32_t offset, uint32_t *value) {
+    *value = READ_REGISTER(base_address, offset);  // Correctly assign the read value
+}
+
+// Function to set the value of a specific register
+void set_register_value(uint32_t base_address, uint32_t offset, uint32_t value) {
+    WRITE_REGISTER(base_address, offset, value);
+}
+
+```
+
+```cpp
+#include <gtest/gtest.h>
+#include <cstring>
+
+// Mock register variable
+static uint32_t mock_register;
+
+// Mock functions to replace actual hardware access
+extern "C" {
+    #define READ_REGISTER(base, offset) (mock_register)
+    #define WRITE_REGISTER(base, offset, value) (mock_register = (value))
+}
+
+// Test fixture for setting up tests
+class RegisterTest : public ::testing::Test {
+protected:
+    void SetUp() override {
+        // Reset mock register before each test
+        mock_register = 0;
+    }
+
+    void TearDown() override {
+        // Cleanup if needed
+    }
+};
+
+// Test case for reading the register value
+TEST_F(RegisterTest, ReadRegisterValue) {
+    WRITE_REGISTER(0x40000000, 0x04, 42);  // Write to mock register
+    uint32_t value;
+    get_register_value(0x40000000, 0x04, &value); // Get the value
+    EXPECT_EQ(value, 42);                      // Check read value
+}
+
+// Test case for writing to the register value
+TEST_F(RegisterTest, WriteRegisterValue) {
+    set_register_value(0x40000000, 0x04, 100); // Set mock register value
+    EXPECT_EQ(mock_register, 100);            // Verify the mock register value
+}
+
+// Main function to run tests
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+
+```
+learnings:
+ask questions before going with any kind of datastructure
+if queue then, which kind of queue? priority or regular, or message queue?
+no locking used :|
+
+- don't start before understanding
+- concepts should be checked and used as you are writing. [i enqueued and didn't bother to talk about shared resource.]
+- trade-offs of solution
+
+
+===================================================================================================================
+-- understand problem first,and not down expected outcome. I will set expectations first and then only will proceed.
+	-- ask questions like if api takes specific data, if argument can be added to it or not.
+
+-- if data structure has types, ask which particular type should be best for the scenarion.	
+-- for data structure make sure you use locking in multithreading environment.
+
+-- when in dilemma talk about tradeoffs of current design and think how to optimize.
+===================================================================================================================
+
+
+
+// Embedded Firmware
+// Fpga programming files are large and contain series of 0’s and 1’s. 
+// In a system with limited resources the storage required may be too large.  
+// Develop a compression scheme to compress a series of 0’s and 1’s.
+//
+// Example: 0 0 0 1 1 1 1 1 1 0 1 0 1 0 1 0 1 0 0 0 0 0
+//
+// Assumptions:
+//  - Consider each 0 or 1 is represented by a single byte. In the above example; 22 bytes.
+//  - Do not worry about allocating the precise amount of memory.
+// 
+// Write a C++ function that takes the byte vector and outputs a new byte vector representing the compressed version.
+
+
+0 0 0 1 1 1 1 1 1 0 1 0 1 0 1 0 1 0 0 0 0 0
+  
+1B(count) 1B(0 or 1) 
+  
+#include <stdlib.h>
+#include <stdint.h>  
+  
+char * compress_byte_stream(int bytes[], int len){
+      
+      if(len == 0) {
+        return NULL;
+      }
+  
+      int *compressed_data = malloc(len * sizeof(char));
+      if(!compressed_data){
+          pritnf("allocation failed");
+          return NULL;
+      }
+      
+      uint8_t cur_byte = bytes[0];
+      int bit_count = 1;  
+      int pos = 1, result_pos = 0;
+  
+      if(len == 1){
+          result[result_pos++] = 1;
+          result[result_pos] = bytes[0];
+      }
+  
+      while(pos < len){
+          if(cur_byte == bytes[pos]){
+              pos++;
+              bit_count++;
+              if(bit_count == UINT8_MAX){
+                  result[result_pos++] = 255;
+                  result[result_pos++] = cur_byte;
+                  bit_count == 0;
+              }
+          } else {
+             result[result_pos] = bit_count; // storing count
+             result_pos++;
+             bit_count = 1;  // ** should be a 1 ?
+             result[result_pos] = cur_byte; // actual data 0 or 1
+             cur_byte ^= 0x1;
+             result_pos++;
+          }
+      }
+  
+      result[result_pos++] = bit_count;
+      result[result_pos] = cur_byte;
+  
+}
+
+0 0 0 1 1 1 0 0 1
+  
+  // Try input of [0, 1]
+
+3 0 3 1
+
+// If series > 256.. say 300 zeros, 5 ones..
+{count, value}, {count, value}
+{255, 0, }, {45, 0}, {5, 1}. ??
+
+void insert_heap(int a[], int end, int val){
+	int ele_pos = end+1;
+	while(ele_pos > 1 && a[ele_pos] > a[ele_pos/2]){
+		if(a[ele_pos] > a[ele_pos/2]){
+			a[ele_pos] = a[ele_pos/2]; 
+			ele_pos = ele_pos/2;
+		}
+	}
+	a[ele_pos] = val;
+}
+
+Hi Myself, Rajkumar Patel. I hold 7+ years of firmware and embedded software development activity throught my career. 
+Media storage, Cloud storage, Network storage and IoT are some of the areas I have worked in.
+Which also includes writing baremetal firmware, RTOS based application and building SDK and hands-on with complete product development lifecycle, with Agile methodologies.
+My main programming language has been C and for close to one year also used python.
+CPP is something I have been using for developing tests for our software products for a long period.
+I am seeing my learning in embedded systems domain, working on and implementing core domain of linux kernel and would like to get hang of device driver development in coming years.
+
+
+
+thread1, thread2.
+
+int shared_data = 0;
+pthread_mutex_t mlock1, mlock2;
+// int is already done
+
+// a Queue to contain work (function pointers for user work)
+
+//user application
+submit_work(fp user_fun, queue q){
+    // lock
+    enqueue(q, fp);
+    // unlock
+}
+
+main_theard(){
+    //create 10 worker threads
+
+    // will check on queue.
+    // if there is somework to do
+    // schedule free thread from the pool.
+
+}
+
+
+#include <stdlib.h>
+
+int *p = (int *)malloc(sizeof(int) * 1);
+
+int **ap = (int **) malloc(sizeof(int *) * 10);
+
+int a[3][2] = {{1, 2}, {3, 4}, {5, 6}};
+
+row, col;
+
+
+int **arr = (int **)malloc(sizeof(int *) * row);
+for(int i=0; i<row; i++){
+    arr[i] = (int *)malloc(sizeof(int) * col);
+}
+
+
