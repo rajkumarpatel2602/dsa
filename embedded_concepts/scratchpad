@@ -858,3 +858,229 @@ for(int i=0; i<row; i++){
 }
 
 
+///////////////////////////// team fit /////////////////////////////////
+
+Aum Tat Sat
+
+Q. "What programming languages and frameworks are you most comfortable with?"
+C, C++ (testing), Python long back
+Q. "Can you describe your experience with [specific technology]?"
+- 
+Q. "Can you discuss a project where you faced significant challenges? How did you overcome them?"
+-
+Q. "What was your role in your last project, and what technologies did you use?"
+Q. "How do you typically troubleshoot issues in your code?"
+Q. "Can you walk us through your thought process when designing a system?"
+Q. "What are some best practices for writing maintainable code?"
+Q. "How do you ensure code quality in your projects?"
+Q. "How do you handle disagreements in a team setting regarding technical decisions?"
+Q. "Can you give an example of how you've worked with cross-functional teams?"
+
+
+// to ask
+What is the potential of the product, and what is the impact of of this project?
+What are the requirements of this team?
+What's a typical day in your team looks like?
+What is the work from home arrangement, is it flexible?
+How many team members are there and what is the structure of the team?
+How is the performance of a member is accessed (Metrics used, KPI, etc) ?
+
+Technical Stack Questions:
+Project Experience:
+Problem-Solving Approach:
+Understanding of Concepts:
+Team Dynamics and Collaboration:
+
+Non-Verbal Gestures
+
+prepare strong introduction. // make sure to stay relevant.
+pre-planned questions // 10-20
+- Team dynamics and culture
+- Expectations for the role
+- Success metrics for the position
+- Current projects or challenges faced by the team
+
+
+How does the Core Platform team collaborate with other teams, such as Android Platform and Pixel Hardware? 
+Can you describe the team culture and how it supports innovation? 
+What development methodologies does the team use (e.g., Agile, Scrum)?
+How does the team prioritize tasks and manage project timelines?
+What tools or platforms does the team use for version control and continuous integration? 
+What are the key challenges currently facing the Core Platform/BSP team?
+What is the process for testing and validating firmware before deployment?
+What opportunities for professional growth does Google provide within this role?
+How does performance evaluation work within the team?
+How does this role contribute to Google’s broader mission of enhancing user experience through AI?
+What upcoming projects or technologies is the Core Platform team excited about?
+
+BSP is a any piece of sofware
+-- custom kernel
+-- custom driver
+-- library
+-- user space library
+which let us use some custom board.
+
+// strip kernel, or change driver, library, user library. 
+
+// any vendor who deals with hardware will have to have any bootable custom linux, as well as custom compoenents, which will help customer to use the hardware. BSP is a gluecode. 
+
+
+//////////////////////////// PROJECT RELATED QUESTIONS //////////////////////////////////
+
+The Pixel System Software team plays a crucial role in delivering the latest Google Pixel devices and the Google Tensor System on Chip, ensuring a seamless Android experience. This team collaborates closely with various components, including the Android Platform, Pixel Hardware, gChips, and external partners. Below is an elaboration on each component and the team's responsibilities.
+
+## Key Components
+
+### 1. **Android Platform**
+The Android Platform serves as the foundation for all Pixel devices, providing the operating system and core functionalities. The Pixel System Software team is responsible for integrating Android features into Pixel devices, optimizing performance, and ensuring compatibility with new updates. This includes managing system updates and security patches that enhance user experience and device stability.
+
+### 2. **Pixel Hardware**
+Pixel Hardware refers to the physical components of Google Pixel devices, including processors, cameras, and sensors. The Core Platform/BSP (Board Support Package) team works on low-level software that interacts directly with this hardware. This includes developing drivers for various hardware components, ensuring that they function correctly with the Android operating system and providing a smooth user experience.
+
+### 3. **gChips**
+gChips are custom-designed chips by Google that enhance the performance of Pixel devices. The collaboration between the software team and hardware engineers ensures that the Google Tensor SoC (System on Chip) is fully optimized for Android. This involves tuning software to leverage hardware capabilities effectively, such as AI processing and camera enhancements.
+
+### 4. **External Partner Teams**
+Collaboration with external partners is vital for integrating third-party services and technologies into the Pixel ecosystem. This includes working with app developers, hardware manufacturers, and service providers to ensure that Pixel devices offer a comprehensive range of functionalities. The team ensures that these integrations do not compromise device performance or security.
+
+## Responsibilities of the Core Platform/BSP Team
+
+The Core Platform/BSP team is tasked with several critical responsibilities:
+
+- **End-to-End System Software Development**: This includes creating and maintaining the bootloader (the first program that runs when a device starts), kernel (the core part of the operating system), and other essential software components.
+  
+- **Bootloader Development**: The bootloader is crucial for initializing hardware during startup and loading the operating system. The team ensures it supports various modes (e.g., recovery mode) and security features like verified boot.
+
+- **Kernel Management**: The kernel facilitates communication between hardware and software applications. The team optimizes it for performance, power management, and security updates.
+
+- **Android Integration**: The team ensures that all aspects of Android are well-integrated into Pixel devices, including user interface elements, system settings, and application compatibility.
+
+- **Testing and Quality Assurance**: Rigorous testing protocols are established to identify bugs or performance issues before updates are rolled out to consumers. This includes both automated testing frameworks and manual testing processes.
+
+- **Security Updates**: Regular security patches are developed to protect users from vulnerabilities. The team coordinates with Google’s security teams to ensure timely updates across all supported Pixel devices.
+
+In summary, the Pixel System Software team's collaborative efforts across various domains ensure that Google Pixel devices deliver a superior user experience through optimized hardware-software integration, robust security measures, and continuous improvements in system performance.
+
+Citations:
+[1] https://source.android.com/docs/automotive/start/pixelxl
+[2] https://developer.android.com/about/versions/15/download
+[3] https://en.wikipedia.org/w/index.php?oldformat=true&title=Google_Pixel
+[4] https://www.reddit.com/r/GooglePixel/comments/yeh086/what_makes_the_google_pixel_software_superior_to/
+[5] https://www.google.com/android/beta
+[6] https://support.google.com/pixel/answer/7550416?hl=en
+[7] https://support.google.com/pixelphone/answer/7680439?hl=en
+[8] https://developers.google.com/android/images
+
+
+NEXT Task
+///// •	UEFI PXE Boot on Host
+
+
+Team match -- reason -- 
+Then, you will have a chance to meet with the teams’ hiring managers who will access if you’re a good match for their team, and also give you an opportunity to assess if you would like to work on that team. You only receive an offer after a match (i.e., the hiring manager wants to hire you for their team, and you want to work for that team).
+
+what I want from this meeting?
+
+Q. How this project can help me getting what I want?
+- I have 
+
+Q. How I can help with the project?
+- Collaboration
+- Experience of working in linux environment
+- Learning on 
+
+
+Q. what kind of work I have been doing?
+- Porting of RTOS for IoT package, dealing with HAL and creating OSAL layer on top of this
+for gateway sdk
+- 
+
+Q. SHOW THAT YOU HAVE REASEARCHED ABOUT THE PROEJCT AND TEAM.
+
+info:::::
+
+Q. Pixel
+earlier snapdragon was used, and discontinued from 2021 or somewhere.
+Google Tensor G4 - an 8-core chipset that was announced on August 13, 2024,
+Google Tensor is a series of ARM64-based system-on-chip (SoC) processors designed 
+by Google for its Pixel devices.
+
+Titan M2™ security coprocessor -
+Titan M2 performs several security sensitive functions, including enforcing Android Verified Boot and backing the Android Strongbox Keymaster module.
+
+Memory
+
+16 GB RAM
+Storage
+
+256 GB / 512 GB8
+
+7 years of OS, security, and Pixel Drop updates17
+
+QUESTIONS:::::
+- Android platform, hardware (tensor g4 and titan m2),
+
+ including the creation of a new team called “Platforms and Devices” that will oversee all of Google’s Pixel products, all of Android, Chrome, ChromeOS, Photos, and more. 
+ 
+  Osterloh says: AI. “This is not a secret, right?” he says. Consolidating teams “helps us to be able to do full-stack innovation when that’s necessary,” Osterloh says. He uses the example of the Pixel camera: “You had to have deep knowledge of the hardware systems, from the sensors to the ISPs, to all layers of the software stack. And, at the time, all the early HDR and ML models that were doing camera processing… and I think that hardware / software / AI integration really showed how AI could totally transform a user experience. That was important. And it’s even more true today.”
+  
+  Every app Google owns and every platform it administers is going to be changed by Gemini. For that to work, Google itself — the company, its structure, its very culture — is going to change. It’s not always going to be easy, but there’s clearly no time to waste.
+
+ it’s clear that Google is pressing harder into its role as the tip of the spear for Android — especially as AI takes over the operating system. Google is already adding its Gemini model and chatbot everywhere it can think of, has been adding AI features to the Pixel’s camera for the last two years, and clearly has big plans for how AI can change the way you use your phone — and for that matter, your devices running Android Auto, Wear OS, ChromeOS, and everything else. 
+ 
+ https://www.theverge.com/2024/4/18/24133881/google-android-pixel-teams-reorg-rick-osterloh
+ 
+ BSP Vs Kernel
+ Assuming you mean ‘Board Support Package’. A BSP is a collection of code typically provided by a hardware vendor that allows an OS and often some userspace applications or libraries to run correctly on the vendor’s hardware. The acronym ‘BSP’ applies generically to OSs in general, and implies nothing Linux-specific.
+
+The Linux kernel is the core of the OS (in fact is officially the only thing comprising the OS). It is the object code image and kernel modules that load and serve all of the userspace applications that run on a particular board. A Linux kernel configured to run on a particular board may be part of a BSP supplied by a hardware vendor.
+
+BSP (Board Support Package):
+
+What it is: A collection of hardware-specific software components needed to bridge the gap between the Linux kernel and a specific hardware platform (board).
+A BSP is a package of drivers and configuration settings that allows a kernel image to boot up a board (and is part of it).
+
+
+************************* VIMPPP **************************
+
+1. Greet each other happily.
+-> "Hi Kevin, How are you doing today?"
+
+2. Give bried intro, which is relevant for them if you are asked.  /* Keep It So Short */
+-> my responsibilities which can help.
+1. Feature development (Enabled HW path and debug module)
+2. practice of strong code coverage requirements (functional and branch testing)
+3. Triaging the issue and RCA and fixing.
+4. I have mainly worked in C as a developer, but also carry handson with CPP for writing tests, and python for one of the project in past, and mostly worked in linux environemnt.
+5. I have gained experience over different domains, IoT, Network, partially cloud and also Media storage. I find it really easy to switch domain by keeping the underline environemnt alomost same.
+6. My exposure to work with team, and capacity to reach to a conclusion by making positive interactions, overseas teams and management.
+
+3. He talks about his products  /* tell this in advance, Listen without interruption, make points */
+-> Keeps on going, keep on making notes.
+
+// my interest is how I can levarage from this opportunity and how they can get benefitted.
+4. Follow up questions: Technical // matrix : role and responsibilities clarification,
+-> What would be my responsibilities for this role? /* hear him out and ask follow up questions. */
+-> Which teams are involved on day to day basis for this position? /* VERTICAL INTEGRATION: is thsi due to the initiative “Platforms and Devices” that will oversee all of Google’s Pixel products, all of Android, Chrome, ChromeOS, Photos, and more.
+-> What would be the tech-stack? /* if not answered */
+-> How big the team is? and geographically distributed? communication channel?
+-> What indicators or matric is used to guage the team's holistic success?
+-> What will make this position filling looks successful to you?
+-> Could you please comment on ramping process for this role? time-line?
+
+5. Ending
+- Clearly express your enthusiasm for the opportunity to join the team and contribute to their projects.
+- Inquire about the next steps in the hiring process.
+- I don’t want to keep you any longer, but this was a great conversation!
+- It was a pleasure speaking with you today. Have a great rest of your day!
+- Thanks again for your time! I hope you have a wonderful week ahead
+- Take care Kevin, and I look forward to hearing from you!
+
+
+
+Here’s how you might structure your closing remarks: Example Closing:
+"Thank you so much for taking the time to speak with me today, [Manager's Name]. I really enjoyed our discussion about [mention any specific topic discussed] and learning more about your team’s goals. I’m very excited about the possibility of contributing to [specific project or aspect of the team].
+Could you please share what the next steps in the process will be? I’m looking forward to hearing from you, and if you have any further questions for me, please don’t hesitate to reach out.
+Thanks again, and I hope you have a great rest of your day!"
+
+////////////////////////////////////////////////////////////
