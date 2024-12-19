@@ -1,8 +1,8 @@
-# dsa
+# DSA
 All data structure practice problems are maintained here.
 
 
-## learning
+## Learning
 
 - Greet with names, and use it often.
 - While leaving the call, be gracious enough to raise the and, and say thanks for your time.
