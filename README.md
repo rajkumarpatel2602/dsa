@@ -11,7 +11,8 @@ don't forget about issues you see. talk about it and then share solution verball
 - Always believe you can do it. Keep the mental game high.
 
 Amazon:
-- I got convinced, I won't be able to find solution now, and I couldn'g
+- I got convinced, I won't be able to find solution now, and I couldn't
+
 NetApp:
 - I was convinced, I will find the right solution and I did.
 
